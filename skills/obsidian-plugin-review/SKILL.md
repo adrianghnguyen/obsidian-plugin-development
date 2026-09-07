@@ -74,6 +74,8 @@ Do not ship bare editor keys as global defaults — [obsidian-hotkeys](../obsidi
 
 ## See also
 
+- [ux-design](../ux-design/SKILL.md) — UX principles while building
+- [ux-gap-audit](../ux-gap-audit/SKILL.md) — workflow gap report
 - [obsidian-plugin-dev](../obsidian-plugin-dev/SKILL.md) — release gate
 - [obsidian-settings-secrets](../obsidian-settings-secrets/SKILL.md) — credentials UX
 - Official: https://docs.obsidian.md/Plugins/Releasing/Plugin+guidelines

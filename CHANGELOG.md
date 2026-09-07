@@ -4,15 +4,15 @@ All notable changes to this Agent Plugin package are documented here.
 
 ## [Unreleased]
 
-### Changed
-
-- Documented migration from six retired global `~/.cursor/skills` copies (`obsidian-plugin-dev`, `obsidian-plugin-debug`, `obsidian-multi-vault-cli`, `obsidian-menu-settings`, `obsidian-plugin-tweaks`, `ship-main-prod`) to this plugin as the canonical source.
+## [0.1.1] - 2026-09-07
 
 ### Added
 
-- Initial import: 15 agent skills for Obsidian community plugin development (build, debug, multi-vault CLI, settings navigation, fork workflow, production ship, hotkeys, IndexedDB, workers/threading, settings/secrets, startup performance, visual verify, sandbox, testing, plugin review).
-- `references/machine-profile.example.md` for local vault paths.
+- `ux-design` skill — concise UX principles (transparency, cognitive load, jargon tooltips, all states, errors, recognition over recall); auto-invokes for UI work.
+- `ux-gap-audit` skill — explicit audit agent for gathering feedback and reporting workflow gaps against `ux-design`.
+
+### Changed
+
+- `obsidian-plugin-review` — cross-links to `ux-design` and `ux-gap-audit`.
 
 ## [0.1.0] - 2026-09-06
-
-- First public release of the Obsidian Plugin Development Cursor Agent Plugin.

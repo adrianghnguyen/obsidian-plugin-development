@@ -2,7 +2,7 @@
 
 A **Cursor Agent Plugin** (not an Obsidian community plugin) that packages portable agent skills for building, debugging, and verifying Obsidian community plugins.
 
-Skills cover build/deploy/reload, multi-vault CLI safety, settings navigation, fork workflows, hotkeys, IndexedDB, workers/threading, secrets, startup performance, visual verification, sandbox staging, testing, and Plugin Review antipatterns.
+Skills cover build/deploy/reload, multi-vault CLI safety, settings navigation, fork workflows, hotkeys, IndexedDB, workers/threading, secrets, startup performance, visual verification, sandbox staging, testing, Plugin Review antipatterns, and UX design/audit.
 
 ## Install
 
@@ -51,6 +51,8 @@ Copy [`references/machine-profile.example.md`](references/machine-profile.exampl
 | [obsidian-plugin-sandbox](skills/obsidian-plugin-sandbox/SKILL.md) | Staging vault, promote contract, `community-plugins.json` recovery |
 | [obsidian-plugin-testing](skills/obsidian-plugin-testing/SKILL.md) | Vitest, Obsidian stubs, `fake-indexeddb`, live smoke tests |
 | [obsidian-plugin-review](skills/obsidian-plugin-review/SKILL.md) | Plugin Review antipatterns, UI transparency for new states |
+| [ux-design](skills/ux-design/SKILL.md) | UX principles — transparency, cognitive load, tooltips, all UI states (auto-invoke) |
+| [ux-gap-audit](skills/ux-gap-audit/SKILL.md) | UX workflow gap audit — feedback + codebase scan → prioritized report (explicit invoke) |
 
 ## Machine profile
 

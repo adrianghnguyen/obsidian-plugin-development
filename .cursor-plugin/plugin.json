@@ -1,7 +1,7 @@
 {
   "name": "obsidian-plugin-development",
   "displayName": "Obsidian Plugin Development",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Portable agent skills for building, debugging, and verifying Obsidian community plugins",
   "author": {
     "name": "Adrian Nguyen",
