@@ -24,7 +24,9 @@ Then install **Obsidian Plugin Development** from **Customize → Plugins**. Ena
 
 ### Local development
 
-Copy or clone into `~/.cursor/plugins/local/obsidian-plugin-development` and **Developer: Reload Window**.
+Prefer a **junction/symlink** from `~/.cursor/plugins/local/obsidian-plugin-development` to this repo so Cursor always reads the working tree (`:latest`). See [AGENTS.md](AGENTS.md). Then **Developer: Reload Window**.
+
+After `git push`, the optional `scripts/git-hooks/post-push` hook refreshes the marketplace cache (`powershell -File scripts/git-hooks/install.ps1` once per clone).
 
 ### Machine profile
 

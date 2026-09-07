@@ -1,0 +1,19 @@
+#!/bin/sh
+# Refresh Cursor's marketplace cache after a successful push.
+# Local install should junction to this repo (see AGENTS.md) for :latest working tree.
+
+REPO_URL="https://github.com/adrianghnguyen/obsidian-plugin-development"
+
+if ! command -v cursor-agent >/dev/null 2>&1; then
+  echo "post-push: cursor-agent not on PATH; skip marketplace update"
+  exit 0
+fi
+
+echo "post-push: updating Cursor marketplace plugin cache…"
+cursor-agent plugin marketplace update "$REPO_URL" || {
+  echo "post-push: marketplace update failed (non-fatal)"
+  exit 0
+}
+
+echo "post-push: done — reload Cursor window if skills look stale"
+exit 0

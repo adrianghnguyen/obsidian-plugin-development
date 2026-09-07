@@ -4,6 +4,11 @@ All notable changes to this Agent Plugin package are documented here.
 
 ## [Unreleased]
 
+### Added
+
+- `AGENTS.md` — local plugin junction to this repo (`:latest`) and post-push marketplace refresh hook.
+- `scripts/git-hooks/post-push` (+ `install.ps1`) — after `git push`, run `cursor-agent plugin marketplace update`.
+
 ## [0.1.1] - 2026-09-07
 
 ### Added
