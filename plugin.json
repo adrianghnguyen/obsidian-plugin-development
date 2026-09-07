@@ -1,0 +1,6 @@
+{
+  "id": "com.adrianghnguyen.obsidian-plugin-development",
+  "name": "Obsidian Plugin Development",
+  "version": "0.1.0",
+  "description": "Portable agent skills for building, debugging, and verifying Obsidian community plugins"
+}
