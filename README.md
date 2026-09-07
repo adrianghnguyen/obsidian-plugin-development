@@ -24,9 +24,43 @@ Then install **Obsidian Plugin Development** from **Customize → Plugins**. Ena
 
 ### Local development
 
-Prefer a **junction/symlink** from `~/.cursor/plugins/local/obsidian-plugin-development` to this repo so Cursor always reads the working tree (`:latest`). See [AGENTS.md](AGENTS.md). Then **Developer: Reload Window**.
+Point Cursor at this checkout so it always reads `:latest` from disk:
 
-After `git push`, the optional `scripts/git-hooks/post-push` hook refreshes the marketplace cache (`powershell -File scripts/git-hooks/install.ps1` once per clone).
+```powershell
+# Once: junction (Windows) — replace paths if needed
+$local = Join-Path $env:USERPROFILE '.cursor\plugins\local\obsidian-plugin-development'
+$repo = 'C:\Coding_projects\obsidian-plugin-development'
+if (Test-Path $local) { cmd /c "rmdir `"$local`"" }
+cmd /c "mklink /J `"$local`" `"$repo`""
+```
+
+Then install the post-push hook once per clone:
+
+```powershell
+powershell -File scripts/git-hooks/install.ps1
+```
+
+See [AGENTS.md](AGENTS.md).
+
+## How to update plugin repo after changes
+
+Day-to-day (you develop in this repo, local junction installed):
+
+1. Edit skills under `skills/` (and `README` / `CHANGELOG` as needed).
+2. **Developer: Reload Window** so Cursor picks up local skill changes.
+3. Commit and `git push` to `main`.
+4. The **post-push hook** runs `cursor-agent plugin marketplace update` automatically (refreshes the marketplace cache for non-local installs).
+5. Reload again only if a marketplace-backed install still looks stale.
+
+Without the hook, after push run:
+
+```bash
+cursor-agent plugin marketplace update https://github.com/adrianghnguyen/obsidian-plugin-development
+```
+
+Then **Developer: Reload Window**.
+
+**Team Auto Refresh** (Teams/Enterprise only) is separate — it re-indexes from GitHub when enabled; individual plans rely on the junction + hook / manual update above.
 
 ### Machine profile
 
@@ -84,17 +118,10 @@ These six global skills were retired after this plugin went live (edit here; do 
 
 Keep the companion global skill `powershell-agent` for Windows `obsidian eval` quoting. Keep plugin-specific skills (e.g. Seek `seek-*`, `agent-client-ui`) in their repos or `~/.cursor/skills` as appropriate.
 
-After pushing skill changes to `main`, refresh with:
-
-```bash
-cursor-agent plugin marketplace update https://github.com/adrianghnguyen/obsidian-plugin-development
-```
-
-Then **Developer: Reload Window**.
-
 ## Contributing
 
 1. Add or extend a skill under `skills/<skill-name>/SKILL.md` with valid YAML frontmatter (`name`, `description`).
 2. Cross-link sibling skills with relative paths.
 3. Avoid machine-specific hardcoding — use placeholders or `references/machine-profile.example.md`.
 4. Update this README skill index and `CHANGELOG.md`.
+5. Follow [How to update plugin repo after changes](#how-to-update-plugin-repo-after-changes) (reload → commit → push; hook refreshes marketplace cache).
