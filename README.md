@@ -49,18 +49,18 @@ Day-to-day (you develop in this repo, local junction installed):
 1. Edit skills under `skills/` (and `README` / `CHANGELOG` as needed).
 2. **Developer: Reload Window** so Cursor picks up local skill changes.
 3. Commit and `git push` to `main`.
-4. The **post-push hook** runs `cursor-agent plugin marketplace update` automatically (refreshes the marketplace cache for non-local installs).
-5. Reload again only if a marketplace-backed install still looks stale.
+4. The **post-push hook** runs `scripts/refresh-cursor-marketplace.ps1`: remove marketplace → wipe pinned SHA folders → re-add with `--git-ref main` (works around Cursor’s personal-marketplace pin bug).
+5. **Developer: Reload Window** again so marketplace-backed installs match `main`.
 
 Without the hook, after push run:
 
-```bash
-cursor-agent plugin marketplace update https://github.com/adrianghnguyen/obsidian-plugin-development
+```powershell
+powershell -File scripts/refresh-cursor-marketplace.ps1
 ```
 
-Then **Developer: Reload Window**.
+Do **not** rely on `cursor-agent plugin marketplace update` alone — it often reports success while leaving the cache on the first indexed commit.
 
-**Team Auto Refresh** (Teams/Enterprise only) is separate — it re-indexes from GitHub when enabled; individual plans rely on the junction + hook / manual update above.
+**Team Auto Refresh** (Teams/Enterprise only) is separate — it re-indexes from GitHub when enabled; individual plans rely on the junction + refresh script / post-push hook above.
 
 ### Machine profile
 

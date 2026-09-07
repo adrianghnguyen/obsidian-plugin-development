@@ -1,31 +1,37 @@
 #!/bin/sh
-# Refresh Cursor's marketplace cache after a successful push.
-# Local install should junction to this repo (see AGENTS.md) for :latest working tree.
+# After push: force marketplace re-add at main (unpin stale SHA) + keep local junction.
+# See scripts/refresh-cursor-marketplace.ps1 and AGENTS.md.
 
-REPO_URL="https://github.com/adrianghnguyen/obsidian-plugin-development"
-
-# Prefer PATH; on Git Bash ensure LocalAppData\cursor-agent is searchable for cmd.exe
-if [ -n "${LOCALAPPDATA:-}" ]; then
-  PATH="${LOCALAPPDATA}/cursor-agent:${PATH}"
-  export PATH
+HOOK_DIR=$(CDPATH= cd -- "$(dirname "$0")" && pwd -P)
+REPO_ROOT=$(CDPATH= cd -- "$HOOK_DIR/../.." && pwd -P)
+# Installed copy lives at .git/hooks/post-push → ../.. is repo root.
+# Source copy lives at scripts/git-hooks/post-push → ../.. is also repo root.
+SCRIPT="$REPO_ROOT/scripts/refresh-cursor-marketplace.ps1"
+if [ ! -f "$SCRIPT" ]; then
+  REPO_ROOT=$(git rev-parse --show-toplevel 2>/dev/null) || REPO_ROOT=""
+  SCRIPT="$REPO_ROOT/scripts/refresh-cursor-marketplace.ps1"
 fi
 
-if command -v cursor-agent >/dev/null 2>&1; then
-  echo "post-push: updating Cursor marketplace plugin cache…"
-  cursor-agent plugin marketplace update "$REPO_URL" || {
-    echo "post-push: marketplace update failed (non-fatal)"
-    exit 0
-  }
-elif [ -f "${LOCALAPPDATA:-}/cursor-agent/cursor-agent.cmd" ]; then
-  echo "post-push: updating Cursor marketplace plugin cache (cmd)…"
-  cmd.exe //c "cursor-agent plugin marketplace update $REPO_URL" || {
-    echo "post-push: marketplace update failed (non-fatal)"
-    exit 0
-  }
-else
-  echo "post-push: cursor-agent not found; skip marketplace update"
+if [ ! -f "$SCRIPT" ]; then
+  echo "post-push: refresh script not found; skip"
   exit 0
 fi
 
-echo "post-push: done — reload Cursor window if skills look stale"
+echo "post-push: refreshing Cursor marketplace to main (remove + re-add)…"
+if command -v powershell.exe >/dev/null 2>&1; then
+  powershell.exe -NoProfile -ExecutionPolicy Bypass -File "$SCRIPT" || {
+    echo "post-push: marketplace refresh failed (non-fatal)"
+    exit 0
+  }
+elif command -v pwsh >/dev/null 2>&1; then
+  pwsh -NoProfile -File "$SCRIPT" || {
+    echo "post-push: marketplace refresh failed (non-fatal)"
+    exit 0
+  }
+else
+  echo "post-push: PowerShell not found; skip marketplace refresh"
+  exit 0
+fi
+
+echo "post-push: done — Developer: Reload Window to load skills"
 exit 0
