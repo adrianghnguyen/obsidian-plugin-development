@@ -4,16 +4,28 @@
 
 REPO_URL="https://github.com/adrianghnguyen/obsidian-plugin-development"
 
-if ! command -v cursor-agent >/dev/null 2>&1; then
-  echo "post-push: cursor-agent not on PATH; skip marketplace update"
-  exit 0
+# Prefer PATH; on Git Bash ensure LocalAppData\cursor-agent is searchable for cmd.exe
+if [ -n "${LOCALAPPDATA:-}" ]; then
+  PATH="${LOCALAPPDATA}/cursor-agent:${PATH}"
+  export PATH
 fi
 
-echo "post-push: updating Cursor marketplace plugin cache…"
-cursor-agent plugin marketplace update "$REPO_URL" || {
-  echo "post-push: marketplace update failed (non-fatal)"
+if command -v cursor-agent >/dev/null 2>&1; then
+  echo "post-push: updating Cursor marketplace plugin cache…"
+  cursor-agent plugin marketplace update "$REPO_URL" || {
+    echo "post-push: marketplace update failed (non-fatal)"
+    exit 0
+  }
+elif [ -f "${LOCALAPPDATA:-}/cursor-agent/cursor-agent.cmd" ]; then
+  echo "post-push: updating Cursor marketplace plugin cache (cmd)…"
+  cmd.exe //c "cursor-agent plugin marketplace update $REPO_URL" || {
+    echo "post-push: marketplace update failed (non-fatal)"
+    exit 0
+  }
+else
+  echo "post-push: cursor-agent not found; skip marketplace update"
   exit 0
-}
+fi
 
 echo "post-push: done — reload Cursor window if skills look stale"
 exit 0
