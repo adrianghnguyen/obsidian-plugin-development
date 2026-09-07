@@ -6,9 +6,29 @@ Skills cover build/deploy/reload, multi-vault CLI safety, settings navigation, f
 
 ## Install
 
-1. Clone this repo.
-2. Point Cursor at the plugin root (folder containing `plugin.json`), or install via [Agent Plugins](https://agent-plugins.org/) when your Cursor version supports it.
-3. Copy [`references/machine-profile.example.md`](references/machine-profile.example.md) locally and fill in your sandbox/production vault paths.
+### GitHub marketplace (recommended — live with repo)
+
+In Cursor chat or CLI:
+
+```text
+/add-plugin https://github.com/adrianghnguyen/obsidian-plugin-development
+```
+
+Or:
+
+```bash
+cursor-agent plugin marketplace add https://github.com/adrianghnguyen/obsidian-plugin-development --git-ref main
+```
+
+Then install **Obsidian Plugin Development** from **Customize → Plugins**. Enable **Auto Refresh** in Dashboard → Plugins if you use a team marketplace.
+
+### Local development
+
+Copy or clone into `~/.cursor/plugins/local/obsidian-plugin-development` and **Developer: Reload Window**.
+
+### Machine profile
+
+Copy [`references/machine-profile.example.md`](references/machine-profile.example.md) to `references/machine-profile.md` (gitignored) and fill in your sandbox/production vault paths.
 
 **Windows eval quoting:** install the companion skill [`powershell-agent`](https://github.com/adrianghnguyen/cursor-skills) globally if you use `obsidian eval` from PowerShell.
 

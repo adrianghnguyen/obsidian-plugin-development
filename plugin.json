@@ -1,6 +1,8 @@
 {
+  "$schema": "https://agent-plugins.org/schemas/1.0.0/plugin.schema.json",
   "id": "com.adrianghnguyen.obsidian-plugin-development",
   "name": "Obsidian Plugin Development",
   "version": "0.1.0",
-  "description": "Portable agent skills for building, debugging, and verifying Obsidian community plugins"
+  "description": "Portable agent skills for building, debugging, and verifying Obsidian community plugins",
+  "repository": "https://github.com/adrianghnguyen/obsidian-plugin-development"
 }

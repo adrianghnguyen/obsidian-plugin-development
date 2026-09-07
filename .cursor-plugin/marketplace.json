@@ -1,0 +1,18 @@
+{
+  "name": "adrianghnguyen-obsidian-plugins",
+  "owner": {
+    "name": "Adrian Nguyen",
+    "email": "tilounguyen@gmail.com"
+  },
+  "metadata": {
+    "description": "Obsidian community plugin development skills for Cursor agents",
+    "version": "0.1.0"
+  },
+  "plugins": [
+    {
+      "name": "obsidian-plugin-development",
+      "source": ".",
+      "description": "Portable agent skills for building, debugging, and verifying Obsidian community plugins"
+    }
+  ]
+}
