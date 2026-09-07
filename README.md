@@ -67,6 +67,27 @@ Skills use placeholders (`<sandbox-vault-name>`, `<sandbox-vault-path>`, `<produ
 
 Plugin-specific skills remain in fork repos: telemetry playbooks, plugin UI smoke tests, protocol-specific docs. When a fork learns something **generic**, add it here instead of duplicating across repos.
 
+## Migration from global `~/.cursor/skills`
+
+These six global skills were retired after this plugin went live (edit here; do not re-copy to `~/.cursor/skills`):
+
+- `obsidian-plugin-dev`
+- `obsidian-plugin-debug`
+- `obsidian-multi-vault-cli`
+- `obsidian-menu-settings`
+- `obsidian-plugin-tweaks`
+- `ship-main-prod`
+
+Keep the companion global skill `powershell-agent` for Windows `obsidian eval` quoting. Keep plugin-specific skills (e.g. Seek `seek-*`, `agent-client-ui`) in their repos or `~/.cursor/skills` as appropriate.
+
+After pushing skill changes to `main`, refresh with:
+
+```bash
+cursor-agent plugin marketplace update https://github.com/adrianghnguyen/obsidian-plugin-development
+```
+
+Then **Developer: Reload Window**.
+
 ## Contributing
 
 1. Add or extend a skill under `skills/<skill-name>/SKILL.md` with valid YAML frontmatter (`name`, `description`).
