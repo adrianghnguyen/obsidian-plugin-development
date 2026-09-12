@@ -4,6 +4,10 @@ All notable changes to this Agent Plugin package are documented here.
 
 ## [Unreleased]
 
+### Changed
+
+- `obsidian-hotkeys` — when adding hotkeys, consider and propose focus-scoped `View.scope` / `Modal.scope` vs global `addCommand` bindings.
+
 ### Added
 
 - `AGENTS.md` — local plugin junction to this repo (`:latest`) and post-push marketplace refresh hook.
