@@ -78,7 +78,7 @@ Copy [`references/machine-profile.example.md`](references/machine-profile.exampl
 | [obsidian-menu-settings](skills/obsidian-menu-settings/SKILL.md) | Navigate Settings tabs, popout windows, settings screenshots |
 | [obsidian-plugin-tweaks](skills/obsidian-plugin-tweaks/SKILL.md) | Fork community plugins, upstream sync, staging deploy, in-vault patches |
 | [ship-main-prod](skills/ship-main-prod/SKILL.md) | User explicitly asks to squash to `main` and deploy to production vault |
-| [obsidian-hotkeys](skills/obsidian-hotkeys/SKILL.md) | Modal hotkeys, `addCommand` defaults, editor key hijacking |
+| [obsidian-hotkeys](skills/obsidian-hotkeys/SKILL.md) | Focus-scoped vs global hotkeys, modal/`View.scope`, editor key hijacking |
 | [obsidian-indexeddb-storage](skills/obsidian-indexeddb-storage/SKILL.md) | IndexedDB open/delete/blocked, corruption recovery |
 | [obsidian-workers-threading](skills/obsidian-workers-threading/SKILL.md) | `onLayoutReady`, iframes, Web Workers, write mutexes, main-thread discipline |
 | [obsidian-settings-secrets](skills/obsidian-settings-secrets/SKILL.md) | `data.json`, `secretStorage`, device-local settings, settings UI gate |
