@@ -4,9 +4,12 @@ All notable changes to this Agent Plugin package are documented here.
 
 ## [Unreleased]
 
+## [0.1.2] - 2026-09-13
+
 ### Changed
 
 - `obsidian-hotkeys` — when adding hotkeys, consider and propose focus-scoped `View.scope` / `Modal.scope` vs global `addCommand` bindings.
+- `obsidian-multi-vault-cli`, `obsidian-plugin-debug`, `obsidian-plugin-dev` — require exact vault name for `vault=` CLI targeting (substring matching can hit the wrong vault).
 
 ### Added
 
