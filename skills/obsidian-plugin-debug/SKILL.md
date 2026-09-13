@@ -12,7 +12,7 @@ description: >-
 
 Use the **Obsidian CLI** against a running Obsidian app. Prefer CLI over guessing UI state.
 
-**Multi-vault:** [obsidian-multi-vault-cli](../obsidian-multi-vault-cli/SKILL.md) — serial CLI, `vault=` first, one command per invocation.
+**Multi-vault:** [obsidian-multi-vault-cli](../obsidian-multi-vault-cli/SKILL.md) — serial CLI, `vault=` first with the **full exact vault name** (substring match), one command per invocation.
 
 **Windows eval quoting:** use the companion `powershell-agent` skill globally, or the patterns below.
 
@@ -44,7 +44,7 @@ Replace `<plugin-id>` with `manifest.json` `id`. Quote `code=` values; escape in
 - After editing `data.json` on disk, call `plugin.loadSettings()` via eval before expecting new keys in memory.
 
 ```powershell
-obsidian vault=<name> eval code="(()=>{const p=app.plugins.plugins['<id>'];p.loadSettings();return JSON.stringify(p.settings)})()"
+obsidian vault=<full-sandbox-vault-name> eval code="(()=>{const p=app.plugins.plugins['<id>'];p.loadSettings();return JSON.stringify(p.settings)})()"
 ```
 
 ## PowerShell-safe eval

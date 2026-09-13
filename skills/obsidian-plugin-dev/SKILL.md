@@ -73,7 +73,21 @@ Per the [Build a plugin](https://docs.obsidian.md/Plugins/Getting+started/Build+
 & "C:\Program Files\Obsidian\Obsidian.exe" help
 ```
 
-Target vaults per [obsidian-multi-vault-cli](../obsidian-multi-vault-cli/SKILL.md). Use `<sandbox-vault-name>` for staging; production via shell cwd at `<production-vault-path>`.
+Target vaults per [obsidian-multi-vault-cli](../obsidian-multi-vault-cli/SKILL.md). Use the **full** `<sandbox-vault-name>` (exact folder name — `vault=` substring-matches); production via shell cwd at `<production-vault-path>`.
+
+### Vault targeting (`vault=`)
+
+`vault=` must be the **first** CLI argument and must use the **complete vault name**, not a shorthand:
+
+```powershell
+# WRONG — vault=Obsidian matches plugin-sandbox-Obsidian
+obsidian vault=Obsidian plugin:reload id=<plugin-id>
+
+# RIGHT — full folder name from obsidian vaults verbose
+obsidian vault=plugin-sandbox-Obsidian plugin:reload id=<plugin-id>
+```
+
+Verify with an identity gate before trusting reload/eval output — see [obsidian-multi-vault-cli](../obsidian-multi-vault-cli/SKILL.md).
 
 ---
 
@@ -197,6 +211,7 @@ Full CLI list: [reference.md](reference.md)
 6. Chaining CLI commands (`cmd1 ; cmd2`).
 7. Manifest bumped on feature branch or during sandbox iteration.
 8. Developing in production vault.
+9. Partial `vault=` name (substring match hits the wrong vault).
 
 ---
 

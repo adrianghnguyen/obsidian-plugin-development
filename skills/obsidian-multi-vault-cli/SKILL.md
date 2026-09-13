@@ -15,19 +15,28 @@ Multiple vault windows share **one Obsidian process** and **one CLI IPC queue**.
 
 ## Target a vault (no focus steal)
 
-`vault=` is a **substring** match. Short production names may match sandbox names (e.g. `Obsidian` inside `plugin-sandbox-Obsidian`).
+`vault=` is a **substring** match — not exact. Always pass the **full vault folder name** (exact string from `obsidian vaults verbose` or `app.vault.getName()`). Partial tokens hit the wrong window.
+
+| Good | Bad (substring trap) |
+|------|----------------------|
+| `vault=plugin-sandbox-Obsidian` | `vault=Obsidian` — matches sandbox name too |
+| `vault=My-Dev-Vault` (full folder name) | `vault=Dev`, `vault=sandbox`, `vault=plugin-sandbox` |
+
+Quote the value if the shell would split on spaces: `vault="My Dev Vault"`.
 
 | Role | Selector | Never use |
 |------|----------|-----------|
-| Sandbox | `vault=<sandbox-vault-name>` first | shorter tokens that substring-match |
+| Sandbox | `vault=<full-sandbox-vault-name>` first | shorter tokens that substring-match |
 | Production | cwd = `<production-vault-path>`, omit `vault=` | `vault=<production-vault-name>` when it matches sandbox |
 
 ```powershell
 obsidian vaults verbose
-obsidian vault=<sandbox-vault-name> eval code="app.vault.getName()"
+obsidian vault=<full-sandbox-vault-name> eval code="JSON.stringify({name:app.vault.getName(),base:app.vault.adapter.basePath})"
 Set-Location <production-vault-path>
-obsidian eval code="app.vault.getName()"
+obsidian eval code="JSON.stringify({name:app.vault.getName(),base:app.vault.adapter.basePath})"
 ```
+
+**Identity gate:** before reload/eval/verify, confirm `name` and `base` match the intended vault. Abort if either mismatches.
 
 **Do not** use `obsidian vault` or `obsidian://open` to "fix" targeting while the app is up — can focus-steal.
 

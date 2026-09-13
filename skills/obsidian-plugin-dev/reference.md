@@ -14,7 +14,7 @@ Sources: https://docs.obsidian.md/Plugins/Getting+started/Build+a+plugin , https
 ## CLI parameters
 
 ```
-vault=<unique-name>    # FIRST arg for multi-vault
+vault=<full-exact-name>    # FIRST arg; substring match — use complete vault folder name
 file=<name>            # wikilink-style
 path=<exact/path.md>   # exact path
 --copy                 # copy output to clipboard
