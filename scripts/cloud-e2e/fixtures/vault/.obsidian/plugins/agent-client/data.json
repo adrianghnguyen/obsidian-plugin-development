@@ -1,0 +1,13 @@
+{
+  "voiceInput": {
+    "enabled": false,
+    "geminiApiKeySecretId": ""
+  },
+  "presetAgents": {
+    "claude-code-acp": { "apiKeySecretId": "claude-api-key" },
+    "codex-acp": { "apiKeySecretId": "openai-api-key" },
+    "gemini-cli": { "apiKeySecretId": "gemini-api-key" },
+    "mistral-vibe": { "apiKeySecretId": "mistral-api-key" },
+    "kiro-cli": { "apiKeySecretId": "agent-client-kiro-api-key" }
+  }
+}
