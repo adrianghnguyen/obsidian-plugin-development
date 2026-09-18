@@ -85,6 +85,7 @@ Copy [`references/machine-profile.example.md`](references/machine-profile.exampl
 | [obsidian-startup-performance](skills/obsidian-startup-performance/SKILL.md) | Slow startup, overlay buckets, `onload` stalls, paint lag |
 | [obsidian-visual-verify](skills/obsidian-visual-verify/SKILL.md) | Screenshot proof after UI/CSS/layout changes |
 | [obsidian-plugin-sandbox](skills/obsidian-plugin-sandbox/SKILL.md) | Staging vault, promote contract, `community-plugins.json` recovery |
+| [obsidian-cloud-env-setup](skills/obsidian-cloud-env-setup/SKILL.md) | Bake Cloud Agent Obsidian env — sample files, toggles, verify, snapshot/Save |
 | [obsidian-cloud-e2e](skills/obsidian-cloud-e2e/SKILL.md) | Cursor Cloud Linux synthetic vault, Xvfb Obsidian, CDP secret injection |
 | [obsidian-secret-mapping](skills/obsidian-secret-mapping/SKILL.md) | Cursor env → `secretStorage` id + settings pointer; Whisper / Agent Client probes |
 | [obsidian-plugin-testing](skills/obsidian-plugin-testing/SKILL.md) | Vitest, Obsidian stubs, `fake-indexeddb`, live smoke tests |

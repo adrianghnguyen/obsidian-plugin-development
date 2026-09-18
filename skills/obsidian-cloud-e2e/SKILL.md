@@ -10,6 +10,8 @@ description: >-
 
 This is **not** the Windows staging vault. Cloud Agents use a synthetic vault at `$HOME/plugin-sandbox-Obsidian` and an isolated `--user-data-dir`.
 
+**Baking / repairing the whole environment** (sample files, toggles, snapshot/Save): [obsidian-cloud-env-setup](../obsidian-cloud-env-setup/SKILL.md).
+
 Scripts: [`scripts/cloud-e2e/README.md`](../../scripts/cloud-e2e/README.md).
 
 ## Secrets (required pattern)
