@@ -45,7 +45,14 @@ done
 # Bound these so environment `start` always terminates.
 if [ -f "$CDP" ]; then
   timeout 12 node "$CDP" dismiss-starter || echo "dismiss-starter skipped-or-timed-out"
+  timeout 20 node "$CDP" enable-plugins || echo "enable-plugins skipped-or-timed-out"
   timeout 20 node "$CDP" inject || echo "inject skipped-or-timed-out"
+  # Identity gate: ensure sandbox vault is open (not Obsidian's empty default).
+  identity="$(timeout 15 node "$CDP" eval 'JSON.stringify({name:app.vault.getName(),base:app.vault.adapter.basePath,plugins:Object.keys(app.plugins.plugins)})' 2>/dev/null || true)"
+  echo "cloud-e2e-identity: ${identity:-unavailable}"
+  if [ -n "$identity" ] && ! echo "$identity" | grep -q 'plugin-sandbox-Obsidian'; then
+    echo "WARNING: expected vault plugin-sandbox-Obsidian; got $identity" >&2
+  fi
 fi
 
 echo "cloud-e2e-start-ok"

@@ -28,9 +28,34 @@ if os.path.isfile(cfg):
     except json.JSONDecodeError:
         data = {}
 vaults = data.setdefault("vaults", {})
-known = any(isinstance(v, dict) and v.get("path") == vault for v in vaults.values())
-if not known:
-    vaults["cloud-e2e"] = {"path": vault, "ts": int(time.time() * 1000)}
+# Drop empty default vaults Obsidian may create on first launch.
+drop = [
+    k
+    for k, v in list(vaults.items())
+    if isinstance(v, dict)
+    and v.get("path")
+    and os.path.basename(v["path"]) == "Obsidian Vault"
+    and v.get("path") != vault
+]
+for k in drop:
+    vaults.pop(k, None)
+target_key = None
+for k, v in vaults.items():
+    if isinstance(v, dict) and v.get("path") == vault:
+        target_key = k
+        break
+if target_key is None:
+    target_key = "cloud-e2e"
+    vaults[target_key] = {"path": vault, "ts": int(time.time() * 1000)}
+for k, v in vaults.items():
+    if not isinstance(v, dict):
+        continue
+    if k == target_key:
+        v["path"] = vault
+        v["open"] = True
+        v["ts"] = int(time.time() * 1000)
+    else:
+        v.pop("open", None)
 with open(cfg, "w", encoding="utf-8") as f:
     json.dump(data, f)
 PY

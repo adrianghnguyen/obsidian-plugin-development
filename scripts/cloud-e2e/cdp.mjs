@@ -208,6 +208,26 @@ if (cmd === "wait") {
 		await waitForApp(90000);
 		console.log("obsidian-app-ready");
 	}
+} else if (cmd === "enable-plugins") {
+	await waitForApp();
+	const report = await evaluate(
+		`(async () => {
+			const before = app.plugins.isEnabled();
+			if (!before) await app.plugins.setEnable(true);
+			await app.plugins.loadManifests();
+			const wanted = Array.from(app.plugins.enabledPlugins || []);
+			for (const id of wanted) {
+				try { await app.plugins.enablePlugin(id); } catch {}
+			}
+			return JSON.stringify({
+				wasRestricted: !before,
+				enabled: app.plugins.isEnabled(),
+				loaded: Object.keys(app.plugins.plugins),
+			});
+		})()`,
+		{ awaitPromise: true },
+	);
+	console.log(typeof report === "string" ? report : JSON.stringify(report));
 } else if (cmd === "eval-raw") {
 	const code = process.argv[3];
 	if (!code) {
@@ -226,6 +246,6 @@ if (cmd === "wait") {
 	const value = await evaluate(code, { awaitPromise: true });
 	console.log(typeof value === "string" ? value : JSON.stringify(value));
 } else if (import.meta.url === `file://${process.argv[1]}`) {
-	console.error("usage: cdp.mjs wait|inject|probe|dismiss-starter|eval|eval-raw");
+	console.error("usage: cdp.mjs wait|inject|probe|dismiss-starter|enable-plugins|eval|eval-raw");
 	process.exit(1);
 }

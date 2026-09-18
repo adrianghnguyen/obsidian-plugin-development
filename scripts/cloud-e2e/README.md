@@ -18,9 +18,11 @@ Override with `CLOUD_E2E_*` vars in `paths.env`.
 | --- | --- | --- |
 | Build / install | `install-obsidian.sh` then `materialize-vault.sh` | No. Download Obsidian, copy plugin artifacts, seed notes. |
 | Start | `start-obsidian.sh` (foreground; Xvfb if needed) | Forwards process env into Electron. Does not write keys to disk. |
-| After ready | `node cdp.mjs wait` then `node cdp.mjs inject` | Reads Cursor env vars, `secretStorage.setSecret` over localhost CDP. |
+| After ready | `node cdp.mjs dismiss-starter` → `enable-plugins` → `inject` | Turns off Restricted mode (`localStorage enable-plugin-<appId>`), loads enabled community plugins, then injects secrets over localhost CDP. |
 
 Do not put keys in `data.json`, git, Install logs, or `obsidian eval code="...$KEY..."`.
+
+`start-obsidian.sh` forces the sandbox vault (`plugin-sandbox-Obsidian`) as the sole `open` vault in the isolated profile so Obsidian does not land on an empty default vault.
 
 ## Secret map
 
