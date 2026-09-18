@@ -34,6 +34,10 @@ for r in obsidian-agent-client obsidian-seek whisper-obsidian-plugin; do
   )
 done
 
+if [ -x "$DEV/scripts/cloud-e2e/install-acp-agents.sh" ]; then
+  bash "$DEV/scripts/cloud-e2e/install-acp-agents.sh"
+fi
+
 if [ -x "$DEV/scripts/cloud-e2e/install-obsidian.sh" ]; then
   bash "$DEV/scripts/cloud-e2e/install-obsidian.sh"
   bash "$DEV/scripts/cloud-e2e/materialize-vault.sh"
