@@ -41,9 +41,11 @@ for _ in $(seq 1 60); do
   sleep 1
 done
 
+# Starter.html often has a CDP page whose Runtime.evaluate never returns.
+# Bound these so environment `start` always terminates.
 if [ -f "$CDP" ]; then
-  node "$CDP" dismiss-starter || true
-  node "$CDP" inject || true
+  timeout 12 node "$CDP" dismiss-starter || echo "dismiss-starter skipped-or-timed-out"
+  timeout 20 node "$CDP" inject || echo "inject skipped-or-timed-out"
 fi
 
 echo "cloud-e2e-start-ok"
