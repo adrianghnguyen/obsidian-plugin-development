@@ -36,6 +36,8 @@ obsidian vault=plugin-sandbox-Obsidian files
 
 Full walkthrough (Restricted mode, CLI toggle, sample files): [`scripts/cloud-e2e/GETTING-STARTED.md`](../../scripts/cloud-e2e/GETTING-STARTED.md).
 
+**Seinfeld (custom)** AI21 trivia corpus (episodes + Q&A notes) is materialized on install. Companion skill: [seek-seinfeld-eval](../seek-seinfeld-eval/SKILL.md).
+
 Identity: `name` must be `plugin-sandbox-Obsidian`. `base` must be `CLOUD_E2E_VAULT`. Community plugins and CLI must both be enabled (see Getting Started).
 
 
