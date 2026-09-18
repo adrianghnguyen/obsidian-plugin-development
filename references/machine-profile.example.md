@@ -6,6 +6,7 @@ Copy this file to your machine (e.g. `references/machine-profile.md`, gitignored
 |-------------|---------------|----------|
 | `<sandbox-vault-name>` | `plugin-sandbox-Obsidian` | CLI `vault=` argument — must be a **unique** substring |
 | `<sandbox-vault-path>` | `C:\plugin-sandbox-Obsidian` | Staging vault root; deploy target |
+| Cloud E2E vault | `$HOME/plugin-sandbox-Obsidian` | Synthetic vault on Cursor Cloud Linux (see `scripts/cloud-e2e`) |
 | `<production-vault-name>` | `Obsidian` | Production vault display name — **do not** use as `vault=` if it substring-matches the sandbox |
 | `<production-vault-path>` | `C:\Obsidian` | Production vault root; shell cwd for production CLI |
 | `<coding-projects>` | `C:\Coding_projects` | Out-of-vault plugin repos |

@@ -4,6 +4,16 @@ All notable changes to this Agent Plugin package are documented here.
 
 ## [Unreleased]
 
+### Added
+
+- Cloud Linux E2E harness (`scripts/cloud-e2e`) — synthetic vault, AppImage + Xvfb, CDP injection of Cursor env secrets into Obsidian `secretStorage`.
+- Skill `obsidian-cloud-e2e` for Cloud Agent in-vault testing.
+- Skill `obsidian-secret-mapping` — how Whisper / Agent Client / Seek read `secretStorage` ids vs Cursor env vars; per-plugin `.cloud-e2e/secret-bindings.json`.
+
+### Changed
+
+- Cloud E2E does not inject `ANTHROPIC_API_KEY`; Claude Code stays account-login in the synthetic vault.
+
 ## [0.1.2] - 2026-09-13
 
 ### Changed
