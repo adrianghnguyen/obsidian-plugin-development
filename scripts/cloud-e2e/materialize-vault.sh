@@ -34,5 +34,9 @@ if command -v ffmpeg >/dev/null 2>&1; then
   ffmpeg -nostdin -hide_banner -loglevel error -y -f lavfi -i anullsrc=r=16000:cl=mono -t 1 "$VAULT/Attachments/synthetic-silence.wav" || true
 fi
 
+if [ -x "$SCRIPT_DIR/materialize-seinfeld.sh" ]; then
+  bash "$SCRIPT_DIR/materialize-seinfeld.sh"
+fi
+
 echo "Vault materialized at $VAULT"
 find "$VAULT/.obsidian/plugins" -maxdepth 2 -type f | sort

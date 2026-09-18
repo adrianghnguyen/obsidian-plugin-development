@@ -1,0 +1,210 @@
+{
+  "source": "https://github.com/AI21Labs/multi-window-chunk-size/tree/main/seinfeld_trivia",
+  "description": "Seinfeld trivia dataset with target documents updated on 05/03/2025. Excluded questions with multiple target documents, questions with no answer, and questions with ambiguous answers.",
+  "examples": [
+    {
+      "id": "b09c1e4a-5af1-4287-9a0b-e98060acda4e",
+      "query": "George got what teacher fired?",
+      "expectedEpisode": "S03E05.md",
+      "answer": "His gym teacher, Mr. Heyman"
+    },
+    {
+      "id": "0260f12e-3afc-4c44-9365-cf4c44de6123",
+      "query": "At one point, how does Elaine assess whether a man is worth having sex with?",
+      "expectedEpisode": "S07E09.md",
+      "answer": "Whether he\u2019s sponge-worthy."
+    },
+    {
+      "id": "9aea556c-9766-4bf4-88ef-eb1524b21746",
+      "query": "Who invented Festivus?",
+      "expectedEpisode": "S09E10.md",
+      "answer": "George\u2019s father"
+    },
+    {
+      "id": "80011a38-7f9d-43cd-87a0-2352ea59673a",
+      "query": "What book\u2019s late return earns Jerry a stern talking to and hefty late fees?",
+      "expectedEpisode": "S03E05.md",
+      "answer": "The Tropic of Cancer"
+    },
+    {
+      "id": "3b0ca02c-f1b1-437a-857f-413254dc4b33",
+      "query": "Elaine claims she has an IQ of\u2026",
+      "expectedEpisode": "S03E07.md",
+      "answer": "145"
+    },
+    {
+      "id": "96dc237e-c9bc-41cd-a487-dd05d7d87b6a",
+      "query": "What\u2019s the name for Jerry\u2019s favorite shirt?",
+      "expectedEpisode": "S05E14.md",
+      "answer": "Golden Boy"
+    },
+    {
+      "id": "69b660fa-44d1-46e7-858b-27688cf92bea",
+      "query": "What day of the week did Jerry take over Newman\u2019s mail route?",
+      "expectedEpisode": "S08E10.md",
+      "answer": "Sunday."
+    },
+    {
+      "id": "9d68eb6f-bc0f-4a31-8c66-fd36fcff7ef1",
+      "query": "When is Festivus?",
+      "expectedEpisode": "S09E10.md",
+      "answer": "December 23rd"
+    },
+    {
+      "id": "48218313-c539-469a-b4bd-e3b399325085",
+      "query": "Who does Jerry describe as his nemesis and \u201cpure evil?\u201d",
+      "expectedEpisode": "S06E02.md",
+      "answer": "Newman"
+    },
+    {
+      "id": "8a385901-dd47-423e-b5ef-3c2278019eb6",
+      "query": "What is the name of Elaine\u2019s boyfriend whom she wants to change his name because it is the same as a serial killer?",
+      "expectedEpisode": "S05E09.md",
+      "answer": "Joel Rifkin."
+    },
+    {
+      "id": "02a8e1da-81b9-48c8-a955-e5a306a4d7ff",
+      "query": "What is the tag line for Festivus?",
+      "expectedEpisode": "S09E10.md",
+      "answer": "\u201cFestivus for the rest of us!\u201d"
+    },
+    {
+      "id": "54d6d2dd-fa5d-4c10-bd1a-0fb15fe6c583",
+      "query": "What flavor of babka is the \u201clesser babka?\u201d",
+      "expectedEpisode": "S05E13.md",
+      "answer": "According to Elaine, cinnamon is the lesser babka."
+    },
+    {
+      "id": "478a73d6-b154-4b85-a060-145f64bf20a0",
+      "query": "When given the chance to be interviewed by Bryant Gumbel on The Today Show, what ruins the interview and sends Gumbel into giggles?",
+      "expectedEpisode": "S05E02.md",
+      "answer": "Jerry\u2019s \u201cpuffy shirt\u201d"
+    },
+    {
+      "id": "01cd2828-30f4-495e-bc53-3b2d65a6d7ba",
+      "query": "What does George want to name his future son?",
+      "expectedEpisode": "S07E13.md",
+      "answer": "Seven"
+    },
+    {
+      "id": "c7372a97-5917-4e98-95b0-7d55ce6bd3be",
+      "query": "Where did George Costanza famously pull out a golf ball from?",
+      "expectedEpisode": "S05E14.md",
+      "answer": "A whale\u2019s blowhole."
+    },
+    {
+      "id": "4f97d7f1-9b90-4196-9186-33074975aac7",
+      "query": "Which song does Elaine try to make \u201cher song?\u201d",
+      "expectedEpisode": "S08E07.md",
+      "answer": "Witchy Woman"
+    },
+    {
+      "id": "5a85d3ce-6910-46ca-b1a7-3e4e91fded02",
+      "query": "What does Kramer want his tombstone to say?",
+      "expectedEpisode": "S09E14.md",
+      "answer": "\u201cMan\u2019s Best Friend\u201d"
+    },
+    {
+      "id": "5ec30599-cd21-43ca-9a18-31dbd8f46dc8",
+      "query": "Who is Silvio?",
+      "expectedEpisode": "S09E12.md",
+      "answer": "Jerry and Kramer\u2019s landlord"
+    },
+    {
+      "id": "f5ff46a5-2094-4ff9-b2b0-309035f2d706",
+      "query": "What was the cause of death for George\u2019s fianc\u00e9e, Susan Rice?",
+      "expectedEpisode": "S07E24.md",
+      "answer": "She licked toxic glue while closing up the envelopes for her wedding invitations."
+    },
+    {
+      "id": "5687c61b-af4c-470d-9cc7-6500e9293b1a",
+      "query": "According to a conversation between Jerry and Elaine, what\u2019s the magic number of dates when a face-to-face break-up is required?",
+      "expectedEpisode": "S03E11.md",
+      "answer": "7"
+    },
+    {
+      "id": "7c8eba23-c157-4b82-a468-5783824ecac4",
+      "query": "How much money does Kramer make upon originally selling his life stories?",
+      "expectedEpisode": "S08E14.md",
+      "answer": "$750"
+    },
+    {
+      "id": "bb84c3b8-578f-4f79-a043-b152df8492a2",
+      "query": "Who is Sid and what\u2019s his job?",
+      "expectedEpisode": "S03E11.md",
+      "answer": "He moves everyone\u2019s cars to the other side of the street on \u201calternate sides\u201d street cleaning days."
+    },
+    {
+      "id": "da883ebb-d34a-4339-ba76-cf4b9ed31a3c",
+      "query": "What type of pasta did Kramer use to make his statue of Jerry?",
+      "expectedEpisode": "S06E21.md",
+      "answer": "Fusilli"
+    },
+    {
+      "id": "eba930ca-fb5e-4c2f-8db2-9dd31708e453",
+      "query": "What are the names of George\u2019s fictitious horses?",
+      "expectedEpisode": "S09E15.md",
+      "answer": "Snoopy and Prickly Pete"
+    },
+    {
+      "id": "fcb25f3c-5dbf-40be-a96c-1913e6c22311",
+      "query": "Where does Kramer find the set from The Merv Griffin Show?",
+      "expectedEpisode": "S09E06.md",
+      "answer": "The Dumpster"
+    },
+    {
+      "id": "bfd429f6-0666-4807-ba06-ecf91cb29060",
+      "query": "What happens when Jerry eats the black and white cookie?",
+      "expectedEpisode": "S05E13.md",
+      "answer": "He pukes for the first time in more than ten years."
+    },
+    {
+      "id": "b3c58341-1aaf-4a78-bb1e-1fabf4443812",
+      "query": "Why was Jerry stripped of his mailman privileges?",
+      "expectedEpisode": "S08E10.md",
+      "answer": "He delivered over 50 percent of the mail."
+    },
+    {
+      "id": "7f862c08-5254-41c3-8850-251a0f4ae52b",
+      "query": "What happens during Schindler\u2019s List that gets Jerry in a bit of hot water with Newman?",
+      "expectedEpisode": "S05E18.md",
+      "answer": "He\u2019s caught making out with his girlfriend."
+    },
+    {
+      "id": "50b5c2fd-c44f-4868-820c-c2ea776c25df",
+      "query": "What is the Soup Nazi\u2019s \u201ccatchphrase?\u201d",
+      "expectedEpisode": "S07E06.md",
+      "answer": "\u201cNo soup for you!\u201d"
+    },
+    {
+      "id": "512ebd07-f954-4087-a354-6c8152316d48",
+      "query": "Of Jerry\u2019s many shallow complaints about the women he dates, what petty thing bothers him about his girlfriend Gillian?",
+      "expectedEpisode": "S08E03.md",
+      "answer": "Her \u201cman hands\u201d"
+    },
+    {
+      "id": "94ad72ec-51ec-4dbf-901e-a030e5b10367",
+      "query": "What is Kramer\u2019s first name?",
+      "expectedEpisode": "S06E11.md",
+      "answer": "Cosmo"
+    },
+    {
+      "id": "bc2ccf82-6038-486b-ab85-166d4f8f08be",
+      "query": "What mega celebrity does George crash into and injure during a charity softball event?",
+      "expectedEpisode": "S06E24.md",
+      "answer": "Bette Midler"
+    },
+    {
+      "id": "4a046acd-a7b3-4de8-81c9-dd83f8ed4af8",
+      "query": "Who does George want to name his future son after?",
+      "expectedEpisode": "S07E13.md",
+      "answer": "Mickey Mantle"
+    },
+    {
+      "id": "c7be9204-c68d-488f-a73e-11fcff0af89e",
+      "query": "When his favorite shirt falls apart after one too many washes, how does Jerry replace him?",
+      "expectedEpisode": "S05E14.md",
+      "answer": "With \u201cBaby Blue\u201d \u2014 A different shirt"
+    }
+  ]
+}
