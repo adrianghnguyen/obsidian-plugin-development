@@ -45,7 +45,7 @@ Environment:
 
 Stdout includes JSON with `hits` count and `misses` (query, expected episode, actual rank-1 path). Test fails if zero hits.
 
-For in-Obsidian CLI smoke (indexed embedder, slow cold build), use serial `obsidian eval vault=plugin-sandbox-Obsidian` + `seek:search` only after index ready — see [obsidian-cloud-e2e](../obsidian-cloud-e2e/SKILL.md). Prefer the harness script in Cloud Agent CI.
+The harness uses Seek’s **fake embedder** (deterministic hash vectors), not the production WASM model — rank-1 episode accuracy is a smoke gate (expect partial hits), not a reproduction of AI21 benchmark scores. For real-model checks, use in-Obsidian `seek:search` after index ready (`vault=plugin-sandbox-Obsidian`); see [obsidian-cloud-e2e](../obsidian-cloud-e2e/SKILL.md).
 
 ## Related
 
