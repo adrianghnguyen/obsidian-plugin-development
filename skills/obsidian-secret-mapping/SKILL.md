@@ -36,7 +36,7 @@ Source: `SettingsManager.loadKeysFromSecretStorage`, `SECRET_IDS`, `resolveWhisp
 | --- | --- | --- | --- |
 | Gemini REST + Live | none (hardcoded) | `gemini-api-key` → `settings.geminiApiKey` | `GEMINI_API_KEY` |
 | OpenAI field / post-process OpenAI | none (hardcoded) | `openai-api-key` → `settings.openAiApiKey` | `OPENAI_API_KEY` |
-| Anthropic post-process | none (hardcoded) | `anthropic-api-key` | `ANTHROPIC_API_KEY` |
+| Anthropic post-process | none (hardcoded) | `anthropic-api-key` | not used in this vault — no Cursor `ANTHROPIC_API_KEY` |
 | Custom post-process | none (hardcoded) | `post-processing-api-key` | none unless you add one |
 | OpenAI Whisper **endpoint** | `whisperApiKeySecretId` | whatever that string is → `settings.apiKey` | usually `OPENAI_API_KEY` into `openai-api-key`, **and** set the pointer to `openai-api-key` |
 
@@ -57,7 +57,6 @@ Probe (lengths only):
     ids: {
       gemini: get("gemini-api-key"),
       openai: get("openai-api-key"),
-      anthropic: get("anthropic-api-key"),
     },
   });
 })()
@@ -67,7 +66,7 @@ Probe (lengths only):
 
 **Presets** (`session-helpers.buildAgentConfigWithApiKey` → `AcpClient` spawn):
 
-- Registry says which **env var name** to export (`ANTHROPIC_API_KEY`, `OPENAI_API_KEY`, `GEMINI_API_KEY`, `MISTRAL_API_KEY`, `KIRO_API_KEY`).
+- Registry says which **env var name** to export (`OPENAI_API_KEY`, `GEMINI_API_KEY`, `MISTRAL_API_KEY`, `KIRO_API_KEY`; Claude Code can use account login — this vault does not inject `ANTHROPIC_API_KEY`).
 - The **id** is `settings.presetAgents[presetId].apiKeySecretId` from `data.json`.
 - If that string is **empty**, spawn does **not** attach a key (account login). Filling `secretStorage` alone is not enough.
 
@@ -75,7 +74,7 @@ Fresh-vault E2E must write those pointers (fixture `data.json` or CDP `saveSetti
 
 | Preset | Env exported at spawn | Default id to point at |
 | --- | --- | --- |
-| `claude-code-acp` | `ANTHROPIC_API_KEY` | `claude-api-key` (fallback `agent-client-claude-api-key`) |
+| `claude-code-acp` | `ANTHROPIC_API_KEY` | leave pointer empty (account login; no Cursor Anthropic secret) |
 | `codex-acp` | `OPENAI_API_KEY` | `openai-api-key` (same id as Whisper) |
 | `gemini-cli` | `GEMINI_API_KEY` | `gemini-api-key` (same id as Whisper) |
 | `mistral-vibe` | `MISTRAL_API_KEY` | `mistral-api-key` |
