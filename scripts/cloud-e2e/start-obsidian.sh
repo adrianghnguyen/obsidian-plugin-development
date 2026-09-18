@@ -14,12 +14,23 @@ fi
 mkdir -p "$CLOUD_E2E_PROFILE" "$CLOUD_E2E_VAULT"
 
 # Isolated profile so Cloud E2E never touches a personal Obsidian config.
+# Merge vault path; do not wipe a profile that already completed first-run.
 python3 - "$CLOUD_E2E_PROFILE" "$CLOUD_E2E_VAULT" <<'PY'
 import json, os, sys, time
 profile, vault = sys.argv[1], sys.argv[2]
 os.makedirs(profile, exist_ok=True)
 cfg = os.path.join(profile, "obsidian.json")
-data = {"vaults": {"cloud-e2e": {"path": vault, "ts": int(time.time() * 1000)}}}
+data = {}
+if os.path.isfile(cfg):
+    try:
+        with open(cfg, encoding="utf-8") as f:
+            data = json.load(f) or {}
+    except json.JSONDecodeError:
+        data = {}
+vaults = data.setdefault("vaults", {})
+known = any(isinstance(v, dict) and v.get("path") == vault for v in vaults.values())
+if not known:
+    vaults["cloud-e2e"] = {"path": vault, "ts": int(time.time() * 1000)}
 with open(cfg, "w", encoding="utf-8") as f:
     json.dump(data, f)
 PY

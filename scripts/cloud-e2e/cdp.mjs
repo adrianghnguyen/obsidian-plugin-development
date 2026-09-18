@@ -195,6 +195,19 @@ if (cmd === "wait") {
 	await waitForApp();
 	const report = await probeSecrets();
 	console.log(JSON.stringify(report, null, 2));
+} else if (cmd === "dismiss-starter") {
+	const ready = await evaluate(
+		`typeof app !== 'undefined' && !!(app.vault && app.workspace)`,
+	).catch(() => false);
+	if (ready) {
+		console.log("obsidian-app-ready");
+	} else {
+		await evaluate(
+			`[...document.querySelectorAll("button")].find(b=>/^(Open|Quick start)$/i.test(b.innerText.trim()))?.click()`,
+		);
+		await waitForApp(90000);
+		console.log("obsidian-app-ready");
+	}
 } else if (cmd === "eval-raw") {
 	const code = process.argv[3];
 	if (!code) {
@@ -213,6 +226,6 @@ if (cmd === "wait") {
 	const value = await evaluate(code, { awaitPromise: true });
 	console.log(typeof value === "string" ? value : JSON.stringify(value));
 } else if (import.meta.url === `file://${process.argv[1]}`) {
-	console.error("usage: cdp.mjs wait|inject|probe|eval|eval-raw");
+	console.error("usage: cdp.mjs wait|inject|probe|dismiss-starter|eval|eval-raw");
 	process.exit(1);
 }
