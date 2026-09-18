@@ -4,6 +4,9 @@ This is the end-to-end setup for the multi-repo Obsidian Cloud Agent environment
 `obsidian-plugin-development` (orchestrator) plus sibling plugins `obsidian-seek`,
 `whisper-obsidian-plugin`, and `obsidian-agent-client`.
 
+**Generalized process skill:** [`skills/obsidian-cloud-env-setup/SKILL.md`](../../skills/obsidian-cloud-env-setup/SKILL.md)
+(sample files, Restricted mode + CLI, verify, snapshot/Save).
+
 Target vault name: **`plugin-sandbox-Obsidian`**
 Vault path: **`$HOME/plugin-sandbox-Obsidian`** (default `/home/ubuntu/plugin-sandbox-Obsidian`)
 
