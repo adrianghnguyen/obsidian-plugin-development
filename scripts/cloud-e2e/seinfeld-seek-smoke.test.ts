@@ -33,7 +33,7 @@ describe('Seinfeld trivia — Seek smoke', () => {
 		await s.boot();
 		let t = 1000;
 		for (const [file, body] of episodes) {
-			s.vault.write(`Seinfeld/episodes/${file}`, body, t++);
+			s.vault.write(`Seinfeld (custom)/episodes/${file}`, body, t++);
 		}
 		await s.coldStart();
 

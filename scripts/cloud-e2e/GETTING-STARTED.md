@@ -12,7 +12,7 @@ Vault path: **`$HOME/plugin-sandbox-Obsidian`** (default `/home/ubuntu/plugin-sa
 | Gate | Pass criteria |
 | --- | --- |
 | App running | Obsidian Electron process up; CDP on `127.0.0.1:9222` |
-| Sample files | Fixture notes under `Notes/` plus optional Seinfeld corpus |
+| Sample files | Fixture notes under `Notes/` plus **Seinfeld (custom)** AI21 corpus |
 | Community plugins on | Restricted mode **off**; `seek`, `whisper`, `agent-client` loaded |
 | CLI access | `obsidian` binary responds (not “CLI is not enabled”); can `files` / `read` / `search` |
 
@@ -82,15 +82,20 @@ node /agent/repos/obsidian-plugin-development/scripts/cloud-e2e/cdp.mjs enable-c
 ## Sample files
 
 `materialize-vault.sh` copies fixtures from
-`scripts/cloud-e2e/fixtures/vault/` into `$HOME/plugin-sandbox-Obsidian`:
+`scripts/cloud-e2e/fixtures/vault/` into `$HOME/plugin-sandbox-Obsidian`, then
+`materialize-seinfeld.sh` adds the **Seinfeld (custom)** AI21 trivia corpus:
 
 | Path | Role |
 | --- | --- |
 | `Welcome.md` | Sandbox landing note |
 | `Notes/*.md` | Small searchable corpus (canary: `obsidian-cloud-e2e-canary-phrase`) |
-| `Seinfeld/episodes/*.md` | Optional AI21 trivia corpus (174 episodes) |
+| `Seinfeld (custom)/episodes/*.md` | 174 AI21 episode transcripts |
+| `Seinfeld (custom)/trivia/Q*.md` | 34 Q&A notes (question → answer → gold episode) |
+| `Seinfeld (custom)/README.md` | Corpus index + Q&A mapping |
 | `.obsidian/community-plugins.json` | Enables `seek`, `whisper`, `agent-client` |
 | `.obsidian/plugins/*/main.js` | Built plugin artifacts from sibling repos |
+
+Q&A companion skill: `seek-seinfeld-eval` (how `query` / `answer` / `expectedEpisode` map to vault files).
 
 ## CLI cheatsheet
 

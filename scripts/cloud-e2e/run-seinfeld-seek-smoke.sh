@@ -7,7 +7,7 @@ source "$SCRIPT_DIR/paths.env"
 
 VAULT="${CLOUD_E2E_VAULT:-$HOME/plugin-sandbox-Obsidian}"
 SEEK="${CLOUD_E2E_REPOS}/obsidian-seek"
-EPISODES="$VAULT/Seinfeld/episodes"
+EPISODES="$VAULT/Seinfeld (custom)/episodes"
 LIMIT="${SEINFELD_SMOKE_LIMIT:-8}"
 
 if [ ! -d "$EPISODES" ] || [ -z "$(find "$EPISODES" -maxdepth 1 -name '*.md' 2>/dev/null | head -1)" ]; then

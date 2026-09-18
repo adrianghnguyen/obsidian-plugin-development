@@ -1,80 +1,127 @@
 ---
 name: seek-seinfeld-eval
 description: >-
-  Use the AI21 Seinfeld trivia corpus and fixed eval questions in the Cloud
-  sandbox vault for manual Seek retrieval checks. Use for Cloud E2E search
-  validation, not production vaults.
+  AI21 Seinfeld (custom) trivia corpus in the Cloud sandbox vault — how episode
+  transcripts and Q&A notes relate, and how to run Seek retrieval checks against
+  gold episodes. Use for Cloud E2E search validation, not production vaults.
 ---
 
-# Seek — Seinfeld trivia eval (Cloud sandbox)
+# Seek — Seinfeld (custom) trivia Q&A
 
-Corpus: [AI21Labs/multi-window-chunk-size](https://github.com/AI21Labs/multi-window-chunk-size) (`seinfeld_trivia/` — episode markdown; upstream also ships `data.json`).
+AI21 in-house trivia over TV episode transcripts. The **corpus and trivia live
+in the demo repo**, not a standalone dataset project:
 
-Always use **`vault=plugin-sandbox-Obsidian`**. Do not run this eval against the Windows production vault.
+[AI21Labs/multi-window-chunk-size](https://github.com/AI21Labs/multi-window-chunk-size)
+→ `seinfeld_trivia/` (`documents_content/` + `data.json`).
 
-## Where files live
+Always use **`vault=plugin-sandbox-Obsidian`**. Never run this against the
+Windows production vault.
+
+## Vault layout (after `materialize-seinfeld.sh`)
 
 | What | Path |
 | --- | --- |
-| Vault root | `$HOME/plugin-sandbox-Obsidian` |
-| Episode transcripts (174 `.md`) | `$HOME/plugin-sandbox-Obsidian/Seinfeld/episodes/` |
-| Eval questions (34, in git) | `scripts/cloud-e2e/fixtures/seinfeld-eval.json` in **obsidian-plugin-development** |
+| Corpus root | `$HOME/plugin-sandbox-Obsidian/Seinfeld (custom)/` |
+| Episode transcripts (174 `.md`) | `…/Seinfeld (custom)/episodes/` |
+| Q&A notes (34 `.md`) | `…/Seinfeld (custom)/trivia/` |
+| Human index | `…/Seinfeld (custom)/README.md` |
+| Eval JSON (in git) | `scripts/cloud-e2e/fixtures/seinfeld-eval.json` |
 | Clone cache (install only) | `$HOME/.cache/cloud-e2e-seinfeld` |
 
-Transcripts are **not** in git. Cloud Agent **install** runs `materialize-seinfeld.sh` via `materialize-vault.sh` (see `.cursor/environment.json`).
-
-Manual rerun on a live pod:
+Transcripts are **not** committed to this skills repo. Cloud Agent **install**
+runs `materialize-seinfeld.sh` via `materialize-vault.sh` / `env-install.sh`.
 
 ```bash
 bash scripts/cloud-e2e/materialize-seinfeld.sh
+ls "$HOME/plugin-sandbox-Obsidian/Seinfeld (custom)/episodes/"*.md | wc -l   # 174
+ls "$HOME/plugin-sandbox-Obsidian/Seinfeld (custom)/trivia/"Q*.md | wc -l      # 34
 ```
 
-Overrides: `CLOUD_E2E_SEINFELD_CACHE`, `CLOUD_E2E_SEINFELD_REPO`, `CLOUD_E2E_SEINFELD_REF`, `CLOUD_E2E_VAULT`.
+## How the files are Q and A
 
-Quick check:
+Think of three layers that must stay aligned:
 
-```bash
-ls "$HOME/plugin-sandbox-Obsidian/Seinfeld/episodes/"*.md | wc -l
+```text
+Question (query) ──► Answer (gold string) ──► Episode note (gold document)
 ```
 
-Expect **174** files after a successful materialize.
+### Upstream (`data.json` in AI21 repo)
 
-## Eval fixture schema
+Each item in `seinfeld_trivia/data.json` → `examples[]`:
 
-`fixtures/seinfeld-eval.json` fields:
-
-| Field | Meaning |
+| Field | Role |
 | --- | --- |
-| `examples[].id` | Stable UUID from the AI21 dataset |
-| `examples[].query` | Question text to search |
-| `examples[].expectedEpisode` | Gold episode **filename** (e.g. `S09E10.md`) under `Seinfeld/episodes/` |
-| `examples[].answer` | Reference answer text (human check; not used for automated rank scoring in this skill) |
+| `id` | Stable UUID |
+| `query` | **Q** — the trivia question (also the Seek search string) |
+| `answer` | **A** — reference answer text for humans |
+| `targets[].file_name` | Gold **document** filename under `documents_content/` (e.g. `S09E10.md`) |
 
-List questions:
+Curated subset: single-target questions only (multi-target / no-answer / ambiguous dropped upstream — see fixture `description`).
+
+### Sandbox fixture (`seinfeld-eval.json`)
+
+Same 34 examples, flattened for agents and smoke tests:
+
+| Field | Maps from upstream |
+| --- | --- |
+| `examples[].id` | `id` |
+| `examples[].query` | `query` (**Q**) |
+| `examples[].answer` | `answer` (**A**) |
+| `examples[].expectedEpisode` | `targets[0].file_name` |
+
+List:
 
 ```bash
-jq -r '.examples[] | "\(.query) → \(.expectedEpisode)"' \
+jq -r '.examples[] | "Q: \(.query)\nA: \(.answer)\nDoc: \(.expectedEpisode)\n"' \
   scripts/cloud-e2e/fixtures/seinfeld-eval.json
 ```
 
-Pick one example:
+### Vault notes (`trivia/` + `episodes/`)
+
+`materialize-seinfeld.sh` writes one Obsidian note per example under `trivia/`:
+
+- Title / H1 = **Q** (`query`)
+- Body **Answer:** = **A**
+- Wikilink **Gold episode** → `../episodes/<SxxEyy>`
+- Frontmatter: `id`, `expected_episode`, `type: seinfeld-trivia`
+
+Episode markdown under `episodes/` is the retrieval target (summary + transcript).
+Trivia notes are for humans/agents browsing Q&A — **Seek rank scoring should
+hit the episode note**, not the trivia note.
+
+## Run a question (Seek)
+
+Prerequisites: Obsidian up, community plugins on, Seek enabled, index caught up.
+Boot: [obsidian-cloud-e2e](../obsidian-cloud-e2e/SKILL.md) and
+[`scripts/cloud-e2e/GETTING-STARTED.md`](../../scripts/cloud-e2e/GETTING-STARTED.md).
+
+1. Pick an example (`jq '.examples[0]' …/seinfeld-eval.json` or open a `trivia/Q*.md` note).
+2. Search **only the `query` string** with Seek (`vault=plugin-sandbox-Obsidian`).
+3. **Pass:** rank-1 path ends with `Seinfeld (custom)/episodes/<expectedEpisode>`
+   (or basename matches `expectedEpisode`).
+4. Optionally confirm the snippet supports `answer` (human check; not required for automated smoke).
+
+Do **not** paste the answer into the search box — that leaks the label.
+
+CLI sketch:
 
 ```bash
-jq '.examples[0]' scripts/cloud-e2e/fixtures/seinfeld-eval.json
+export PATH="$HOME/.local/bin:$PATH"
+Q=$(jq -r '.examples[0].query' scripts/cloud-e2e/fixtures/seinfeld-eval.json)
+# Prefer Seek command / modal; plain `obsidian search` is lexical-only.
+obsidian vault=plugin-sandbox-Obsidian search query="$Q"
 ```
 
-## Run a question (in Obsidian)
+## Offline smoke (not the skill’s manual eval)
 
-Prerequisites: Obsidian up on the Cloud pod, Seek enabled, index finished for the sandbox vault. Boot flow: [obsidian-cloud-e2e](../obsidian-cloud-e2e/SKILL.md).
+Tier-2 Seek harness (fake embedder — partial rank-1 hits expected):
 
-1. Read `query` and `expectedEpisode` from the fixture (or jq as above).
-2. Run Seek for that query with **`vault=plugin-sandbox-Obsidian`** — Obsidian CLI `seek:search` with JSON output, or open the Seek modal in the sandbox vault and search the same string.
-3. **Pass (manual):** rank-1 result path ends with `Seinfeld/episodes/<expectedEpisode>` (or the note basename matches `expectedEpisode`).
-4. Optionally confirm snippet content aligns with `answer` in the fixture.
-
-Run several questions across seasons; the fixture is a curated subset of the AI21 benchmark (single target episode per question).
+```bash
+bash scripts/cloud-e2e/run-seinfeld-seek-smoke.sh
+```
 
 ## Related
 
-- [obsidian-cloud-e2e](../obsidian-cloud-e2e/SKILL.md) — vault bootstrap, CDP, Obsidian on Linux
-- `scripts/cloud-e2e/README.md` — install lifecycle; optional Tier-2 smoke script for CI (not covered here)
+- [obsidian-cloud-e2e](../obsidian-cloud-e2e/SKILL.md) — vault bootstrap, CDP, Linux Obsidian
+- `scripts/cloud-e2e/README.md` — install lifecycle
+- Upstream: https://github.com/AI21Labs/multi-window-chunk-size/tree/master/seinfeld_trivia
