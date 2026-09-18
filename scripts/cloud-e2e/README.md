@@ -2,6 +2,8 @@
 
 Linux synthetic vault for Cursor Cloud Agents. Same plugin ids as the Windows staging vault (`seek`, `whisper`, `agent-client`), fake notes only.
 
+**Full boot + CLI walkthrough:** [`GETTING-STARTED.md`](./GETTING-STARTED.md)
+
 ## Layout
 
 | Path | Role |
@@ -9,6 +11,7 @@ Linux synthetic vault for Cursor Cloud Agents. Same plugin ids as the Windows st
 | `$HOME/plugin-sandbox-Obsidian` | Vault root (`vault=plugin-sandbox-Obsidian`) |
 | `$HOME/.obsidian-cloud-e2e-profile` | Isolated Electron user-data-dir (not your laptop profile) |
 | `$HOME/.local/opt/obsidian` | Extracted AppImage |
+| `$HOME/.local/bin/obsidian` | Symlink to `obsidian-cli` (requires CLI toggle on) |
 
 Override with `CLOUD_E2E_*` vars in `paths.env`.
 
@@ -17,12 +20,18 @@ Override with `CLOUD_E2E_*` vars in `paths.env`.
 | Phase | Script | Secrets |
 | --- | --- | --- |
 | Build / install | `install-obsidian.sh` then `materialize-vault.sh` | No. Download Obsidian, copy plugin artifacts, seed notes. |
-| Start | `start-obsidian.sh` (foreground; Xvfb if needed) | Forwards process env into Electron. Does not write keys to disk. |
-| After ready | `node cdp.mjs dismiss-starter` → `enable-plugins` → `inject` | Turns off Restricted mode (`localStorage enable-plugin-<appId>`), loads enabled community plugins, then injects secrets over localhost CDP. |
+| Start | `start-obsidian.sh` (foreground; Xvfb if needed) | Forwards process env into Electron. Writes `"cli": true` into profile `obsidian.json`. |
+| After ready | `dismiss-starter` → `enable-plugins` → `enable-cli` → `inject` | Turns off Restricted mode, loads community plugins, ensures CLI IPC is on, then injects secrets over localhost CDP. |
 
 Do not put keys in `data.json`, git, Install logs, or `obsidian eval code="...$KEY..."`.
 
 `start-obsidian.sh` forces the sandbox vault (`plugin-sandbox-Obsidian`) as the sole `open` vault in the isolated profile so Obsidian does not land on an empty default vault.
+
+Two toggles that must be **on** (both automated by `env-start.sh`):
+
+1. **Community plugins** — Restricted mode off (`cdp.mjs enable-plugins`)
+2. **Command line interface** — Settings → General → Advanced (`cdp.mjs enable-cli` / profile `"cli": true`)
+
 
 ## Secret map
 

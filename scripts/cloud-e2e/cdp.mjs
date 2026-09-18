@@ -228,6 +228,15 @@ if (cmd === "wait") {
 		{ awaitPromise: true },
 	);
 	console.log(typeof report === "string" ? report : JSON.stringify(report));
+} else if (cmd === "enable-cli") {
+	await waitForApp();
+	const report = await evaluate(`(function () {
+		const before = electron.ipcRenderer.sendSync("cli", null);
+		if (!before) electron.ipcRenderer.sendSync("cli", true);
+		const after = electron.ipcRenderer.sendSync("cli", null);
+		return JSON.stringify({ before, after });
+	})()`);
+	console.log(typeof report === "string" ? report : JSON.stringify(report));
 } else if (cmd === "eval-raw") {
 	const code = process.argv[3];
 	if (!code) {
@@ -246,6 +255,8 @@ if (cmd === "wait") {
 	const value = await evaluate(code, { awaitPromise: true });
 	console.log(typeof value === "string" ? value : JSON.stringify(value));
 } else if (import.meta.url === `file://${process.argv[1]}`) {
-	console.error("usage: cdp.mjs wait|inject|probe|dismiss-starter|enable-plugins|eval|eval-raw");
+	console.error(
+		"usage: cdp.mjs wait|inject|probe|dismiss-starter|enable-plugins|enable-cli|eval|eval-raw",
+	);
 	process.exit(1);
 }

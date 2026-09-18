@@ -28,16 +28,16 @@ See [obsidian-secret-mapping](../obsidian-secret-mapping/SKILL.md) for how each 
 ## Boot
 
 ```bash
-./scripts/cloud-e2e/install-obsidian.sh
-# npm run build in seek, whisper, agent-client
-./scripts/cloud-e2e/materialize-vault.sh   # includes AI21 Seinfeld episodes via materialize-seinfeld.sh
-# terminals: start-obsidian.sh (foreground)
-node scripts/cloud-e2e/cdp.mjs wait
-node scripts/cloud-e2e/cdp.mjs inject   # skips unset env vars
-node scripts/cloud-e2e/cdp.mjs eval 'JSON.stringify({name:app.vault.getName(),base:app.vault.adapter.basePath})'
+bash scripts/cloud-e2e/env-install.sh
+bash scripts/cloud-e2e/env-start.sh   # dismiss-starter → enable-plugins → enable-cli → inject
+export PATH="$HOME/.local/bin:$PATH"
+obsidian vault=plugin-sandbox-Obsidian files
 ```
 
-Identity: `name` must be `plugin-sandbox-Obsidian`. `base` must be `CLOUD_E2E_VAULT`.
+Full walkthrough (Restricted mode, CLI toggle, sample files): [`scripts/cloud-e2e/GETTING-STARTED.md`](../../scripts/cloud-e2e/GETTING-STARTED.md).
+
+Identity: `name` must be `plugin-sandbox-Obsidian`. `base` must be `CLOUD_E2E_VAULT`. Community plugins and CLI must both be enabled (see Getting Started).
+
 
 ## What this proves vs Windows sandbox
 

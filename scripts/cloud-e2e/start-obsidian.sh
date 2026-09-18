@@ -56,6 +56,8 @@ for k, v in vaults.items():
         v["ts"] = int(time.time() * 1000)
     else:
         v.pop("open", None)
+# Settings → General → Advanced → Command line interface
+data["cli"] = True
 with open(cfg, "w", encoding="utf-8") as f:
     json.dump(data, f)
 PY

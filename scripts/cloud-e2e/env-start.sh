@@ -12,6 +12,7 @@ else
   ROOT="$PWD"
 fi
 export CLOUD_E2E_REPOS="$ROOT"
+export PATH="${HOME}/.local/bin:${PATH}"
 DEV="$ROOT/obsidian-plugin-development"
 START="$DEV/scripts/cloud-e2e/start-obsidian.sh"
 CDP="$DEV/scripts/cloud-e2e/cdp.mjs"
@@ -46,6 +47,7 @@ done
 if [ -f "$CDP" ]; then
   timeout 12 node "$CDP" dismiss-starter || echo "dismiss-starter skipped-or-timed-out"
   timeout 20 node "$CDP" enable-plugins || echo "enable-plugins skipped-or-timed-out"
+  timeout 12 node "$CDP" enable-cli || echo "enable-cli skipped-or-timed-out"
   timeout 20 node "$CDP" inject || echo "inject skipped-or-timed-out"
   # Identity gate: ensure sandbox vault is open (not Obsidian's empty default).
   identity="$(timeout 15 node "$CDP" eval 'JSON.stringify({name:app.vault.getName(),base:app.vault.adapter.basePath,plugins:Object.keys(app.plugins.plugins)})' 2>/dev/null || true)"
