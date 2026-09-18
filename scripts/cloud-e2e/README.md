@@ -49,6 +49,24 @@ node cdp.mjs eval 'JSON.stringify({name:app.vault.getName(),base:app.vault.adapt
 
 Expect `name` = `plugin-sandbox-Obsidian` and `base` = the `CLOUD_E2E_VAULT` path.
 
+## ACP agents (Cursor + Antigravity)
+
+`env-install.sh` runs `install-acp-agents.sh`, which:
+
+- Installs the **Cursor CLI** (`~/.local/bin/agent`) when missing
+- Downloads **Antigravity** `agy_acp_server.par` (ACP registry `linux-x86_64`) into `~/.local/bin/`
+- Ensures a **`nobody`** system group exists (required for the bridge on minimal images)
+- Writes `~/.gemini/antigravity-cli/settings.json` with `modelProvider: gemini` when `GEMINI_API_KEY` is set
+
+**Secrets (Cloud environment, not Obsidian secretStorage):**
+
+| Env var | Used by |
+| --- | --- |
+| `CURSOR_API_KEY` | Cursor CLI / `agent acp` (User API key from [dashboard → API Keys](https://cursor.com/dashboard/api)) |
+| `GEMINI_API_KEY` | Antigravity bridge API-key auth (also injected into Obsidian for other presets) |
+
+`agent status` may still say “Not logged in” in API-key mode; verify with a non-interactive prompt (`agent -p -f --api-key "$CURSOR_API_KEY" "Reply OK"`). Agent Client preset UX for Cursor/Antigravity requires [obsidian-agent-client](https://github.com/adrianghnguyen/obsidian-agent-client) PRs #27 / #28 on `main`.
+
 ## Plugin builds
 
 `materialize-vault.sh` copies `main.js`, `manifest.json`, `styles.css` from sibling checkouts. Run `npm run build` in those repos first.
