@@ -30,7 +30,7 @@ See [obsidian-secret-mapping](../obsidian-secret-mapping/SKILL.md) for how each 
 ```bash
 ./scripts/cloud-e2e/install-obsidian.sh
 # npm run build in seek, whisper, agent-client
-./scripts/cloud-e2e/materialize-vault.sh
+./scripts/cloud-e2e/materialize-vault.sh   # includes AI21 Seinfeld episodes via materialize-seinfeld.sh
 # terminals: start-obsidian.sh (foreground)
 node scripts/cloud-e2e/cdp.mjs wait
 node scripts/cloud-e2e/cdp.mjs inject   # skips unset env vars

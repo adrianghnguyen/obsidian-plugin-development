@@ -41,3 +41,11 @@ Expect `name` = `plugin-sandbox-Obsidian` and `base` = the `CLOUD_E2E_VAULT` pat
 ## Plugin builds
 
 `materialize-vault.sh` copies `main.js`, `manifest.json`, `styles.css` from sibling checkouts. Run `npm run build` in those repos first.
+
+## Seinfeld eval corpus (AI21)
+
+`env-install.sh` → `materialize-vault.sh` → `materialize-seinfeld.sh` shallow-clones [AI21Labs/multi-window-chunk-size](https://github.com/AI21Labs/multi-window-chunk-size) (`master`) and copies 174 episode transcripts to `$CLOUD_E2E_VAULT/Seinfeld/episodes/`. Eval questions (34) live in git as `fixtures/seinfeld-eval.json`. Skill: `seek-seinfeld-eval`.
+
+```bash
+bash scripts/cloud-e2e/run-seinfeld-seek-smoke.sh   # Tier-2 Seek harness smoke
+```
