@@ -33,9 +33,8 @@ install_antigravity_bridge() {
 		return 0
 	fi
 	mkdir -p "${HOME}/.local/bin"
-	local tmp archive url
+	local tmp archive url par
 	tmp="$(mktemp -d)"
-	trap 'rm -rf "${tmp}"' EXIT
 	url="$(
 		curl -fsSL https://cdn.agentclientprotocol.com/registry/v1/latest/registry.json \
 			| python3 -c "
@@ -54,13 +53,14 @@ for agent in data.get('agents', []):
 	echo "install-acp-agents: downloading antigravity bridge"
 	curl -fsSL -o "${tmp}/agy.zip" "${url}"
 	unzip -q -o "${tmp}/agy.zip" -d "${tmp}/extract"
-	local par
 	par="$(find "${tmp}/extract" -name 'agy_acp_server.par' -print -quit)"
 	if [[ -z "${par}" ]]; then
+		rm -rf "${tmp}"
 		echo "install-acp-agents: agy_acp_server.par not found in archive" >&2
 		exit 1
 	fi
 	install -m 755 "${par}" "${dest}"
+	rm -rf "${tmp}"
 	echo "install-acp-agents: installed ${dest}"
 }
 
