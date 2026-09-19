@@ -55,6 +55,8 @@ Expect `name` = `plugin-sandbox-Obsidian` and `base` = the `CLOUD_E2E_VAULT` pat
 
 - Installs the **Cursor CLI** (`~/.local/bin/agent`) when missing
 - Downloads **Antigravity** `agy_acp_server.par` (ACP registry `linux-x86_64`) into `~/.local/bin/`
+- Also installs zip sibling **`localharness_external`** next to the `.par` (required for `session/new`)
+- Writes a login-shell snippet and exports **`ANTIGRAVITY_HARNESS_PATH`** from `env-start.sh` / `paths.env` (path only; no secrets)
 - Ensures a **`nobody`** system group exists (required for the bridge on minimal images)
 - Writes `~/.gemini/antigravity-cli/settings.json` with `modelProvider: gemini` when `GEMINI_API_KEY` is set
 

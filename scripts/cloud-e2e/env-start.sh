@@ -13,6 +13,12 @@ else
 fi
 export CLOUD_E2E_REPOS="$ROOT"
 export PATH="${HOME}/.local/bin:${PATH}"
+# Companion next to agy_acp_server.par. Path only — no secrets.
+export ANTIGRAVITY_HARNESS_PATH="${HOME}/.local/bin/localharness_external"
+if [ -f "${HOME}/.local/share/cloud-e2e/antigravity-harness.sh" ]; then
+  # shellcheck source=/dev/null
+  . "${HOME}/.local/share/cloud-e2e/antigravity-harness.sh"
+fi
 DEV="$ROOT/obsidian-plugin-development"
 START="$DEV/scripts/cloud-e2e/start-obsidian.sh"
 CDP="$DEV/scripts/cloud-e2e/cdp.mjs"
