@@ -47,6 +47,7 @@ for agent in data.get('agents', []):
 "
 	)"
 	if [[ -z "${url}" ]]; then
+		rm -rf "${tmp}"
 		echo "install-acp-agents: could not resolve antigravity linux-x86_64 archive URL" >&2
 		exit 1
 	fi
