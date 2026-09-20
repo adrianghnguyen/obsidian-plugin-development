@@ -4,6 +4,8 @@ All notable changes to this Agent Plugin package are documented here.
 
 ## [Unreleased]
 
+## [0.1.3] - 2026-09-20
+
 ### Added
 
 - `obsidian-cloud-vm-demos` skill — strict verification on Cursor Cloud VMs (runtime proof, mandatory screenshots for UI, identity gate, local vs cloud gap reporting, PR description embedded artifact URLs per Cloud Agents GitHub posting).
