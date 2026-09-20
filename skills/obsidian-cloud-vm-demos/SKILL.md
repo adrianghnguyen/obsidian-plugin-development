@@ -48,8 +48,26 @@ JSON.stringify({ name: app.vault.getName(), base: app.vault.adapter.basePath })
 ```
 
 5. Evidence attached per table above.
+6. **PR embeds:** when the change has an open PR, screenshots/video/logs must appear as **embedded media in the PR description** (inline images/players), not only on the agent run page or in chat.
 
 `npm test` and `npm run build` are **gates only** — they never satisfy this skill alone when cloud is available.
+
+---
+
+## PR description embeds (Artifacts in GitHub)
+
+Follow Cursor [Cloud Agent capabilities — Demos and Artifacts](https://cursor.com/docs/cloud-agent/capabilities#artifacts-in-github):
+
+| Step | Action |
+|------|--------|
+| Dashboard | Enable **Allow posting artifacts to GitHub** ([Cloud Agents → My pull requests](https://cursor.com/dashboard/cloud-agents)). |
+| Cloud Agent PR | Upload walkthrough artifacts during verify; confirm the PR **description** contains embedded screenshot/video URLs after upload (`artifact_created` on the run dashboard). |
+| Manual PR from VM | `gh pr edit <n> --body-file BODY.md --attach ./path.png --attach ./demo.mp4` so GitHub CLI rewrites to embedded URLs ([attaching files](https://docs.github.com/en/github-cli/github-cli/attaching-files-with-github-cli)). |
+| Blocked | Tell the user posting is off or failed; enable setting or use `gh pr edit`/`gh pr comment --attach` — do not mark UI/flow work complete with agent-link-only proof. |
+
+Chat and local `.tmp/` paths are supplementary; reviewers should validate from the **PR body** without a local checkout.
+
+**Related:** [obsidian-cloud-e2e](../obsidian-cloud-e2e/SKILL.md) (VM boot and capture context).
 
 ---
 
@@ -90,5 +108,6 @@ If `.cursor/environment.json` exists but you are on a **local** agent:
 ## Do not
 
 - Mark complete without VM evidence when cloud is available and the env starts.
+- Leave demo media only on `cursor.com/agents` when a PR exists — **embed in the PR description**.
 - Assume cloud vault paths match `references/machine-profile.md` on Windows — read cloud `paths.env` / project AGENTS cloud section.
 - Substitute unit tests for UI screenshots or CLI output for layout proof.

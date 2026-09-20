@@ -6,7 +6,7 @@ All notable changes to this Agent Plugin package are documented here.
 
 ### Added
 
-- `obsidian-cloud-vm-demos` skill — strict verification on Cursor Cloud VMs (runtime proof, mandatory screenshots for UI, identity gate, local vs cloud gap reporting).
+- `obsidian-cloud-vm-demos` skill — strict verification on Cursor Cloud VMs (runtime proof, mandatory screenshots for UI, identity gate, local vs cloud gap reporting, PR description embedded artifact URLs per Cloud Agents GitHub posting).
 - Cloud Linux E2E harness (`scripts/cloud-e2e`) — synthetic vault, AppImage + Xvfb, CDP injection of Cursor env secrets into Obsidian `secretStorage`.
 - Skill `obsidian-cloud-e2e` for Cloud Agent in-vault testing.
 - Skill `obsidian-cloud-env-setup` — generalized process to bake a Cloud Obsidian environment (sample files, Restricted mode + CLI toggles, per-plugin verify, snapshot → Save).
