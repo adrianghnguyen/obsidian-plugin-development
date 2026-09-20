@@ -1,0 +1,94 @@
+---
+name: obsidian-cloud-vm-demos
+description: >-
+  Strict end-to-end verification on Cursor Cloud VMs when environment.json or a
+  Cloud Agent session is available. Use when finishing Obsidian plugin features,
+  fixes, or refactors in cloud — mandatory VM runtime proof and screenshots for
+  visible changes; do not treat local-only build/test as done in a cloud session.
+---
+
+# Cloud VM demos (strict)
+
+When **Cursor Cloud** is available, plugin work is **not complete** until the change is **demonstrated on the cloud VM** with **evidence in chat**. In a **cloud session**, local Windows sandbox runs do **not** replace VM proof.
+
+**Related:** [obsidian-plugin-dev](../obsidian-plugin-dev/SKILL.md) (build/deploy), [obsidian-multi-vault-cli](../obsidian-multi-vault-cli/SKILL.md) (serial CLI, `vault=` first), [obsidian-visual-verify](../obsidian-visual-verify/SKILL.md) (screenshots), [obsidian-plugin-sandbox](../obsidian-plugin-sandbox/SKILL.md) (staging vault on metal).
+
+---
+
+## Cloud is available when
+
+Any of:
+
+- Workspace `.cursor/environment.json` defines `install` and `start` (and optional `repositoryDependencies`).
+- Shell cwd or paths indicate the cloud agent host (e.g. `/agent/`, `/agent/repos/`).
+- User opened a **Cloud Agent** for this task.
+
+If none apply, follow the plugin repo’s local `.cursor/rules/deploy-and-verify.mdc` (or equivalent) on the machine you are on.
+
+---
+
+## Required evidence (strict)
+
+| Change type | Required on cloud VM |
+|-------------|----------------------|
+| UI, CSS, layout, modal, status bar, settings | **Screenshots** of every affected surface — [obsidian-visual-verify](../obsidian-visual-verify/SKILL.md) or repo-specific capture script. Show images in chat. |
+| Behavior, CLI, index, search, settings runtime | **Command + full relevant output** (`eval` JSON, log excerpt). Summaries alone are not enough. |
+| Both visible and behavioral | **Both** screenshot set and CLI/runtime output. |
+| New user-facing flow | Numbered steps you ran on the VM and what each step showed. |
+
+**Before claiming complete**, confirm:
+
+1. Env bootstrap on VM (`environment.json` `install` / `start`, or repo `scripts/cloud-e2e/` / `GETTING-STARTED.md` when present).
+2. `npm run typecheck` / `npm test` / `npm run build` passed **on the VM** when applicable.
+3. Artifacts copied into the **VM vault** plugin folder and `plugin:reload` (or documented cloud reload path).
+4. **Identity gate** — vault name + basePath match the cloud staging vault (not the developer’s `C:\` paths):
+
+```javascript
+JSON.stringify({ name: app.vault.getName(), base: app.vault.adapter.basePath })
+```
+
+5. Evidence attached per table above.
+
+`npm test` and `npm run build` are **gates only** — they never satisfy this skill alone when cloud is available.
+
+---
+
+## Obsidian on the cloud VM
+
+- **Serial CLI only** — one `obsidian` invocation at a time; see [obsidian-multi-vault-cli](../obsidian-multi-vault-cli/SKILL.md).
+- **`vault=<name>` first** — full vault folder name; never shorthand that substring-matches another vault.
+- **Reload after deploy** — copy only `main.js`, `manifest.json`, `styles.css`; preserve `data.json`.
+- **UI proof** — use [obsidian-visual-verify](../obsidian-visual-verify/SKILL.md) with VM vault name and paths from cloud `paths.env` / project docs. Capture each touched surface (`Main`, `StatusBar`, `Settings`, plugin modal).
+- **Artifacts** — write screenshots and dumps under a **git-ignored** dir (`.tmp/`, plugin `.seek-artifacts/`, or OS temp). Never commit demo PNGs.
+
+If screenshot capture fails, fix and **retry once**; then report CLI error output — do not mark UI work complete.
+
+---
+
+## When demo can be skipped (narrow)
+
+Only when:
+
+- User explicitly asked for **local-only** or **no demo**;
+- Pure comment/typo with **zero** behavior or UI impact; or
+- Cloud env **failed to start** or demo is **impossible** (missing secrets) — state which and what was verified instead.
+
+Refactors, performance, and “internal only” changes still need a **cloud smoke demo** (one `eval` or screenshot) when cloud is available.
+
+---
+
+## Local agent + cloud config in repo
+
+If `.cursor/environment.json` exists but you are on a **local** agent:
+
+1. Complete local staging verify per repo rules.
+2. Tell the user **cloud demo was not run here**.
+3. List exact commands/surfaces a Cloud Agent should run to close the loop (copy from this skill’s checklist).
+
+---
+
+## Do not
+
+- Mark complete without VM evidence when cloud is available and the env starts.
+- Assume cloud vault paths match `references/machine-profile.md` on Windows — read cloud `paths.env` / project AGENTS cloud section.
+- Substitute unit tests for UI screenshots or CLI output for layout proof.

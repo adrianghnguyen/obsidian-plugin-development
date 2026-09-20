@@ -8,6 +8,8 @@ description: >-
 
 # Obsidian plugin sandbox (staging vault)
 
+**Cursor Cloud:** VM staging may use different paths than local `<sandbox-vault-path>`. In cloud sessions, follow [obsidian-cloud-vm-demos](../obsidian-cloud-vm-demos/SKILL.md) and project `paths.env` / `.cursor/environment.json` — local sandbox deploy alone is not sufficient proof.
+
 A **staging vault** is an isolated copy of your production vault for plugin testing. Routine deploy/reload/verify targets staging; production promotion requires explicit user request.
 
 Configure paths in [machine profile](../../references/machine-profile.example.md): `<sandbox-vault-name>`, `<sandbox-vault-path>`.

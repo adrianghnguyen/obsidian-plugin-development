@@ -14,6 +14,8 @@ Runtime proof for **what the user sees**. `eval` and unit tests are not enough f
 
 **Default vault:** staging (`<sandbox-vault-name>`). Production only when user explicitly requests promotion verify.
 
+**Cursor Cloud:** When the agent runs on a cloud VM, this skill is **mandatory** for visible changes — see [obsidian-cloud-vm-demos](../obsidian-cloud-vm-demos/SKILL.md). Use the VM vault name and paths from cloud project docs, not only local `machine-profile` paths.
+
 ## When to run
 
 After deploy + `plugin:reload` when the task touches:

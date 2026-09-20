@@ -20,6 +20,8 @@ description: >-
 
 **Multi-vault / reload vs restart:** [obsidian-multi-vault-cli](../obsidian-multi-vault-cli/SKILL.md)
 
+**Cursor Cloud sessions:** [obsidian-cloud-vm-demos](../obsidian-cloud-vm-demos/SKILL.md) — strict VM demos; local sandbox does not replace cloud proof.
+
 **CLI reliability / wedges:** [obsidian-multi-vault-cli](../obsidian-multi-vault-cli/SKILL.md) — one command per shell invocation; wedge vs slow-command signatures.
 
 **Machine paths:** copy [`references/machine-profile.example.md`](../../references/machine-profile.example.md) locally.
@@ -172,6 +174,8 @@ Hotkeys: see [obsidian-hotkeys](../obsidian-hotkeys/SKILL.md).
 ---
 
 ## Verify deployment
+
+In a **Cloud Agent** session (or when `.cursor/environment.json` is active on the VM), follow [obsidian-cloud-vm-demos](../obsidian-cloud-vm-demos/SKILL.md) in addition to the checks below.
 
 ### Disk
 

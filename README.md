@@ -84,6 +84,7 @@ Copy [`references/machine-profile.example.md`](references/machine-profile.exampl
 | [obsidian-settings-secrets](skills/obsidian-settings-secrets/SKILL.md) | `data.json`, `secretStorage`, device-local settings, settings UI gate |
 | [obsidian-startup-performance](skills/obsidian-startup-performance/SKILL.md) | Slow startup, overlay buckets, `onload` stalls, paint lag |
 | [obsidian-visual-verify](skills/obsidian-visual-verify/SKILL.md) | Screenshot proof after UI/CSS/layout changes |
+| [obsidian-cloud-vm-demos](skills/obsidian-cloud-vm-demos/SKILL.md) | Strict Cloud Agent / VM end-to-end demos (screenshots + CLI output) |
 | [obsidian-plugin-sandbox](skills/obsidian-plugin-sandbox/SKILL.md) | Staging vault, promote contract, `community-plugins.json` recovery |
 | [obsidian-plugin-testing](skills/obsidian-plugin-testing/SKILL.md) | Vitest, Obsidian stubs, `fake-indexeddb`, live smoke tests |
 | [obsidian-plugin-review](skills/obsidian-plugin-review/SKILL.md) | Plugin Review antipatterns, UI transparency for new states |
