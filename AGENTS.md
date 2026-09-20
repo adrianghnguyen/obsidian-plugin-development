@@ -17,3 +17,7 @@ This repo owns the Cloud Agent setup. Sibling plugin `main`s carry the same `.cu
 - Identity gate is not a separate file: `env-start.sh` CDP eval; vault name/path from `paths.env` (`CLOUD_E2E_VAULT_NAME` / `CLOUD_E2E_VAULT`)
 
 Project overview (do not copy): `/cursor/stores/bc-a8a2e9ee-3f2b-4d31-ae8c-85b3734c071e/docs/cursor-environment-docs.md`
+
+## PR product demos
+
+**Complex features** and **user-facing behavioral changes** need a cloud VM **product demo** (recording or screenshots) **embedded in the PR description** as attached artifacts. Procedure: `skills/obsidian-cloud-vm-demos/SKILL.md` and `.cursor/rules/pr-product-demos.mdc`.

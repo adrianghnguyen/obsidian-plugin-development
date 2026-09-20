@@ -1,0 +1,24 @@
+---
+description: PRs for user-facing or complex work need cloud VM demo artifacts embedded in the description
+alwaysApply: true
+---
+
+# PR product demos
+
+For **complex features** or **user-facing behavioral changes**, the PR is not review-ready until it includes a **product demo** that shows the feature working end-to-end.
+
+## Required evidence
+
+- Record or capture on the **Cursor Cloud VM** (not local-only proof when cloud is available).
+- Attach walkthrough media to the PR so reviewers can validate without a checkout:
+  - Prefer **screen recording** (`.mp4`) for flows; **screenshots** for static UI.
+  - Artifacts must be **embedded in the PR description** (inline video/images), not only on the agent run dashboard or in chat.
+- Use git-ignored paths (`.tmp/`, etc.) for capture files; never commit demo binaries.
+
+## How to attach
+
+Follow [obsidian-cloud-vm-demos](../../skills/obsidian-cloud-vm-demos/SKILL.md): Cloud Agent artifact posting and/or `gh pr edit --body-file … --attach ./demo.mp4`.
+
+## When it can be skipped
+
+Local-only request, zero UI/behavior impact, or cloud demo blocked (env/secrets) — say what was verified instead.
