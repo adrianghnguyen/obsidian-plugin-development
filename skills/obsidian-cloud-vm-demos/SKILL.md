@@ -35,6 +35,7 @@ If none apply, follow the plugin repo’s local `.cursor/rules/deploy-and-verify
 | Behavior, CLI, index, search, settings runtime | **Command + full relevant output** (`eval` JSON, log excerpt). Summaries alone are not enough. |
 | Both visible and behavioral | **Both** screenshot set and CLI/runtime output. |
 | New user-facing flow | Numbered steps you ran on the VM and what each step showed. |
+| Large behavioral change | **`/ui-verifier-demo`** BDD report ([obsidian-ui-verifier-demo](../obsidian-ui-verifier-demo/SKILL.md)) — happy + unhappy paths; FAIL must cite BDD gap. |
 
 **Before claiming complete**, confirm:
 

@@ -19,6 +19,8 @@ For **complex features** or **user-facing behavioral changes**, the PR is not re
 
 Follow [obsidian-cloud-vm-demos](../../skills/obsidian-cloud-vm-demos/SKILL.md): Cloud Agent artifact posting and/or `gh pr edit --body-file … --attach ./demo.mp4`.
 
+Functional BDD verification (happy + unhappy paths, PASS/FAIL report with failure explanations): delegate **`/ui-verifier-demo`** per [trigger-ui-verifier-demo](./trigger-ui-verifier-demo.mdc) and [obsidian-ui-verifier-demo](../../skills/obsidian-ui-verifier-demo/SKILL.md). Include `ui-verifier-demo-report.md` in PR or chat when behavioral scope is large.
+
 ## When it can be skipped
 
 Local-only request, zero UI/behavior impact, or cloud demo blocked (env/secrets) — say what was verified instead.

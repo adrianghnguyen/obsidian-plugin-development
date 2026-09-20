@@ -1,7 +1,7 @@
 {
   "name": "obsidian-plugin-development",
   "displayName": "Obsidian Plugin Development",
-  "version": "0.1.2",
+  "version": "0.1.3",
   "description": "Portable agent skills for building, debugging, and verifying Obsidian community plugins",
   "author": {
     "name": "Adrian Nguyen",
@@ -10,5 +10,7 @@
   "license": "MIT",
   "repository": "https://github.com/adrianghnguyen/obsidian-plugin-development",
   "keywords": ["obsidian", "plugin", "skills", "electron", "debugging"],
-  "skills": "./skills/"
+  "skills": "./skills/",
+  "agents": "./agents/",
+  "rules": ["./rules/", "./.cursor/rules/"]
 }
