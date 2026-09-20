@@ -1,0 +1,38 @@
+---
+description: Large behavioral plugin changes require ui-verifier-demo BDD functional report before done
+alwaysApply: true
+---
+
+# Trigger UI verifier demo
+
+When work touches **user-visible behavior** or qualifies as a **large change**, the implementing agent must run functional BDD verification **before** marking the task complete or opening a review-ready PR.
+
+## Delegate
+
+Foreground **`/ui-verifier-demo`** (or Task → `ui-verifier-demo` subagent). The verifier is **readonly** — it reports only.
+
+Follow [obsidian-ui-verifier-demo](../../skills/obsidian-ui-verifier-demo/SKILL.md).
+
+## When required
+
+Any of:
+
+- New or changed user flow (commands, modals, settings, status, errors, permissions)
+- **Large change heuristic:** ≥3 non-test files under `src/ui/`, `src/hooks/`, plugin settings tab, or `styles.css`
+- Same bar as [pr-product-demos](./pr-product-demos.mdc) (complex / user-facing PR)
+
+## Parent obligations
+
+1. Deploy + reload + identity gate **before** delegating.
+2. Pass plugin id, behavior summary, and repo-specific verify hints in the subagent prompt.
+3. Block **done** on verifier **FAIL** (any P0 scenario or deploy gate).
+4. On **PARTIAL**, fix P1 failures or document accepted gaps in PR/chat.
+5. Attach `ui-verifier-demo-report.md` and evidence paths to PR when applicable.
+
+## Skip (narrow)
+
+Docs/comments only, user `/no-test`, or zero behavior impact — one smoke `eval` still recommended on cloud.
+
+## Failures
+
+The verifier must explain each failure with **Expected behavior**, **Observed behavior**, and **BDD gap** (how observation violates the story). Parent summarizes verdict in the final message.

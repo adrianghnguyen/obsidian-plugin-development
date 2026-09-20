@@ -6,6 +6,9 @@ All notable changes to this Agent Plugin package are documented here.
 
 ### Added
 
+- **`ui-verifier-demo` subagent** — readonly functional verifier; BDD scenarios (happy + unhappy paths); structured report with failure explanations (expected, observed, BDD gap, failure mode).
+- **`obsidian-ui-verifier-demo` skill** — when to run, scenario design, verdict rules, report template.
+- **`trigger-ui-verifier-demo` rule** — requires delegation on large behavioral changes; blocks done on P0 FAIL.
 - `obsidian-cloud-vm-demos` skill — strict verification on Cursor Cloud VMs (runtime proof, mandatory screenshots for UI, identity gate, local vs cloud gap reporting, PR description embedded artifact URLs per Cloud Agents GitHub posting).
 - Cloud Linux E2E harness (`scripts/cloud-e2e`) — synthetic vault, AppImage + Xvfb, CDP injection of Cursor env secrets into Obsidian `secretStorage`.
 - Skill `obsidian-cloud-e2e` for Cloud Agent in-vault testing.
@@ -14,6 +17,7 @@ All notable changes to this Agent Plugin package are documented here.
 
 ### Changed
 
+- **`pr-product-demos` rule** — cross-links UI verifier demo and report attachment for behavioral PRs.
 - Cloud E2E does not inject `ANTHROPIC_API_KEY`; Claude Code stays account-login in the synthetic vault.
 
 ## [0.1.2] - 2026-09-13
