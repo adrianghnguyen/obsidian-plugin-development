@@ -59,7 +59,7 @@ obsidian vault=<name> eval code="JSON.stringify({has:!!app.secretStorage,len:((a
 
 Use sync eval pattern if `await` unsupported — see [obsidian-plugin-debug](../obsidian-plugin-debug/SKILL.md).
 
-Find secret ids in source: `SECRET_IDS`, `getSecret(`, `secretStorage.set`.
+Find secret ids in source: `SECRET_IDS`, `getSecret(`, `secretStorage.set`. Fork-specific Cursor env → id maps: [obsidian-secret-mapping](../obsidian-secret-mapping/SKILL.md).
 
 ## Empty password field ≠ delete
 
