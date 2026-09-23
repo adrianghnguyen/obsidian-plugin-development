@@ -96,6 +96,8 @@ node /agent/repos/obsidian-plugin-development/scripts/cloud-e2e/cdp.mjs enable-c
 | `Seinfeld (custom)/trivia/Q*.md` | 34 Q&A notes (question → answer → gold episode) |
 | `Seinfeld (custom)/README.md` | Corpus index + Q&A mapping |
 | `.obsidian/community-plugins.json` | Enables `seek`, `whisper`, `agent-client` |
+| `.obsidian/appearance.json` | Dark mode (`obsidian`) plus community theme **Material Gruvbox** |
+| `.obsidian/themes/Material Gruvbox/` | Vendored theme (`manifest.json`, `theme.css`, `LICENSE`) |
 | `.obsidian/plugins/*/main.js` | Built plugin artifacts from sibling repos |
 
 Q&A companion skill: `seek-seinfeld-eval` (how `query` / `answer` / `expectedEpisode` map to vault files).
