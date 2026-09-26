@@ -66,6 +66,22 @@ Write screenshots to `.tmp/` or another gitignored folder — never commit to th
 2. **Focus Obsidian window** (Win32) so `dev:screenshot` is not blank.
 3. **Per surface:** dismiss modals → prepare UI → one screenshot.
 4. **Report paths** to user; judge pass/fail from images.
+5. For flows (open → interact → close), prefer a **short screen recording** on cloud VM — see [obsidian-cloud-vm-demos](../obsidian-cloud-vm-demos/SKILL.md) and [pr-product-demos](../../.cursor/rules/pr-product-demos.mdc). Static PNGs alone do not catch flicker or layout shift.
+
+## UI jank pass (required before PR-ready UI work)
+
+Inspect **during** capture or the demo recording — not only the still frame.
+
+```
+- [ ] No sudden layout shift when content loads (modal, settings, chat, search results)
+- [ ] No visible flicker (status bar, toolbars, virtualized lists, streaming text)
+- [ ] Controls aligned; no clipped/overlapping labels or icons
+- [ ] Popovers/modals stable on open (no jump or off-screen clip)
+- [ ] Focus stays predictable (no steal while typing; modal focus trap OK)
+- [ ] Drag/resize/animation smooth enough for the feature (floating windows, panels)
+```
+
+**FAIL** any ship-blocking item before marking UI work done. Log PASS/FAIL in [obsidian-ui-verifier-demo](../obsidian-ui-verifier-demo/SKILL.md) reports when BDD verify runs. Principles: [ux-design](../ux-design/SKILL.md).
 
 ## Manual CLI
 

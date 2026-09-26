@@ -86,7 +86,30 @@ Plugin-specific playbooks (Seek telemetry, Agent Client ACP spawn, Whisper live)
 
 **Do not** parallelize Obsidian CLI. **Do not** mark PASS on build/test alone.
 
-On cloud VM, follow [obsidian-cloud-vm-demos](../obsidian-cloud-vm-demos/SKILL.md) for evidence in PR body when a PR exists.
+On cloud VM, follow [obsidian-cloud-vm-demos](../obsidian-cloud-vm-demos/SKILL.md) for evidence in PR body when a PR exists. Complex or user-facing scope also requires an embedded **`.mp4`** walkthrough in the PR (see [pr-product-demos](../../.cursor/rules/pr-product-demos.mdc)) — BDD verification does not replace that demo.
+
+---
+
+## UI jank inspection (required during walkthrough)
+
+While exercising scenarios (GUI layer), **watch the full interaction**, not only the final frame. Record or note jank during the same session used for BDD steps. On cloud VM, prefer a **screen recording** so reviewers can replay motion issues.
+
+Mark each category **PASS** or **FAIL** in the report (add a **Visual / jank** section after scenarios):
+
+| Check | FAIL examples |
+|-------|----------------|
+| Layout stability | Sudden reflow, jumping composer/modal height, settings tab rows shifting after load |
+| Flicker | Flash of empty/wrong state, toolbar or status bar blinking, list virtualizer pop-in |
+| Alignment | Misaligned icons/buttons, clipped or overlapping text, chip strip vs send control |
+| Overlays | Modal/popover position jump on open, dropdown clipped by parent, focus ring off-control |
+| Focus | Focus stolen from editor while typing, trap broken in modal, unexpected scroll jump |
+| Motion | Janky resize/drag (floating chat), stutter during streaming updates |
+
+- **P0 FAIL** — jank blocks the primary story (cannot complete flow, unreadable controls, data loss scare).
+- **P1 FAIL** — noticeable but workaround exists; document in report if shipping with acceptance.
+- Tie evidence to recording timestamp or screenshot path.
+
+Full checklist copy also lives in [obsidian-visual-verify](../obsidian-visual-verify/SKILL.md) and [ux-design](../ux-design/SKILL.md).
 
 ---
 

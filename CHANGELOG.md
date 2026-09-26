@@ -18,6 +18,7 @@ All notable changes to this Agent Plugin package are documented here.
 
 ### Changed
 
+- **`obsidian-plugin-dev` skill** — detailed release-notes standard (CHANGELOG Added/Changed/Fixed, annotated tag headline + bullets, GitHub Release publish/body, BRAT production path); `AGENTS.md` pointer.
 - **`pr-product-demos` rule** — cross-links UI verifier demo and report attachment for behavioral PRs.
 - Cloud E2E does not inject `ANTHROPIC_API_KEY`; Claude Code stays account-login in the synthetic vault.
 

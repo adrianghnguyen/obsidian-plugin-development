@@ -3,8 +3,9 @@ name: obsidian-cloud-vm-demos
 description: >-
   Strict end-to-end verification on Cursor Cloud VMs when environment.json or a
   Cloud Agent session is available. Use when finishing Obsidian plugin features,
-  fixes, or refactors in cloud — mandatory VM runtime proof and screenshots for
-  visible changes; do not treat local-only build/test as done in a cloud session.
+  fixes, or refactors in cloud — mandatory VM runtime proof; complex or
+  user-facing work needs embedded .mp4 walkthroughs plus jank inspection; do not
+  treat local-only build/test as done in a cloud session.
 ---
 
 # Cloud VM demos (strict)
@@ -34,10 +35,14 @@ If none apply, follow the plugin repo’s local `.cursor/rules/deploy-and-verify
 | UI, CSS, layout, modal, status bar, settings | **Screenshots** of every affected surface — [obsidian-visual-verify](../obsidian-visual-verify/SKILL.md) or repo-specific capture script. Show images in chat. |
 | Behavior, CLI, index, search, settings runtime | **Command + full relevant output** (`eval` JSON, log excerpt). Summaries alone are not enough. |
 | Both visible and behavioral | **Both** screenshot set and CLI/runtime output. |
-| New user-facing flow | Numbered steps you ran on the VM and what each step showed. |
+| **Complex feature** or **user-facing flow** (same bar as [pr-product-demos](../../.cursor/rules/pr-product-demos.mdc) / [trigger-ui-verifier-demo](../../.cursor/rules/trigger-ui-verifier-demo.mdc)) | **Screen recording (`.mp4`)** end-to-end on the VM, embedded in the PR when one exists. Include numbered steps in chat or PR. **Screenshots-only is not sufficient** for review-ready PRs here. |
 | Large behavioral change | **`/ui-verifier-demo`** BDD report ([obsidian-ui-verifier-demo](../obsidian-ui-verifier-demo/SKILL.md)) — happy + unhappy paths; FAIL must cite BDD gap. |
 
+**Complex / user-facing** triggers (any one): new or changed user flow; ≥3 non-test files under `src/ui/`, `src/hooks/`, settings tab, or `styles.css`; user-visible changelog bullet.
+
 Before recording or attaching media, run [obsidian-ui-visibility](../obsidian-ui-visibility/SKILL.md). Do not ship a clip where Settings or a modal covers the feature.
+
+During every **`.mp4` walkthrough** (and while capturing screenshots for animated UI), run the **UI jank checklist** in [obsidian-visual-verify](../obsidian-visual-verify/SKILL.md) and [ux-design](../ux-design/SKILL.md). Treat ship-blocking jank as incomplete work.
 
 **Before claiming complete**, confirm:
 
@@ -81,6 +86,7 @@ Chat and local `.tmp/` paths are supplementary; reviewers should validate from t
 - **Reload after deploy** — copy only `main.js`, `manifest.json`, `styles.css`; preserve `data.json`.
 - **UI proof** — use [obsidian-visual-verify](../obsidian-visual-verify/SKILL.md) with VM vault name and paths from cloud `paths.env` / project docs. Capture each touched surface (`Main`, `StatusBar`, `Settings`, plugin modal).
 - **Artifacts** — write screenshots and dumps under a **git-ignored** dir (`.tmp/`, plugin `.seek-artifacts/`, or OS temp). Never commit demo PNGs.
+- **Demo pacing** — in screen recordings, hold each distinct UI/behavior state for **≥2 seconds** after transitions finish before advancing to the next step (click, hotkey, or navigation). Avoid rapid montages that hide what changed.
 
 If screenshot capture fails, fix and **retry once**; then report CLI error output — do not mark UI work complete.
 
