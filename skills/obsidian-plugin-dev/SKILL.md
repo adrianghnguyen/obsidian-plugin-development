@@ -147,13 +147,18 @@ Promote to production only when user explicitly requests — see [obsidian-plugi
 2. Decide semver from highest-impact change.
 3. Rename `## [Unreleased]` → `## X.Y.Z`.
 4. Bump `manifest.json` `version`. Sync `package.json` / `versions.json` if used.
-5. Deploy to production → **restart Obsidian** after version change.
+5. Annotated **Git tag** matching `manifest.json` (no `v` prefix), push tag, wait for release workflow.
+6. **Publish** the GitHub Release (not draft). Production vault uses **BRAT** on published release assets — not manual copy unless explicitly requested.
 
 | Change | Bump |
 |--------|------|
 | Bug fix, regression | PATCH |
 | New backward-compatible feature | MINOR |
 | Breaking change | MAJOR |
+
+### GitHub Release (Obsidian + BRAT)
+
+Obsidian and BRAT install from a **published** GitHub Release whose tag **exactly matches** `manifest.json` `version`, with `main.js`, `manifest.json`, and `styles.css` attached. Tag push triggers `.github/workflows/release.yml`; if the workflow creates a **draft**, run `gh release edit <version> --draft=false` before treating the release as shipped. Manifest on `main` without a published release for that version breaks BRAT updates.
 
 ---
 
