@@ -11,7 +11,7 @@ description: >-
 
 Independent **functional** proof after deploy + reload. Screenshots alone are not enough when behavior changed — exercise **happy paths** and **unhappy paths**, then emit a **BDD report** that states **PASS**, **FAIL**, or **PARTIAL** and explains every failure against the intended behavior.
 
-**Related:** [obsidian-cloud-vm-demos](../obsidian-cloud-vm-demos/SKILL.md), [obsidian-visual-verify](../obsidian-visual-verify/SKILL.md), [obsidian-plugin-dev](../obsidian-plugin-dev/SKILL.md), [obsidian-multi-vault-cli](../obsidian-multi-vault-cli/SKILL.md), [obsidian-plugin-debug](../obsidian-plugin-debug/SKILL.md).
+**Related:** [obsidian-cloud-vm-demos](../obsidian-cloud-vm-demos/SKILL.md), [obsidian-visual-verify](../obsidian-visual-verify/SKILL.md), [obsidian-plugin-dev](../obsidian-plugin-dev/SKILL.md), [obsidian-multi-vault-cli](../obsidian-multi-vault-cli/SKILL.md), [obsidian-plugin-debug](../obsidian-plugin-debug/SKILL.md), [obsidian-pr-acceptance-review](../obsidian-pr-acceptance-review/SKILL.md) (after BDD + demo, before 🟠).
 
 **Subagent:** `/ui-verifier-demo` — parent agents should delegate here (foreground, not background) when this skill applies.
 
@@ -158,4 +158,5 @@ If FAIL, include the **BDD gap** sentence for each P0 failure in the handoff mes
 ## See also
 
 - [obsidian-visual-verify](../obsidian-visual-verify/SKILL.md) — capture surfaces referenced in report
+- [obsidian-pr-acceptance-review](../obsidian-pr-acceptance-review/SKILL.md) — PR checklist gate before human verify
 - [walkthrough-artifacts](https://cursor.com/docs/cloud-agent/capabilities#artifacts-in-github) — PR embed policy
