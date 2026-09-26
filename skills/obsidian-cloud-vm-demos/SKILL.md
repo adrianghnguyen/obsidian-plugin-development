@@ -37,6 +37,7 @@ If none apply, follow the plugin repo’s local `.cursor/rules/deploy-and-verify
 | Both visible and behavioral | **Both** screenshot set and CLI/runtime output. |
 | **Complex feature** or **user-facing flow** (same bar as [pr-product-demos](../../.cursor/rules/pr-product-demos.mdc) / [trigger-ui-verifier-demo](../../.cursor/rules/trigger-ui-verifier-demo.mdc)) | **Screen recording (`.mp4`)** end-to-end on the VM, embedded in the PR when one exists. Include numbered steps in chat or PR. **Screenshots-only is not sufficient** for review-ready PRs here. |
 | Large behavioral change | **`/ui-verifier-demo`** BDD report ([obsidian-ui-verifier-demo](../obsidian-ui-verifier-demo/SKILL.md)) — happy + unhappy paths; FAIL must cite BDD gap. |
+| Before human verify (🟠) | **`/pr-acceptance-review`** — PR **`## Acceptance review`** checklist ([obsidian-pr-acceptance-review](../obsidian-pr-acceptance-review/SKILL.md)). |
 
 **Complex / user-facing** triggers (any one): new or changed user flow; ≥3 non-test files under `src/ui/`, `src/hooks/`, settings tab, or `styles.css`; user-visible changelog bullet.
 

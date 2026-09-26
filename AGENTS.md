@@ -34,6 +34,10 @@ Before UI work is PR-ready, run the **UI jank pass/fail checklist** during the d
 
 Large or behavioral plugin work must delegate **`/ui-verifier-demo`** before done. The subagent runs happy and unhappy paths, writes `ui-verifier-demo-report.md` (**PASS** / **PARTIAL** / **FAIL**), and on failure explains **expected vs observed** behavior and the **BDD gap**. Skill: `skills/obsidian-ui-verifier-demo/SKILL.md`. Rule: `rules/trigger-ui-verifier-demo.mdc`. **Does not replace** the `.mp4` product demo or jank gate above when both apply.
 
+## PR acceptance review (before human verify)
+
+Before moving work to **🟠 Requires user input**, delegate **`/pr-acceptance-review`**. The subagent derives acceptance criteria from the PR, reviews embedded demo media, and updates the PR body with **`## Acceptance review`** (checklist + evidence). Skill: `skills/obsidian-pr-acceptance-review/SKILL.md`. Agent stub: `.cursor/agents/pr-acceptance-review.md`. **Do not** ask Adrian to verify until **Verdict: PASS** and all AC boxes are checked.
+
 ## Agent Client — verify UX
 
 When demos or verification touch floating chat, multi-session, or tabs: use **tabbed floating chat** (Settings → Floating chat → Enable floating chat tabs; multiple sessions as tabs in one floating window), not sidebar-only, unless the task is sidebar-specific. Fork playbook: `obsidian-agent-client` repo `AGENTS.md` → *Cloud Agent UI demos*.
