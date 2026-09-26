@@ -157,8 +157,9 @@ When cutting a release, the new version section must stand alone for users and f
 2. Decide semver from highest-impact change.
 3. Rename `## [Unreleased]` → `## X.Y.Z`.
 4. Bump `manifest.json` `version`. Sync `package.json` / `versions.json` if used.
-5. **Tag + GitHub Release** (see below) — production vault updates via **BRAT** from published release assets, not manual copy.
-6. After BRAT picks up the release on vault `Obsidian`, confirm installed `manifest.version` matches the tag.
+5. Annotated **Git tag** matching `manifest.json` (no `v` prefix), push tag, wait for release workflow (see below).
+6. **Publish** the GitHub Release (not draft). Production vault updates via **BRAT** from published release assets — not manual copy unless explicitly requested.
+7. After BRAT picks up the release on vault `Obsidian`, confirm installed `manifest.version` matches the tag.
 
 | Change | Bump |
 |--------|------|
@@ -186,7 +187,7 @@ Avoid tags whose entire message is only `X.Y.Z`.
 
 ### GitHub Release and BRAT install path
 
-Sibling plugin repos use a **tag-push release workflow** that uploads `main.js`, `manifest.json`, and `styles.css`. Workflows often create a **draft** release first.
+Obsidian and BRAT install from a **published** GitHub Release whose tag **exactly matches** `manifest.json` `version`, with `main.js`, `manifest.json`, and `styles.css` attached. Tag push triggers `.github/workflows/release.yml` in sibling plugin repos; workflows often create a **draft** release first. Manifest on `main` without a published release for that version breaks BRAT updates.
 
 1. Wait for CI/workflow to attach assets to the tag.
 2. **Publish:** `gh release edit "$VERSION" --repo <owner/repo> --draft=false`
