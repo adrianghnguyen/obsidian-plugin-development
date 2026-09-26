@@ -23,7 +23,7 @@ Any of:
 
 ## Parent obligations
 
-1. Deploy + reload + identity gate **before** delegating.
+1. Deploy + reload + identity gate **before** delegating. Run [obsidian-ui-visibility](../skills/obsidian-ui-visibility/SKILL.md) before screenshots or recordings.
 2. Pass plugin id, behavior summary, and repo-specific verify hints in the subagent prompt.
 3. Block **done** on verifier **FAIL** (any P0 scenario or deploy gate).
 4. On **PARTIAL**, fix P1 failures or document accepted gaps in PR/chat.

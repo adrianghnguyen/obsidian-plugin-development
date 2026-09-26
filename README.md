@@ -84,6 +84,7 @@ Copy [`references/machine-profile.example.md`](references/machine-profile.exampl
 | [obsidian-settings-secrets](skills/obsidian-settings-secrets/SKILL.md) | `data.json`, `secretStorage`, device-local settings, settings UI gate |
 | [obsidian-startup-performance](skills/obsidian-startup-performance/SKILL.md) | Slow startup, overlay buckets, `onload` stalls, paint lag |
 | [obsidian-visual-verify](skills/obsidian-visual-verify/SKILL.md) | Screenshot proof after UI/CSS/layout changes |
+| [obsidian-ui-visibility](skills/obsidian-ui-visibility/SKILL.md) | Before a demo: control is mounted, on screen, uncovered, and large enough |
 | [obsidian-cloud-vm-demos](skills/obsidian-cloud-vm-demos/SKILL.md) | Strict Cloud Agent / VM end-to-end demos (screenshots + CLI output) |
 | [obsidian-ui-verifier-demo](skills/obsidian-ui-verifier-demo/SKILL.md) | BDD functional verify (happy/unhappy paths); PASS/FAIL report with BDD gap on failures |
 | **Subagent** [`ui-verifier-demo`](agents/ui-verifier-demo.md) | Delegate on large behavioral changes — readonly demo + report (`/ui-verifier-demo`) |

@@ -37,6 +37,8 @@ If none apply, follow the plugin repo’s local `.cursor/rules/deploy-and-verify
 | New user-facing flow | Numbered steps you ran on the VM and what each step showed. |
 | Large behavioral change | **`/ui-verifier-demo`** BDD report ([obsidian-ui-verifier-demo](../obsidian-ui-verifier-demo/SKILL.md)) — happy + unhappy paths; FAIL must cite BDD gap. |
 
+Before recording or attaching media, run [obsidian-ui-visibility](../obsidian-ui-visibility/SKILL.md). Do not ship a clip where Settings or a modal covers the feature.
+
 **Before claiming complete**, confirm:
 
 1. Env bootstrap on VM (`environment.json` `install` / `start`, or repo `scripts/cloud-e2e/` / `GETTING-STARTED.md` when present).

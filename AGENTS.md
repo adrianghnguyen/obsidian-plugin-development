@@ -22,6 +22,10 @@ Project overview (do not copy): `/cursor/stores/bc-a8a2e9ee-3f2b-4d31-ae8c-85b37
 
 **Complex features** and **user-facing behavioral changes** need a cloud VM **product demo** (recording or screenshots) **embedded in the PR description** as attached artifacts. Procedure: `skills/obsidian-cloud-vm-demos/SKILL.md` and `.cursor/rules/pr-product-demos.mdc`.
 
+## UI visibility (before any demo)
+
+Before a screenshot or screen recording, run **`obsidian-ui-visibility`**. The demo fails if Settings, a modal, or another window covers the control, or if the control is missing, off screen, or too small to see. DOM probes and computed styles do not replace that check. Skill: `skills/obsidian-ui-visibility/SKILL.md`.
+
 ## UI verifier demo (BDD functional)
 
 Large or behavioral plugin work must delegate **`/ui-verifier-demo`** before done. The subagent runs happy and unhappy paths, writes `ui-verifier-demo-report.md` (**PASS** / **PARTIAL** / **FAIL**), and on failure explains **expected vs observed** behavior and the **BDD gap**. Skill: `skills/obsidian-ui-verifier-demo/SKILL.md`. Rule: `rules/trigger-ui-verifier-demo.mdc`.

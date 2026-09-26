@@ -14,6 +14,7 @@ For **complex features** or **user-facing behavioral changes**, the PR is not re
   - Prefer **screen recording** (`.mp4`) for flows; **screenshots** for static UI.
   - Artifacts must be **embedded in the PR description** (inline video/images), not only on the agent run dashboard or in chat.
 - Use git-ignored paths (`.tmp/`, etc.) for capture files; never commit demo binaries.
+- Run [obsidian-ui-visibility](../../skills/obsidian-ui-visibility/SKILL.md) before capture. A demo where Settings or a modal covers the feature is not review-ready.
 
 ## How to attach
 

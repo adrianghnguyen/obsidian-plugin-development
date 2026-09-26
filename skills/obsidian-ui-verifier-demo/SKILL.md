@@ -81,7 +81,7 @@ Plugin-specific playbooks (Seek telemetry, Agent Client ACP spawn, Whisper live)
 | Layer | Tool |
 |-------|------|
 | CLI behavior | Serial `obsidian vault=… eval`, plugin commands, log excerpts |
-| GUI flows | `computerUse` subagent or manual steps + `dev:screenshot` / screen recording |
+| GUI flows | `computerUse` subagent or manual steps + `dev:screenshot` / screen recording. Run [obsidian-ui-visibility](../obsidian-ui-visibility/SKILL.md) first; a covered or tiny control is a P0 FAIL |
 | DOM spot checks | `dev:dom` when labels/footer must match behavior |
 
 **Do not** parallelize Obsidian CLI. **Do not** mark PASS on build/test alone.
