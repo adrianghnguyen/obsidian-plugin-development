@@ -25,3 +25,7 @@ Project overview (do not copy): `/cursor/stores/bc-a8a2e9ee-3f2b-4d31-ae8c-85b37
 ## UI verifier demo (BDD functional)
 
 Large or behavioral plugin work must delegate **`/ui-verifier-demo`** before done. The subagent runs happy and unhappy paths, writes `ui-verifier-demo-report.md` (**PASS** / **PARTIAL** / **FAIL**), and on failure explains **expected vs observed** behavior and the **BDD gap**. Skill: `skills/obsidian-ui-verifier-demo/SKILL.md`. Rule: `rules/trigger-ui-verifier-demo.mdc`.
+
+## Agent Client — verify UX
+
+When demos or verification touch floating chat, multi-session, or tabs: use **tabbed floating chat** (Settings → Floating chat → Enable floating chat tabs; multiple sessions as tabs in one floating window), not sidebar-only, unless the task is sidebar-specific. Fork playbook: `obsidian-agent-client` repo `AGENTS.md` → *Cloud Agent UI demos*.
