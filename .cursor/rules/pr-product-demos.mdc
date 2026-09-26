@@ -7,13 +7,23 @@ alwaysApply: true
 
 For **complex features** or **user-facing behavioral changes**, the PR is not review-ready until it includes a **product demo** that shows the feature working end-to-end.
 
+## When “complex” applies
+
+Use the **same heuristics** as [trigger-ui-verifier-demo](./trigger-ui-verifier-demo.mdc) (BDD verifier is separate and still required when that rule applies — demos do not replace it):
+
+- New or changed user flow (commands, modals, settings, status, errors, permissions)
+- **Large change heuristic:** ≥3 non-test files under `src/ui/`, `src/hooks/`, plugin settings tab, or `styles.css`
+- Any user-facing `[Unreleased]` changelog bullet for behavior or UI
+
 ## Required evidence
 
 - Record or capture on the **Cursor Cloud VM** (not local-only proof when cloud is available).
 - Attach walkthrough media to the PR so reviewers can validate without a checkout:
-  - Prefer **screen recording** (`.mp4`) for flows; **screenshots** for static UI.
+  - **Screen recording (`.mp4`)** — **required** for complex features and user-facing flows (multi-step interaction, animation, modal/settings/status changes, anything the verifier exercises). **Screenshots-only is not enough** for review-ready PRs in those cases.
+  - **Screenshots** — sufficient only for **static** layout/copy proof with no interaction story (still pair with CLI/eval when behavior changed).
   - Artifacts must be **embedded in the PR description** (inline video/images), not only on the agent run dashboard or in chat.
-- Use git-ignored paths (`.tmp/`, etc.) for capture files; never commit demo binaries.
+- During the recording or live walkthrough, run the **UI jank pass** in [obsidian-visual-verify](../../skills/obsidian-visual-verify/SKILL.md) and [ux-design](../../skills/ux-design/SKILL.md) — fail the demo if jank is ship-blocking.
+- Use git-ignored paths (`.tmp/`, `/opt/cursor/artifacts/` on cloud) for capture files; never commit demo binaries.
 - **Pacing:** After each visible state or behavior change (panel open, tab switch, message sent, error shown, etc.), **pause at least 2 seconds** on that state before moving to the next demo step so reviewers can read and follow the transition.
 
 ## How to attach
