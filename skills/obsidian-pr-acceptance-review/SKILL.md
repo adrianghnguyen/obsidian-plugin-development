@@ -11,7 +11,7 @@ description: >-
 
 **Last gate before human verify.** After code, deploy, BDD (`/ui-verifier-demo` when required), and product demo are in place, a **readonly** reviewer subagent confirms the PR tells a coherent story and the embedded screenshots/videos **prove** the intended user behaviors. It **may edit the PR description only** — append or replace a standard **`## Acceptance review`** section with a checklist and evidence notes.
 
-**Related:** [pr-product-demos](../../.cursor/rules/pr-product-demos.mdc), [obsidian-cloud-vm-demos](../obsidian-cloud-vm-demos/SKILL.md), [obsidian-ui-verifier-demo](../obsidian-ui-verifier-demo/SKILL.md), [obsidian-visual-verify](../obsidian-visual-verify/SKILL.md), [ux-design](../ux-design/SKILL.md). Project bar: user store `docs/ui-ship-quality.md`.
+**Related:** [pr-draft-ready](../../.cursor/rules/pr-draft-ready.mdc), [pr-product-demos](../../.cursor/rules/pr-product-demos.mdc), [obsidian-cloud-vm-demos](../obsidian-cloud-vm-demos/SKILL.md), [obsidian-ui-verifier-demo](../obsidian-ui-verifier-demo/SKILL.md), [obsidian-visual-verify](../obsidian-visual-verify/SKILL.md), [ux-design](../ux-design/SKILL.md). Project bar: user store `docs/ui-ship-quality.md`.
 
 **Subagent:** `/pr-acceptance-review` (or Task → `pr-acceptance-review`) — delegate **foreground** before 🟠 **Requires user input**.
 
