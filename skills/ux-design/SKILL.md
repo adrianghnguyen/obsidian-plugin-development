@@ -63,6 +63,21 @@ Keep labels, options, and current state visible. Match familiar platform pattern
 - [ ] Matches platform patterns
 ```
 
+## UI jank ship gate (interaction + motion)
+
+Before PR-ready UI, verify during a **live walkthrough** or **`.mp4`** on the cloud VM when available ([obsidian-cloud-vm-demos](../obsidian-cloud-vm-demos/SKILL.md)). Complements BDD [obsidian-ui-verifier-demo](../obsidian-ui-verifier-demo/SKILL.md); does not replace it.
+
+```
+- [ ] Layout stable after load (no reflow jumps in settings/modals/chat)
+- [ ] No flicker on status bar, lists, or streaming content
+- [ ] Text and controls not clipped or overlapping
+- [ ] Overlays open without position jump; not clipped by parents
+- [ ] Focus behavior acceptable (no typing interruptions; modal traps work)
+- [ ] Drag/resize/animations feel smooth for the feature
+```
+
+Capture checklist: [obsidian-visual-verify](../obsidian-visual-verify/SKILL.md). Complex features need embedded video in the PR ([pr-product-demos](../../.cursor/rules/pr-product-demos.mdc)).
+
 ## Obsidian appendix
 
 | Need | Pattern |

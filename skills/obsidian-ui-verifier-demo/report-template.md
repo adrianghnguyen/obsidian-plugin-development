@@ -10,6 +10,17 @@
 | **Date (UTC)** | `<ISO>` |
 | **Verifier** | ui-verifier-demo subagent |
 
+## Visual / jank (walkthrough)
+
+| Check | Result (PASS/FAIL) | Notes / evidence |
+|-------|-------------------|------------------|
+| Layout stability | | |
+| Flicker | | |
+| Alignment / clipping | | |
+| Overlays / modals | | |
+| Focus behavior | | |
+| Motion (drag/resize/stream) | | |
+
 ## Verdict
 
 **`<PASS | PARTIAL | FAIL>`**
