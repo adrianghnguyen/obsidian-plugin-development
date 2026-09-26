@@ -18,6 +18,10 @@ This repo owns the Cloud Agent setup. Sibling plugin `main`s carry the same `.cu
 
 Project overview (do not copy): `/cursor/stores/bc-a8a2e9ee-3f2b-4d31-ae8c-85b3734c071e/docs/cursor-environment-docs.md`
 
+## Plugin release notes
+
+When shipping sibling Obsidian plugins, use **detailed** changelog sections (Added/Changed/Fixed), **annotated tags** (headline + bullet lines), and **published GitHub Releases** (optional body from CHANGELOG) — production installs via BRAT. Full standard: `skills/obsidian-plugin-dev/SKILL.md` → *Release notes and semantic versioning*.
+
 ## PR product demos
 
 **Complex features** and **user-facing behavioral changes** need a cloud VM **product demo** (recording or screenshots) **embedded in the PR description** as attached artifacts. Procedure: `skills/obsidian-cloud-vm-demos/SKILL.md` and `.cursor/rules/pr-product-demos.mdc`.
