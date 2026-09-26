@@ -272,5 +272,6 @@ Full CLI list: [reference.md](reference.md)
 - [obsidian-plugin-debug](../obsidian-plugin-debug/SKILL.md) — eval, DevTools
 - [obsidian-plugin-testing](../obsidian-plugin-testing/SKILL.md) — Vitest before deploy
 - [obsidian-visual-verify](../obsidian-visual-verify/SKILL.md) — UI proof
+- [obsidian-ui-visibility](../obsidian-ui-visibility/SKILL.md) — before a demo, prove the control is visible
 - [obsidian-ui-verifier-demo](../obsidian-ui-verifier-demo/SKILL.md) — BDD functional verify; `/ui-verifier-demo` on large behavior changes
 - [obsidian-plugin-review](../obsidian-plugin-review/SKILL.md) — review antipatterns

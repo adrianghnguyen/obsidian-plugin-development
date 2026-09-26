@@ -41,6 +41,8 @@ If none apply, follow the plugin repo’s local `.cursor/rules/deploy-and-verify
 
 **Complex / user-facing** triggers (any one): new or changed user flow; ≥3 non-test files under `src/ui/`, `src/hooks/`, settings tab, or `styles.css`; user-visible changelog bullet.
 
+Before recording or attaching media, run [obsidian-ui-visibility](../obsidian-ui-visibility/SKILL.md). Do not ship a clip where Settings or a modal covers the feature.
+
 During every **`.mp4` walkthrough** (and while capturing screenshots for animated UI), run the **UI jank checklist** in [obsidian-visual-verify](../obsidian-visual-verify/SKILL.md) and [ux-design](../ux-design/SKILL.md). Treat ship-blocking jank as incomplete work.
 
 **Before claiming complete**, confirm:

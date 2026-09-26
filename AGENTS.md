@@ -30,6 +30,10 @@ When shipping sibling Obsidian plugins, use **detailed** changelog sections (Add
 
 Before UI work is PR-ready, run the **UI jank pass/fail checklist** during the demo walkthrough (layout shift, flicker, alignment, overlays, focus, motion). Skills: `skills/obsidian-visual-verify/SKILL.md`, `skills/ux-design/SKILL.md`; recorded in BDD reports via `skills/obsidian-ui-verifier-demo/SKILL.md`.
 
+## UI visibility (before any demo)
+
+Before a screenshot or screen recording, run **`obsidian-ui-visibility`**. The demo fails if Settings, a modal, or another window covers the control, or if the control is missing, off screen, or too small to see. DOM probes and computed styles do not replace that check. Skill: `skills/obsidian-ui-visibility/SKILL.md`.
+
 ## UI verifier demo (BDD functional)
 
 Large or behavioral plugin work must delegate **`/ui-verifier-demo`** before done. The subagent runs happy and unhappy paths, writes `ui-verifier-demo-report.md` (**PASS** / **PARTIAL** / **FAIL**), and on failure explains **expected vs observed** behavior and the **BDD gap**. Skill: `skills/obsidian-ui-verifier-demo/SKILL.md`. Rule: `rules/trigger-ui-verifier-demo.mdc`. **Does not replace** the `.mp4` product demo or jank gate above when both apply.

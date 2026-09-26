@@ -25,6 +25,7 @@ Use the **same heuristics** as [trigger-ui-verifier-demo](./trigger-ui-verifier-
 - During the recording or live walkthrough, run the **UI jank pass** in [obsidian-visual-verify](../../skills/obsidian-visual-verify/SKILL.md) and [ux-design](../../skills/ux-design/SKILL.md) — fail the demo if jank is ship-blocking.
 - Use git-ignored paths (`.tmp/`, `/opt/cursor/artifacts/` on cloud) for capture files; never commit demo binaries.
 - **Pacing:** After each visible state or behavior change (panel open, tab switch, message sent, error shown, etc.), **pause at least 2 seconds** on that state before moving to the next demo step so reviewers can read and follow the transition.
+- Run [obsidian-ui-visibility](../../skills/obsidian-ui-visibility/SKILL.md) before capture. A demo where Settings or a modal covers the feature is not review-ready.
 
 ## How to attach
 

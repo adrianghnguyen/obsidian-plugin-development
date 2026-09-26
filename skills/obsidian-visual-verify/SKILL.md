@@ -31,6 +31,8 @@ After deploy + `plugin:reload` when the task touches:
 
 **Do not** open Settings unless capturing `Settings`.
 
+Before any capture, run [obsidian-ui-visibility](../obsidian-ui-visibility/SKILL.md). A screenshot or recording fails when Settings, a modal, or another window covers the control.
+
 ## Driver script
 
 From your plugin repo (PowerShell, **serial**):
