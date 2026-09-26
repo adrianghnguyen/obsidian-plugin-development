@@ -28,7 +28,7 @@ Any of:
 3. Block **done** on verifier **FAIL** (any P0 scenario or deploy gate).
 4. On **PARTIAL**, fix P1 failures or document accepted gaps in PR/chat.
 5. Attach `ui-verifier-demo-report.md` and evidence paths to PR when applicable.
-6. After PASS (or accepted PARTIAL), run **`/pr-acceptance-review`** before 🟠 — [obsidian-pr-acceptance-review](../../skills/obsidian-pr-acceptance-review/SKILL.md).
+6. After PASS (or accepted PARTIAL), run **`/pr-acceptance-review`** before 🟠 — [obsidian-pr-acceptance-review](../../skills/obsidian-pr-acceptance-review/SKILL.md). Mark the PR **Ready for review** only after acceptance **PASS** when that skill applies — [pr-draft-ready](./pr-draft-ready.mdc).
 
 ## Skip (narrow)
 

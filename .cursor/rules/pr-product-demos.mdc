@@ -5,7 +5,7 @@ alwaysApply: true
 
 # PR product demos
 
-For **complex features** or **user-facing behavioral changes**, the PR is not review-ready until it includes a **product demo** that shows the feature working end-to-end.
+For **complex features** or **user-facing behavioral changes**, the PR is not review-ready until it includes a **product demo** that shows the feature working end-to-end. Keep the PR **Draft** until demo + other [pr-draft-ready](./pr-draft-ready.mdc) gates are met, then mark **Ready for review**.
 
 ## When “complex” applies
 

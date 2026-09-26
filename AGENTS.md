@@ -22,11 +22,13 @@ Project overview (do not copy): `/cursor/stores/bc-a8a2e9ee-3f2b-4d31-ae8c-85b37
 
 When shipping sibling Obsidian plugins, use **detailed** changelog sections (Added/Changed/Fixed), **annotated tags** (headline + bullet lines), and **published GitHub Releases** (optional body from CHANGELOG) — production installs via BRAT. Full standard: `skills/obsidian-plugin-dev/SKILL.md` → *Release notes and semantic versioning*.
 
+## PR draft vs ready for review
+
+Create PRs as **Draft** by default. Mark **Ready for review** only after self-review, green CI, deploy verify, demo/BDD/acceptance when applicable, and **`obsidian-pr-ship-sync`** so the PR body matches shipped code and the latest demo. After substantive reviewer fixes, back to **Draft**, then **Ready** again. Rule: `.cursor/rules/pr-draft-ready.mdc`; procedure: `skills/obsidian-pr-ship-sync/SKILL.md`.
+
 ## PR product demos
 
 **Complex features** and **user-facing behavioral changes** need a cloud VM **`.mp4` screen recording** walkthrough **embedded in the PR description** (screenshots-only is not enough for those PRs). Same “complex” bar as `rules/trigger-ui-verifier-demo.mdc`. Procedure: `skills/obsidian-cloud-vm-demos/SKILL.md` and `.cursor/rules/pr-product-demos.mdc`.
-
-**After demo:** Run skill **`obsidian-pr-ship-sync`** — sync PR title, description, embedded media, acceptance review, then **`draft: false`**. Rule: `.cursor/rules/pr-draft-ready.mdc` (thin trigger; full checklist in the skill).
 
 ## UI jank verification
 
