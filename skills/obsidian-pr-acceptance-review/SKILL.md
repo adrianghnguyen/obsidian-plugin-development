@@ -29,6 +29,7 @@ Run **after**:
 - Implementing agent marked code complete, tests/build green, sandbox/cloud deploy verified.
 - **`/ui-verifier-demo`** finished when [trigger-ui-verifier-demo](../../.cursor/rules/trigger-ui-verifier-demo.mdc) applies (PASS or accepted PARTIAL documented).
 - Product demo embedded in PR when [pr-product-demos](../../.cursor/rules/pr-product-demos.mdc) applies.
+- Implementing agent ran [pr-draft-ready](../../.cursor/rules/pr-draft-ready.mdc) **`update_pr`** so description and media match the latest clip (acceptance review must not PASS against stale embeds).
 
 **Skip** only for: docs/comments-only PRs, dependency bumps with zero behavior/UI delta, or explicit user `/no-test` (still add a minimal **Acceptance review** noting skip reason).
 

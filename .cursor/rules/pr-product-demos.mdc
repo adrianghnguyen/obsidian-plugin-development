@@ -29,7 +29,9 @@ Use the **same heuristics** as [trigger-ui-verifier-demo](./trigger-ui-verifier-
 
 ## How to attach
 
-Follow [obsidian-cloud-vm-demos](../../skills/obsidian-cloud-vm-demos/SKILL.md): Cloud Agent artifact posting and/or `gh pr edit --body-file … --attach ./demo.mp4`.
+Follow [obsidian-cloud-vm-demos](../../skills/obsidian-cloud-vm-demos/SKILL.md). Prefer **`ManagePullRequest` `update_pr`** to refresh the PR **body** with embedded `/opt/cursor/artifacts/` media. Manual fallback: `gh pr edit --body-file … --attach ./demo.mp4`.
+
+After media is captured, complete [pr-draft-ready](./pr-draft-ready.mdc) (**`update_pr` on description → then `draft: false`**) — do not mark Ready with stale description or old clips.
 
 Functional BDD verification (happy + unhappy paths, PASS/FAIL report with failure explanations): delegate **`/ui-verifier-demo`** per [trigger-ui-verifier-demo](./trigger-ui-verifier-demo.mdc) and [obsidian-ui-verifier-demo](../../skills/obsidian-ui-verifier-demo/SKILL.md). Include `ui-verifier-demo-report.md` in PR or chat when behavioral scope is large.
 

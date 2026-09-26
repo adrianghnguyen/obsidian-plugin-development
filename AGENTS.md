@@ -26,6 +26,8 @@ When shipping sibling Obsidian plugins, use **detailed** changelog sections (Add
 
 **Complex features** and **user-facing behavioral changes** need a cloud VM **`.mp4` screen recording** walkthrough **embedded in the PR description** (screenshots-only is not enough for those PRs). Same “complex” bar as `rules/trigger-ui-verifier-demo.mdc`. Procedure: `skills/obsidian-cloud-vm-demos/SKILL.md` and `.cursor/rules/pr-product-demos.mdc`.
 
+**After demo:** **`ManagePullRequest` `update_pr`** — refresh PR description and embedded media to match the recording, fix **`## Acceptance review`** evidence, then **`draft: false`**. Rule: `.cursor/rules/pr-draft-ready.mdc` (do not mark Ready while the body still describes superseded UI).
+
 ## UI jank verification
 
 Before UI work is PR-ready, run the **UI jank pass/fail checklist** during the demo walkthrough (layout shift, flicker, alignment, overlays, focus, motion). Skills: `skills/obsidian-visual-verify/SKILL.md`, `skills/ux-design/SKILL.md`; recorded in BDD reports via `skills/obsidian-ui-verifier-demo/SKILL.md`.

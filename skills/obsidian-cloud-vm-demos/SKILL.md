@@ -70,8 +70,9 @@ Follow Cursor [Cloud Agent capabilities — Demos and Artifacts](https://cursor.
 | Step | Action |
 |------|--------|
 | Dashboard | Enable **Allow posting artifacts to GitHub** ([Cloud Agents → My pull requests](https://cursor.com/dashboard/cloud-agents)). |
-| Cloud Agent PR | Upload walkthrough artifacts during verify; confirm the PR **description** contains embedded screenshot/video URLs after upload (`artifact_created` on the run dashboard). |
-| Manual PR from VM | `gh pr edit <n> --body-file BODY.md --attach ./path.png --attach ./demo.mp4` so GitHub CLI rewrites to embedded URLs ([attaching files](https://docs.github.com/en/github-cli/github-cli/attaching-files-with-github-cli)). |
+| Cloud Agent PR | **`ManagePullRequest` `update_pr`** — rewrite description + embed `/opt/cursor/artifacts/` paths in `<video>` / `<img>` tags; confirm embedded URLs on the PR after upload (`artifact_created` on the run dashboard). |
+| Ready for review | Same turn: **`update_pr`** with **`draft: false`** only after the body matches the demo ([pr-draft-ready](../../.cursor/rules/pr-draft-ready.mdc)). |
+| Manual PR from VM | Fallback: `gh pr edit <n> --body-file BODY.md --attach ./path.png --attach ./demo.mp4` ([attaching files](https://docs.github.com/en/github-cli/github-cli/attaching-files-with-github-cli)). |
 | Blocked | Tell the user posting is off or failed; enable setting or use `gh pr edit`/`gh pr comment --attach` — do not mark UI/flow work complete with agent-link-only proof. |
 
 Chat and local `.tmp/` paths are supplementary; reviewers should validate from the **PR body** without a local checkout.
