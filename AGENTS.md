@@ -24,7 +24,7 @@ When shipping sibling Obsidian plugins, use **detailed** changelog sections (Add
 
 ## PR draft vs ready for review
 
-Create PRs as **Draft** by default; mark **Ready for review** only after self-review, green CI, deploy verify, and (when applicable) demo/BDD/acceptance gates — not while large commits are still expected. After substantive reviewer fixes, back to **Draft**, then **Ready** again. Rule: `.cursor/rules/pr-draft-ready.mdc`.
+Create PRs as **Draft** by default. Mark **Ready for review** only after self-review, green CI, deploy verify, demo/BDD/acceptance when applicable, and **`obsidian-pr-ship-sync`** so the PR body matches shipped code and the latest demo. After substantive reviewer fixes, back to **Draft**, then **Ready** again. Rule: `.cursor/rules/pr-draft-ready.mdc`; procedure: `skills/obsidian-pr-ship-sync/SKILL.md`.
 
 ## PR product demos
 

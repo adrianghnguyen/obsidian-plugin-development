@@ -1,0 +1,17 @@
+---
+description: After demo, sync PR via obsidian-pr-ship-sync before Ready for review
+alwaysApply: true
+---
+
+# PR draft → ready
+
+Create PRs as **Draft** by default. **Ready for review** only when title, description, embedded media, and acceptance review match **shipped code and the latest demo**.
+
+Follow **[obsidian-pr-ship-sync](../skills/obsidian-pr-ship-sync/SKILL.md)** in the same turn as demo completion:
+
+1. **`ManagePullRequest` `update_pr`** — full body + artifacts + acceptance evidence.
+2. **`ManagePullRequest` `update_pr`** — **`draft: false`** only after step 1.
+
+Do not mark Ready with stale copy (e.g. “live wave” after level bars) or PASS tied to old clips.
+
+**Related:** [pr-product-demos](../.cursor/rules/pr-product-demos.mdc), [obsidian-cloud-vm-demos](../skills/obsidian-cloud-vm-demos/SKILL.md), [obsidian-pr-acceptance-review](../skills/obsidian-pr-acceptance-review/SKILL.md).

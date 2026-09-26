@@ -1,5 +1,5 @@
 ---
-description: When to keep a PR in Draft vs mark Ready for review (before human verify)
+description: Draft vs Ready — ship-sync PR body/demo before marking Ready for review
 alwaysApply: true
 ---
 
@@ -7,9 +7,14 @@ alwaysApply: true
 
 **Default:** create pull requests as **Draft** (early visibility, branch CI, WIP commits). **Draft = do not review** — implementation, verification, or acceptance work may still be in flight.
 
-Mark **Ready for review** only when you would ask a teammate to review **now**: stated scope is done, you self-reviewed the diff, title/description and test plan are complete, and CI is green (or failures are explained). Ready means **approvals and merge hygiene** are the main remaining gates, not “I might push more tonight.”
+Mark **Ready for review** only when you would ask a teammate to review **now**: stated scope is done, you self-reviewed the diff, title/description and test plan are complete, CI is green (or failures are explained), and (when applicable) demo/BDD/acceptance gates are met. Ready means **approvals and merge hygiene** are the main remaining gates.
 
-After substantive post-review changes or merge-conflict fixes, **convert back to Draft**, then **Ready** again so re-review is intentional ([GitHub stage docs](https://docs.github.com/en/pull-requests/collaborating-with-pull-requests/proposing-changes-to-your-work-with-pull-requests/changing-the-stage-of-a-pull-request)).
+**Before Ready:** run **[obsidian-pr-ship-sync](../../skills/obsidian-pr-ship-sync/SKILL.md)** in the same turn as demo completion so title, description, embedded media, and **`## Acceptance review`** match **shipped code and the latest recording**:
+
+1. **`ManagePullRequest` `update_pr`** — full body + artifacts + acceptance evidence.
+2. **`ManagePullRequest` `update_pr`** — **`draft: false`** only after step 1.
+
+Do not mark Ready with stale copy or **Verdict: PASS** tied to old clips. After substantive post-review changes or merge-conflict fixes, **convert back to Draft**, then **Ready** again ([GitHub stage docs](https://docs.github.com/en/pull-requests/collaborating-with-pull-requests/proposing-changes-to-your-work-with-pull-requests/changing-the-stage-of-a-pull-request)).
 
 ## Checklist before Ready
 
@@ -20,12 +25,15 @@ After substantive post-review changes or merge-conflict fixes, **convert back to
 | Tests / CI | Repo `typecheck` / `test` / `build` green on the PR branch |
 | Deploy | Sandbox/cloud Obsidian verify done when the change runs in-app (not local-only when cloud is available) |
 | UI / behavior | When [pr-product-demos](./pr-product-demos.mdc) applies: embedded cloud demo, visibility + jank, **`/ui-verifier-demo`** when [trigger-ui-verifier-demo](./trigger-ui-verifier-demo.mdc) applies, then **`/pr-acceptance-review`** with **Verdict: PASS** ([obsidian-pr-acceptance-review](../../skills/obsidian-pr-acceptance-review/SKILL.md)) |
+| PR ship sync | Body, embeds, and acceptance section match **this** branch and **this** demo ([obsidian-pr-ship-sync](../../skills/obsidian-pr-ship-sync/SKILL.md)) |
 | Size | Large PRs: description tells reviewers where to start; split if unfair to review |
 
 **Lighten** for docs-only, zero-behavior dependency bumps, or explicit **`/no-test`** — still state what was verified in the PR body.
 
 ## Human verify (maintainer)
 
-Do **not** ask the maintainer to verify or merge until the PR is **Ready**, acceptance review **PASS** when required, and merge conflicts/CI are clean. Keep **Draft** while agents finish implementation, demos, or acceptance review.
+Do **not** ask the maintainer to verify or merge until the PR is **Ready**, acceptance review **PASS** when required, and merge conflicts/CI are clean.
 
 **Note:** GitHub **draft release** (release workflow) is unrelated to **draft pull request** — see [obsidian-plugin-dev](../../skills/obsidian-plugin-dev/SKILL.md) release notes.
+
+**Related:** [pr-product-demos](./pr-product-demos.mdc), [obsidian-cloud-vm-demos](../../skills/obsidian-cloud-vm-demos/SKILL.md).
