@@ -1,34 +1,17 @@
 ---
-description: After demo, update PR body via ManagePullRequest before marking Ready for review
+description: After demo, sync PR via obsidian-pr-ship-sync before Ready for review
 alwaysApply: true
 ---
 
-# PR draft → ready (post-demo)
+# PR draft → ready
 
-Create PRs as **Draft** by default. **Ready for review** means the GitHub description matches what you just demonstrated — not “code pushed.”
+Create PRs as **Draft** by default. **Ready for review** only when title, description, embedded media, and acceptance review match **shipped code and the latest demo**.
 
-## After demo (required)
+Follow **[obsidian-pr-ship-sync](../../skills/obsidian-pr-ship-sync/SKILL.md)** in the same turn as demo completion:
 
-When walkthrough media (`.mp4`, screenshots) is done:
+1. **`ManagePullRequest` `update_pr`** — full body + artifacts + acceptance evidence.
+2. **`ManagePullRequest` `update_pr`** — **`draft: false`** only after step 1.
 
-1. **Commit and push** any verify fixes on the PR branch.
-2. **`ManagePullRequest` → `update_pr`** (fork remote, e.g. `adrianghnguyen/obsidian-agent-client`):
-   - **`body`:** Description reflects **current** shipped behavior (replace stale copy from earlier iterations).
-   - **Media:** Embed artifacts with absolute paths: `<video src="/opt/cursor/artifacts/….mp4">`, `<img src="/opt/cursor/artifacts/….webp">`. Under each clip, bullet what reviewers should see (with timestamps for video).
-   - **`## Acceptance review`:** Re-run **`/pr-acceptance-review`** when behavior or AC changed so **Verdict: PASS** and evidence cite the **new** media.
-   - **`title`:** Update when the user-facing summary is wrong.
-3. **`ManagePullRequest` → `update_pr`** with **`draft: false`** only **after** step 2 (same turn).
+Do not mark Ready with stale copy (e.g. “live wave” after level bars) or PASS tied to old clips.
 
-Use **`ManagePullRequest`** for routine PR body and ready-state updates — not `gh pr edit` — so artifact upload and PR settings stay consistent.
-
-## Do not
-
-- Mark **Ready** while the PR body still describes superseded UI (e.g. “live wave” after level bars shipped).
-- Leave acceptance **PASS** tied to an old clip after re-recording.
-- Skip **`update_pr`** on the description because demo finished in chat only.
-
-## Related
-
-- [pr-product-demos](./pr-product-demos.mdc) — when demos are required
-- [obsidian-cloud-vm-demos](../../skills/obsidian-cloud-vm-demos/SKILL.md) — VM capture and embeds
-- [obsidian-pr-acceptance-review](../../skills/obsidian-pr-acceptance-review/SKILL.md) — acceptance block in PR body
+**Related:** [pr-product-demos](./pr-product-demos.mdc), [obsidian-cloud-vm-demos](../../skills/obsidian-cloud-vm-demos/SKILL.md), [obsidian-pr-acceptance-review](../../skills/obsidian-pr-acceptance-review/SKILL.md).

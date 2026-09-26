@@ -71,7 +71,7 @@ Follow Cursor [Cloud Agent capabilities — Demos and Artifacts](https://cursor.
 |------|--------|
 | Dashboard | Enable **Allow posting artifacts to GitHub** ([Cloud Agents → My pull requests](https://cursor.com/dashboard/cloud-agents)). |
 | Cloud Agent PR | **`ManagePullRequest` `update_pr`** — rewrite description + embed `/opt/cursor/artifacts/` paths in `<video>` / `<img>` tags; confirm embedded URLs on the PR after upload (`artifact_created` on the run dashboard). |
-| Ready for review | Same turn: **`update_pr`** with **`draft: false`** only after the body matches the demo ([pr-draft-ready](../../.cursor/rules/pr-draft-ready.mdc)). |
+| Ready for review | Same turn: [obsidian-pr-ship-sync](../obsidian-pr-ship-sync/SKILL.md) then **`draft: false`** only after the body matches the demo. |
 | Manual PR from VM | Fallback: `gh pr edit <n> --body-file BODY.md --attach ./path.png --attach ./demo.mp4` ([attaching files](https://docs.github.com/en/github-cli/github-cli/attaching-files-with-github-cli)). |
 | Blocked | Tell the user posting is off or failed; enable setting or use `gh pr edit`/`gh pr comment --attach` — do not mark UI/flow work complete with agent-link-only proof. |
 

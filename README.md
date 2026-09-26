@@ -86,6 +86,8 @@ Copy [`references/machine-profile.example.md`](references/machine-profile.exampl
 | [obsidian-visual-verify](skills/obsidian-visual-verify/SKILL.md) | Screenshot proof after UI/CSS/layout changes |
 | [obsidian-ui-visibility](skills/obsidian-ui-visibility/SKILL.md) | Before a demo: control is mounted, on screen, uncovered, and large enough |
 | [obsidian-cloud-vm-demos](skills/obsidian-cloud-vm-demos/SKILL.md) | Strict Cloud Agent / VM end-to-end demos (screenshots + CLI output) |
+| [obsidian-pr-ship-sync](skills/obsidian-pr-ship-sync/SKILL.md) | Sync PR title, description, demo embeds, acceptance review, and Ready state with shipped code |
+| [obsidian-pr-acceptance-review](skills/obsidian-pr-acceptance-review/SKILL.md) | PR media vs acceptance criteria; **`## Acceptance review`** before human verify |
 | [obsidian-ui-verifier-demo](skills/obsidian-ui-verifier-demo/SKILL.md) | BDD functional verify (happy/unhappy paths); PASS/FAIL report with BDD gap on failures |
 | **Subagent** [`ui-verifier-demo`](agents/ui-verifier-demo.md) | Delegate on large behavioral changes — readonly demo + report (`/ui-verifier-demo`) |
 | [obsidian-plugin-sandbox](skills/obsidian-plugin-sandbox/SKILL.md) | Staging vault, promote contract, `community-plugins.json` recovery |
