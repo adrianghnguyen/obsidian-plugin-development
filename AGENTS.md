@@ -18,6 +18,10 @@ This repo owns the Cloud Agent setup. Sibling plugin `main`s carry the same `.cu
 
 Project overview (do not copy): `/cursor/stores/bc-a8a2e9ee-3f2b-4d31-ae8c-85b3734c071e/docs/cursor-environment-docs.md`
 
+## Plugin release notes
+
+When shipping sibling Obsidian plugins, use **detailed** changelog sections (Added/Changed/Fixed), **annotated tags** (headline + bullet lines), and **published GitHub Releases** (optional body from CHANGELOG) — production installs via BRAT. Full standard: `skills/obsidian-plugin-dev/SKILL.md` → *Release notes and semantic versioning*.
+
 ## PR product demos
 
 **Complex features** and **user-facing behavioral changes** need a cloud VM **`.mp4` screen recording** walkthrough **embedded in the PR description** (screenshots-only is not enough for those PRs). Same “complex” bar as `rules/trigger-ui-verifier-demo.mdc`. Procedure: `skills/obsidian-cloud-vm-demos/SKILL.md` and `.cursor/rules/pr-product-demos.mdc`.
@@ -29,3 +33,7 @@ Before UI work is PR-ready, run the **UI jank pass/fail checklist** during the d
 ## UI verifier demo (BDD functional)
 
 Large or behavioral plugin work must delegate **`/ui-verifier-demo`** before done. The subagent runs happy and unhappy paths, writes `ui-verifier-demo-report.md` (**PASS** / **PARTIAL** / **FAIL**), and on failure explains **expected vs observed** behavior and the **BDD gap**. Skill: `skills/obsidian-ui-verifier-demo/SKILL.md`. Rule: `rules/trigger-ui-verifier-demo.mdc`. **Does not replace** the `.mp4` product demo or jank gate above when both apply.
+
+## Agent Client — verify UX
+
+When demos or verification touch floating chat, multi-session, or tabs: use **tabbed floating chat** (Settings → Floating chat → Enable floating chat tabs; multiple sessions as tabs in one floating window), not sidebar-only, unless the task is sidebar-specific. Fork playbook: `obsidian-agent-client` repo `AGENTS.md` → *Cloud Agent UI demos*.

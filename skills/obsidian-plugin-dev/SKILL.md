@@ -139,21 +139,69 @@ Promote to production only when user explicitly requests — see [obsidian-plugi
 
 - Add bullets when a change is **ready** (built, deployed to sandbox, verified).
 - Use `### Added`, `### Changed`, or `### Fixed`.
+- Write **user-visible detail**: which setting, command, modal, or behavior changed — not one-line “fix bug” without context.
 - **Do not bump `manifest.json` during this phase.**
+
+### CHANGELOG quality at release (`## X.Y.Z`)
+
+When cutting a release, the new version section must stand alone for users and for BRAT/GitHub Release readers.
+
+- Keep **Added / Changed / Fixed** headings; each bullet should describe an **outcome** (what users notice or can do).
+- Mention **settings paths**, **command names**, or **UI areas** when they help someone find the change.
+- **Do not ship** a release whose only changelog text is “bump version” / “manifest bump” with no list of changes since the previous tag. If the diff is internal-only, say so under `### Changed` with a short honest note.
+- If `[Unreleased]` is thin at ship time, review commits since the last tag and backfill bullets before tagging.
 
 ### Release gate (main branch only)
 
-1. Review `[Unreleased]` on `main`.
+1. Review `[Unreleased]` on `main` (substantive bullets per above).
 2. Decide semver from highest-impact change.
 3. Rename `## [Unreleased]` → `## X.Y.Z`.
 4. Bump `manifest.json` `version`. Sync `package.json` / `versions.json` if used.
-5. Deploy to production → **restart Obsidian** after version change.
+5. Annotated **Git tag** matching `manifest.json` (no `v` prefix), push tag, wait for release workflow (see below).
+6. **Publish** the GitHub Release (not draft). Production vault updates via **BRAT** from published release assets — not manual copy unless explicitly requested.
+7. After BRAT picks up the release on vault `Obsidian`, confirm installed `manifest.version` matches the tag.
 
 | Change | Bump |
 |--------|------|
 | Bug fix, regression | PATCH |
 | New backward-compatible feature | MINOR |
 | Breaking change | MAJOR |
+
+### Annotated tag message
+
+Tag name **must equal** `manifest.json` `version` (`X.Y.Z`, no `v` prefix). Message format:
+
+1. **First `-m` line:** plain-language **headline** of what shipped (not just the version).
+2. **Further `-m` lines:** **3–8 bullets** (fewer for tiny patch releases) summarizing notable user-facing items from the new CHANGELOG section.
+
+```bash
+VERSION=X.Y.Z
+git tag -a "$VERSION" \
+  -m "Seek: faster modal open during catch-up indexing" \
+  -m "- Changed: search modal shows partial results while index catches up" \
+  -m "- Fixed: status bar stuck on 'Indexing' after reload"
+git push origin main && git push origin "$VERSION"
+```
+
+Avoid tags whose entire message is only `X.Y.Z`.
+
+### GitHub Release and BRAT install path
+
+Obsidian and BRAT install from a **published** GitHub Release whose tag **exactly matches** `manifest.json` `version`, with `main.js`, `manifest.json`, and `styles.css` attached. Tag push triggers `.github/workflows/release.yml` in sibling plugin repos; workflows often create a **draft** release first. Manifest on `main` without a published release for that version breaks BRAT updates.
+
+1. Wait for CI/workflow to attach assets to the tag.
+2. **Publish:** `gh release edit "$VERSION" --repo <owner/repo> --draft=false`
+3. **Release body (recommended):** paste the `## X.Y.Z` CHANGELOG section (Added/Changed/Fixed) so GitHub matches the tag and BRAT users see the same detail:
+
+   ```bash
+   gh release edit "$VERSION" --repo <owner/repo> --notes-file path/to/changelog-snippet.md
+   ```
+
+4. Verify: `gh release view "$VERSION" --repo <owner/repo>`
+
+**BRAT** on the production vault tracks **published** GitHub Releases for the fork repo. Until the release is published (and assets exist), Obsidian cannot install/update from that tag. Day-to-day production shipping = **changelog + tag + published release**, not copying build artifacts into `Obsidian` unless explicitly requested.
+
+Adrian’s Project store checklists (when available on the agent VM): `obsidian-manifest-bump-release.md` (user workflows) and `release-process.md` (project docs) — same tag/changelog/publish steps as this section.
 
 ---
 
