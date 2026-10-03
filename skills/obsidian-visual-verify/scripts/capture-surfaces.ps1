@@ -13,6 +13,7 @@ param(
     [ValidateSet('Main', 'StatusBar', 'Settings', 'PluginModal')]
     [string[]]$Surface = @('Main'),
     [string]$OpenCommandId = '',
+    [string]$ExpectedBasePath = '',
     [string]$OutputDir = '',
     [int]$CliTimeoutSec = 15,
     [int]$OpenWaitSec = 5,
@@ -79,10 +80,21 @@ if (t) { t.display(); 'ok' } else { 'no-tab' }
 Write-Host "=== capture-surfaces vault=$Vault plugin=$PluginId surfaces=$($Surface -join ',') ==="
 
 Write-Host '[1/4] Ensuring Obsidian + CLI ready...'
-Ensure-ObsidianVaultReady -Vault $Vault -CliTimeoutSec $CliTimeoutSec -LaunchWaitSec $LaunchWaitSec -NoLaunch:$NoLaunch
+Ensure-ObsidianVaultReady -Vault $Vault -ExpectedBasePath $ExpectedBasePath -CliTimeoutSec $CliTimeoutSec -LaunchWaitSec $LaunchWaitSec -NoLaunch:$NoLaunch
 
 Write-Host "[2/4] Focusing vault via URI (wait ${OpenWaitSec}s)..."
 Open-ObsidianVault -Vault $Vault -WaitSec $OpenWaitSec
+
+# Discovery gate (global rule obsidian-vault-target-verify). Warn when the caller
+# passes no -ExpectedBasePath — the run would otherwise proceed against whatever
+# window the CLI resolves, without enforcing the intended folder.
+if (-not $ExpectedBasePath) {
+    $discovered = Invoke-ObsidianEvalSerial -Vault $Vault -Code 'app.vault.adapter.basePath' -TimeoutSec $CliTimeoutSec
+    if ([string]::IsNullOrWhiteSpace($discovered)) {
+        throw "Vault target not discovered for vault=$Vault (no basePath printed). Stop - do not capture."
+    }
+    Write-Warning "No -ExpectedBasePath given; discovered basePath=$discovered. Pass -ExpectedBasePath to enforce the target."
+}
 
 $name = Invoke-ObsidianEvalSerial -Vault $Vault -Code 'app.vault.getName()' -TimeoutSec $CliTimeoutSec
 Write-Host "      vault name: $name"

@@ -1,5 +1,10 @@
-# Serial Obsidian CLI helpers — one command at a time, with timeout.
+# Serial Obsidian CLI helpers - one command at a time, with timeout.
 # Dot-source from verify/deploy scripts. Do not run parallel obsidian CLI elsewhere.
+#
+# Vault targeting follows the global rule `obsidian-vault-target-verify`:
+#   - `vault=` is the FIRST argument (this helper prepends it for every call).
+#   - Discover `app.vault.adapter.basePath` with that same vault before real commands
+#     (see Assert-ObsidianVaultTarget). No printed path means stop.
 
 function Test-ObsidianProcessRunning {
     $procs = Get-Process -Name 'Obsidian', 'Obsidian.com' -ErrorAction SilentlyContinue
@@ -15,12 +20,18 @@ function Invoke-ObsidianCliSerial {
     param(
         [Parameter(Mandatory = $true)]
         [string[]]$Args,
+        [string]$Vault = '',
         [int]$TimeoutSec = 15
     )
 
     if (-not (Get-Command obsidian -ErrorAction SilentlyContinue)) {
         throw 'obsidian CLI not on PATH'
     }
+
+    # vault= must be the first argument (global rule obsidian-vault-target-verify).
+    $cliArgs = @()
+    if ($Vault) { $cliArgs += "vault=$Vault" }
+    $cliArgs += $Args
 
     $job = Start-Job -ScriptBlock {
         param([string[]]$CliArgs)
@@ -29,13 +40,13 @@ function Invoke-ObsidianCliSerial {
             Output   = $out.Trim()
             ExitCode = if ($null -ne $LASTEXITCODE) { $LASTEXITCODE } else { 0 }
         }
-    } -ArgumentList (,$Args)
+    } -ArgumentList (,$cliArgs)
 
     $finished = Wait-Job -Job $job -Timeout $TimeoutSec
     if (-not $finished) {
         Stop-Job -Job $job -Force -ErrorAction SilentlyContinue
         Remove-Job -Job $job -Force -ErrorAction SilentlyContinue
-        throw "Obsidian CLI timed out after ${TimeoutSec}s: obsidian $($Args -join ' ')"
+        throw "Obsidian CLI timed out after ${TimeoutSec}s: obsidian $($cliArgs -join ' ')"
     }
 
     $result = Receive-Job -Job $job
@@ -56,7 +67,7 @@ function Test-ObsidianCliClear {
         [int]$TimeoutSec = 15
     )
     try {
-        $out = Invoke-ObsidianCliSerial -Args @('eval', "vault=$Vault", "code='alive'") -TimeoutSec $TimeoutSec
+        $out = Invoke-ObsidianCliSerial -Vault $Vault -Args @('eval', "code='alive'") -TimeoutSec $TimeoutSec
         $line = Get-ObsidianCliEvalLine -Output $out
         return [bool]($line -match 'alive')
     } catch {
@@ -82,16 +93,41 @@ function Assert-ObsidianCliReady {
     if (-not (Test-ObsidianCliClear -Vault $Vault -TimeoutSec $TimeoutSec)) {
         throw @(
             'Obsidian CLI did not respond (queue wedged or vault not loaded).',
-            'Quit Obsidian from the tray (Quit — not just close a window), reopen, then re-run.',
-            'Do not chain obsidian restart/eval while hung — it will not reach the app.'
+            'Quit Obsidian from the tray (Quit - not just close a window), reopen, then re-run.',
+            'Do not chain obsidian restart/eval while hung - it will not reach the app.'
         ) -join ' '
     }
+}
+
+function Assert-ObsidianVaultTarget {
+    param(
+        [Parameter(Mandatory = $true)]
+        [string]$Vault,
+        [Parameter(Mandatory = $true)]
+        [string]$ExpectedBasePath,
+        [int]$TimeoutSec = 15
+    )
+
+    $line = Invoke-ObsidianEvalSerial -Vault $Vault -Code 'app.vault.adapter.basePath' -TimeoutSec $TimeoutSec
+    if ([string]::IsNullOrWhiteSpace($line)) {
+        throw "Vault target not discovered for vault=$Vault (no basePath printed). Stop - do not reload."
+    }
+
+    $want = $ExpectedBasePath.Trim().TrimEnd('\', '/')
+    $got = $line.Trim().TrimEnd('\', '/')
+    if ($got -ne $want) {
+        throw "Vault target mismatch: vault=$Vault resolved to '$got', expected '$want'. Stop - do not reload."
+    }
+
+    Write-Host "      vault target OK: $got"
+    return $got
 }
 
 function Ensure-ObsidianVaultReady {
     param(
         [Parameter(Mandatory = $true)]
         [string]$Vault,
+        [string]$ExpectedBasePath = '',
         [int]$CliTimeoutSec = 15,
         [int]$LaunchWaitSec = 120,
         [int]$PollSec = 5,
@@ -100,6 +136,7 @@ function Ensure-ObsidianVaultReady {
 
     if (Test-ObsidianCliClear -Vault $Vault -TimeoutSec $CliTimeoutSec) {
         Write-Host '      Obsidian running, CLI clear'
+        if ($ExpectedBasePath) { [void](Assert-ObsidianVaultTarget -Vault $Vault -ExpectedBasePath $ExpectedBasePath -TimeoutSec $CliTimeoutSec) }
         return
     }
 
@@ -107,10 +144,10 @@ function Ensure-ObsidianVaultReady {
         if ($NoLaunch) {
             throw 'Obsidian is not running and -NoLaunch was set.'
         }
-        Write-Host "      Obsidian not running — launching vault=$Vault via URI..."
+        Write-Host "      Obsidian not running - launching vault=$Vault via URI..."
         Open-ObsidianVault -Vault $Vault -WaitSec 0
     } else {
-        Write-Host "      Obsidian running but CLI not ready — opening vault=$Vault..."
+        Write-Host "      Obsidian running but CLI not ready - opening vault=$Vault..."
         Open-ObsidianVault -Vault $Vault -WaitSec 0
     }
 
@@ -123,12 +160,13 @@ function Ensure-ObsidianVaultReady {
         }
         if (Test-ObsidianCliClear -Vault $Vault -TimeoutSec $CliTimeoutSec) {
             Write-Host '      Obsidian up, CLI alive'
+            if ($ExpectedBasePath) { [void](Assert-ObsidianVaultTarget -Vault $Vault -ExpectedBasePath $ExpectedBasePath -TimeoutSec $CliTimeoutSec) }
             return
         }
         Write-Host '      waiting for CLI...'
     } while ((Get-Date) -lt $deadline)
 
-    throw "Obsidian did not become CLI-ready within ${LaunchWaitSec}s for vault=$Vault (IPC may be wedged — quit Obsidian and retry)"
+    throw "Obsidian did not become CLI-ready within ${LaunchWaitSec}s for vault=$Vault (IPC may be wedged - quit Obsidian and retry)"
 }
 
 function Open-ObsidianVault {
@@ -174,7 +212,7 @@ function Invoke-ObsidianEvalSerial {
         [int]$TimeoutSec = 15
     )
     $escaped = $Code -replace '"', '\"'
-    $out = Invoke-ObsidianCliSerial -Args @('eval', "vault=$Vault", "code=$escaped") -TimeoutSec $TimeoutSec
+    $out = Invoke-ObsidianCliSerial -Vault $Vault -Args @('eval', "code=$escaped") -TimeoutSec $TimeoutSec
     return Get-ObsidianCliEvalLine -Output $out
 }
 
@@ -206,6 +244,6 @@ function Invoke-ObsidianScreenshotSerial {
     )
     $dir = Split-Path -Parent $Path
     if ($dir -and -not (Test-Path $dir)) { New-Item -ItemType Directory -Force -Path $dir | Out-Null }
-    Invoke-ObsidianCliSerial -Args @('dev:screenshot', "vault=$Vault", "path=$Path") -TimeoutSec $TimeoutSec | Out-Null
+    Invoke-ObsidianCliSerial -Vault $Vault -Args @('dev:screenshot', "path=$Path") -TimeoutSec $TimeoutSec | Out-Null
     if (-not (Test-Path $Path)) { throw "Screenshot not written: $Path" }
 }
