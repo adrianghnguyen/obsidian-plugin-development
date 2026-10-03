@@ -12,11 +12,13 @@ description: >-
 
 Use the **Obsidian CLI** against a running Obsidian app. Prefer CLI over guessing UI state.
 
-**Multi-vault:** [obsidian-multi-vault-cli](../obsidian-multi-vault-cli/SKILL.md) — serial CLI, `vault=` first with the **full exact vault name** (substring match), one command per invocation.
+**Multi-vault:** [obsidian-multi-vault-cli](../obsidian-multi-vault-cli/SKILL.md) for serial CLI discipline, and the global rule `obsidian-vault-target-verify` for vault-target discovery.
 
 **Windows eval quoting:** use the companion `powershell-agent` skill globally, or the patterns below.
 
 ## Core commands
+
+Vault target discovered per the global rule `obsidian-vault-target-verify` before each of these. `vault=` first.
 
 ```powershell
 obsidian vault=<sandbox-vault-name> devtools

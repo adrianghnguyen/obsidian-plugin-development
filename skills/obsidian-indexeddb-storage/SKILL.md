@@ -38,12 +38,12 @@ IndexedDB files are **outside** the vault, per Electron profile:
 
 **Only when user asks** or corruption is confirmed — never reset IDB casually.
 
-1. `obsidian plugin:disable id=<plugin-id> vault=<target>`
+1. Vault target discovered per `obsidian-vault-target-verify`; then `obsidian vault=<target> plugin:disable id=<plugin-id>` (`vault=` first).
 2. Quit Obsidian entirely (tray → Quit). CLI `restart` is unreliable when wedged.
 3. Delete IDB directory for the db name, or whole `https_app.obsidian.md_0` (Obsidian recreates).
 4. Delete plugin cache dirs under `<vault>/.obsidian/plugins/<plugin-id>/` if applicable.
 5. Relaunch; copy fresh `main.js`, `manifest.json`, `styles.css`.
-6. `plugin:enable` — **not** `plugin:reload` during full reindex bootstrap.
+6. Re-discover the target, then `obsidian vault=<target> plugin:enable id=<plugin-id>` — **not** `plugin:reload` during full reindex bootstrap.
 
 ### Via eval (plugin disabled)
 

@@ -37,12 +37,8 @@ Run **before marking the task complete** when **any** of:
 ## Prerequisites
 
 1. `npm run typecheck` / `npm test` / `npm run build` passed on the machine running verify (VM when cloud).
-2. Artifacts in vault plugin folder; `plugin:reload` (or cloud reload path).
-3. **Identity gate** (serial CLI, `vault=<full-name>` first):
-
-```javascript
-JSON.stringify({ name: app.vault.getName(), base: app.vault.adapter.basePath })
-```
+2. **Identity gate before reload** — per the global rule `obsidian-vault-target-verify`.
+3. Artifacts in vault plugin folder; `plugin:reload` with that same `vault=`.
 
 4. Artifacts under a **git-ignored** dir (`.tmp/ui-verifier-demo/`, `/opt/cursor/artifacts/` on cloud).
 

@@ -10,7 +10,7 @@ description: >-
 
 Runtime proof for **what the user sees**. `eval` and unit tests are not enough for CSS, layout, status-bar labels, modal chrome, or Settings rows.
 
-**Prerequisites:** Obsidian desktop, `obsidian` on PATH, **serial CLI only** (one command at a time). Helpers: [`scripts/ObsidianCliSerial.ps1`](scripts/ObsidianCliSerial.ps1).
+**Prerequisites:** Obsidian desktop, `obsidian` on PATH, **serial CLI only** (one command at a time). Vault target discovered per the global rule `obsidian-vault-target-verify` before any session command. Helpers: [`scripts/ObsidianCliSerial.ps1`](scripts/ObsidianCliSerial.ps1) (`Assert-ObsidianVaultTarget`).
 
 **Default vault:** staging (`<sandbox-vault-name>`). Production only when user explicitly requests promotion verify.
 
@@ -86,8 +86,7 @@ Inspect **during** capture or the demo recording — not only the still frame.
 ## Manual CLI
 
 ```powershell
-Start-Process "obsidian://open?vault=<sandbox-vault-name>"
-# focus window (see ObsidianCliSerial.ps1 Focus-ObsidianWindow)
+# Target discovered per obsidian-vault-target-verify, then:
 obsidian vault=<sandbox-vault-name> dev:screenshot path=<absolute-path>\main.png
 ```
 

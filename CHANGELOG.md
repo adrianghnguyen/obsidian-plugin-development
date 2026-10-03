@@ -18,6 +18,8 @@ All notable changes to this Agent Plugin package are documented here.
 
 ### Changed
 
+- **Single definition for Obsidian vault targeting.** The global rule `obsidian-vault-target-verify` now solely defines how `vault=` resolves (exact basename, first argument), the `basePath` discovery gate, and “no printed path means stop.” `obsidian-multi-vault-cli`, `obsidian-plugin-dev`, `obsidian-plugin-debug`, `obsidian-cloud-vm-demos`, `obsidian-ui-verifier-demo`, `ship-main-prod`, `obsidian-plugin-sandbox`, `obsidian-plugin-tweaks`, `obsidian-visual-verify`, `obsidian-indexeddb-storage`, `seek-seinfeld-eval`, `obsidian-settings-secrets`, the machine-profile references, and the `ui-verifier-demo` agent now defer by name instead of restating the mechanics.
+- **`obsidian-visual-verify` scripts enforce the target.** `Invoke-ObsidianCliSerial` now prepends `vault=` so it is always the first argument, and `Assert-ObsidianVaultTarget` gates on `app.vault.adapter.basePath`. `Invoke-ObsidianCliSerial` returns a string (was `{ Output, ExitCode }`); `Ensure-ObsidianVaultReady` and `capture-surfaces.ps1` gain `-ExpectedBasePath`.
 - **`obsidian-plugin-dev` skill** — detailed release-notes standard (CHANGELOG Added/Changed/Fixed, annotated tag headline + bullets, GitHub Release publish/body, BRAT production path); `AGENTS.md` pointer.
 - **`pr-product-demos` rule** — cross-links UI verifier demo and report attachment for behavioral PRs.
 - Cloud E2E does not inject `ANTHROPIC_API_KEY`; Claude Code stays account-login in the synthetic vault.

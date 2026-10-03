@@ -75,21 +75,12 @@ Per the [Build a plugin](https://docs.obsidian.md/Plugins/Getting+started/Build+
 & "C:\Program Files\Obsidian\Obsidian.exe" help
 ```
 
-Target vaults per [obsidian-multi-vault-cli](../obsidian-multi-vault-cli/SKILL.md). Use the **full** `<sandbox-vault-name>` (exact folder name — `vault=` substring-matches); production via shell cwd at `<production-vault-path>`.
-
-### Vault targeting (`vault=`)
-
-`vault=` must be the **first** CLI argument and must use the **complete vault name**, not a shorthand:
+Vault targeting and its discovery are defined once by the global rule `obsidian-vault-target-verify`. Do not restate the mechanics here.
 
 ```powershell
-# WRONG — vault=Obsidian matches plugin-sandbox-Obsidian
-obsidian vault=Obsidian plugin:reload id=<plugin-id>
-
-# RIGHT — full folder name from obsidian vaults verbose
+obsidian vault=plugin-sandbox-Obsidian eval code="app.vault.adapter.basePath"
 obsidian vault=plugin-sandbox-Obsidian plugin:reload id=<plugin-id>
 ```
-
-Verify with an identity gate before trusting reload/eval output — see [obsidian-multi-vault-cli](../obsidian-multi-vault-cli/SKILL.md).
 
 ---
 
@@ -101,7 +92,7 @@ The Obsidian developer CLI is a **single serial IPC queue** on the app's main th
 2. **Never run CLI commands concurrently** across shells or subagents.
 3. **Wedge vs slow:** wedge = no `=>` output and no exit, indefinitely. Some commands legitimately take 60–130s after reload and still succeed.
 
-**Recovery:** kill stuck shell → quit Obsidian (tray → Quit) → relaunch → wait 15–20s → one probe: `eval code="'alive'"`.
+**Recovery:** kill stuck shell → quit Obsidian (tray → Quit) → relaunch → wait 15–20s → one probe with the same `vault=`: `obsidian vault=<exact-folder-basename> eval code="'alive'"`. If it does not return, stop.
 
 ---
 
@@ -124,6 +115,8 @@ The Obsidian developer CLI is a **single serial IPC queue** on the app's main th
 ```powershell
 $dest = "<sandbox-vault-path>\.obsidian\plugins\<plugin-id>\"
 Copy-Item main.js, manifest.json, styles.css -Destination $dest -Force
+# Separate invocations. Continue only if the eval prints <sandbox-vault-path>.
+obsidian vault=<sandbox-vault-name> eval code="app.vault.adapter.basePath"
 obsidian vault=<sandbox-vault-name> plugin:reload id=<plugin-id>
 ```
 
@@ -263,7 +256,7 @@ Full CLI list: [reference.md](reference.md)
 6. Chaining CLI commands (`cmd1 ; cmd2`).
 7. Manifest bumped on feature branch or during sandbox iteration.
 8. Developing in production vault.
-9. Partial `vault=` name (substring match hits the wrong vault).
+9. Reloading from a vault name or from a repo directory with no `vault=`, without a `basePath` eval. Omitted `vault=` hits the focused window. A closed vault hangs with no output — stop.
 
 ---
 

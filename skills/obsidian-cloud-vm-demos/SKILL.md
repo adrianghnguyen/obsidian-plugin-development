@@ -49,12 +49,8 @@ During every **`.mp4` walkthrough** (and while capturing screenshots for animate
 
 1. Env bootstrap on VM (`environment.json` `install` / `start`, or repo `scripts/cloud-e2e/` / `GETTING-STARTED.md` when present).
 2. `npm run typecheck` / `npm test` / `npm run build` passed **on the VM** when applicable.
-3. Artifacts copied into the **VM vault** plugin folder and `plugin:reload` (or documented cloud reload path).
-4. **Identity gate** — vault name + basePath match the cloud staging vault (not the developer’s `C:\` paths):
-
-```javascript
-JSON.stringify({ name: app.vault.getName(), base: app.vault.adapter.basePath })
-```
+3. Vault target discovered per the global rule `obsidian-vault-target-verify` (before reload and before later session commands).
+4. Artifacts copied into that vault’s plugin folder, then `plugin:reload` with the same `vault=`.
 
 5. Evidence attached per table above.
 6. **PR embeds:** when the change has an open PR, screenshots/video/logs must appear as **embedded media in the PR description** (inline images/players), not only on the agent run page or in chat.
@@ -84,7 +80,7 @@ Chat and local `.tmp/` paths are supplementary; reviewers should validate from t
 ## Obsidian on the cloud VM
 
 - **Serial CLI only** — one `obsidian` invocation at a time; see [obsidian-multi-vault-cli](../obsidian-multi-vault-cli/SKILL.md).
-- **`vault=<name>` first** — full vault folder name; never shorthand that substring-matches another vault.
+- **Vault target** — discovered per the global rule `obsidian-vault-target-verify`. Never assume the vault from a name.
 - **Reload after deploy** — copy only `main.js`, `manifest.json`, `styles.css`; preserve `data.json`.
 - **UI proof** — use [obsidian-visual-verify](../obsidian-visual-verify/SKILL.md) with VM vault name and paths from cloud `paths.env` / project docs. Capture each touched surface (`Main`, `StatusBar`, `Settings`, plugin modal).
 - **Artifacts** — write screenshots and dumps under a **git-ignored** dir (`.tmp/`, plugin `.seek-artifacts/`, or OS temp). Never commit demo PNGs.

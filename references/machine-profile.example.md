@@ -4,26 +4,30 @@ Copy this file to your machine (e.g. `references/machine-profile.md`, gitignored
 
 | Placeholder | Example value | Used for |
 |-------------|---------------|----------|
-| `<sandbox-vault-name>` | `plugin-sandbox-Obsidian` | CLI `vault=` argument — must be a **unique** substring |
+| `<sandbox-vault-name>` | `plugin-sandbox-Obsidian` | `vault=` token (see `obsidian-vault-target-verify`) |
 | `<sandbox-vault-path>` | `C:\plugin-sandbox-Obsidian` | Staging vault root; deploy target |
 | Cloud E2E vault | `$HOME/plugin-sandbox-Obsidian` | Synthetic vault on Cursor Cloud Linux (see `scripts/cloud-e2e`) |
-| `<production-vault-name>` | `Obsidian` | Production vault display name — **do not** use as `vault=` if it substring-matches the sandbox |
-| `<production-vault-path>` | `C:\Obsidian` | Production vault root; shell cwd for production CLI |
+| `<production-vault-name>` | `Obsidian` | `vault=` token (see `obsidian-vault-target-verify`) |
+| `<production-vault-path>` | `C:\Obsidian` | Production vault root |
 | `<coding-projects>` | `C:\Coding_projects` | Out-of-vault plugin repos |
 | `<promote-script>` | `C:\plugin-sandbox-Obsidian\Administrative\scripts\promote-plugin-to-main.ps1` | Optional promote helper |
 
 ## CLI targeting
 
+Vault-target discovery is defined by the global rule `obsidian-vault-target-verify`. Fill in names/paths only.
+
+| Role | `vault=` (exact basename) | Must print |
+|------|---------------------------|------------|
+| Sandbox | `<sandbox-vault-name>` | `<sandbox-vault-path>` |
+| Production | `<production-vault-name>` | `<production-vault-path>` |
+
 ```powershell
-# Sandbox — unique vault= FIRST
+obsidian vault=<sandbox-vault-name> eval code="app.vault.adapter.basePath"
 obsidian vault=<sandbox-vault-name> plugin:reload id=<plugin-id>
 
-# Production — cwd is the selector; omit vault=
-Set-Location <production-vault-path>
-obsidian plugin:reload id=<plugin-id>
+obsidian vault=<production-vault-name> eval code="app.vault.adapter.basePath"
+obsidian vault=<production-vault-name> plugin:reload id=<plugin-id>
 ```
-
-**Never** `vault=<production-vault-name>` when the sandbox name contains that substring (e.g. `Obsidian` inside `plugin-sandbox-Obsidian`).
 
 ## Deploy paths
 

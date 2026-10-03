@@ -51,7 +51,7 @@ Explain failures in **user-behavior terms**, not stack traces alone. Example BDD
 ## Constraints
 
 - **Readonly** — no file edits or commits; do not fix bugs unless parent explicitly asks after FAIL.
-- **Serial CLI** — one `obsidian` command at a time; `vault=<full-name>` first.
+- **Serial CLI** — one `obsidian` command at a time. Vault target discovered per the global rule `obsidian-vault-target-verify`.
 - Do not print secret values; length-only probes OK.
 
 ## Output to parent

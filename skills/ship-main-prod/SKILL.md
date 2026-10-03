@@ -61,20 +61,24 @@ Compare manifest hash before copy to choose reload strategy. **Do not copy `data
 
 ### 5. Reload
 
-- Manifest unchanged: `obsidian plugin:reload id=<id> vault=<production-vault-name>` OR cwd production + omit `vault=`
-- Manifest changed: warn; prefer `command id=app:reload` or full restart with user consent
+Discover the target per the global rule `obsidian-vault-target-verify` with the same `vault=` as the reload. One `obsidian` command per invocation.
 
-**One CLI command per shell invocation.**
+```powershell
+obsidian vault=<production-vault-name> eval code="app.vault.adapter.basePath"
+```
+
+- Manifest unchanged: `obsidian vault=<production-vault-name> plugin:reload id=<id>`
+- Manifest changed: warn; prefer `obsidian vault=<production-vault-name> command id=app:reload` or full restart with user consent
 
 ### 6. Verify
 
 ```powershell
 Get-FileHash repo\main.js
 Get-FileHash <production-vault-path>\.obsidian\plugins\<id>\main.js
-obsidian eval code="JSON.stringify({id:app.plugins.plugins['<id>']?.manifest?.id,version:app.plugins.plugins['<id>']?.manifest?.version})"
+obsidian vault=<production-vault-name> eval code="JSON.stringify({id:app.plugins.plugins['<id>']?.manifest?.id,version:app.plugins.plugins['<id>']?.manifest?.version})"
 ```
 
-(Run eval with production cwd / vault targeting per multi-vault skill.)
+Run that eval as `obsidian vault=<production-vault-name> eval ...` after its own `basePath` discovery.
 
 ### 7. Report
 

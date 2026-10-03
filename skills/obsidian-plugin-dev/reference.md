@@ -14,7 +14,7 @@ Sources: https://docs.obsidian.md/Plugins/Getting+started/Build+a+plugin , https
 ## CLI parameters
 
 ```
-vault=<full-exact-name>    # FIRST arg; substring match — use complete vault folder name
+vault=<exact-folder-basename>    # FIRST arg; exact id or basename match. Discover basePath with this same token before any other command.
 file=<name>            # wikilink-style
 path=<exact/path.md>   # exact path
 --copy                 # copy output to clipboard
@@ -37,7 +37,7 @@ path=<exact/path.md>   # exact path
 |----------------|---------|
 | `plugin:reload id=<id>` | Reload plugin |
 | `plugin:enable/disable id=<id>` | Toggle |
-| `reload vault=<name>` | Reload one vault window |
+| `vault=<name> reload` | Reload one vault window (`vault=` first) |
 | `restart` | **Global** — all vaults |
 
 ## Plugin folder layout

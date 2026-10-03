@@ -30,7 +30,7 @@ npm run build
 $dest = "<sandbox-vault-path>\.obsidian\plugins\<plugin-id>\"
 Copy-Item main.js, manifest.json, styles.css -Destination $dest -Force
 
-# 3. Reload and verify
+# 3. Vault target discovered per `obsidian-vault-target-verify`, then reload:
 obsidian vault=<sandbox-vault-name> plugin:reload id=<plugin-id>
 ```
 
@@ -47,7 +47,7 @@ Or manual copy to `<production-vault-path>/.obsidian/plugins/<id>/` per [ship-ma
 
 ## Post-sync checklist
 
-After refreshing sandbox content from production:
+After refreshing sandbox content from production, discover `basePath` with `vault=<sandbox-vault-name>` before each command below.
 
 ```powershell
 obsidian vault=<sandbox-vault-name> plugins:enabled

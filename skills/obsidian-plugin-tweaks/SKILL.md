@@ -54,7 +54,7 @@ Optional per-fork: repo `AGENTS.md` + `.cursor/rules/deploy-and-verify.mdc` with
 2. `npm run build`
 3. User-facing change? `CHANGELOG.md` `[Unreleased]` (no manifest bump)
 4. Copy **only** `main.js`, `manifest.json`, `styles.css` — never `data.json`
-5. `obsidian vault=<sandbox-vault-name> plugin:reload id=<id>`
+5. Target discovered per `obsidian-vault-target-verify`, then `obsidian vault=<sandbox-vault-name> plugin:reload id=<id>`
 6. Verify disk + eval
 7. Promote only when user asks — see [obsidian-plugin-sandbox](../obsidian-plugin-sandbox/SKILL.md)
 

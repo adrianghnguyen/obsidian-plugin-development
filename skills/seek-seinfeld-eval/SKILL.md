@@ -14,8 +14,7 @@ in the demo repo**, not a standalone dataset project:
 [AI21Labs/multi-window-chunk-size](https://github.com/AI21Labs/multi-window-chunk-size)
 → `seinfeld_trivia/` (`documents_content/` + `data.json`).
 
-Always use **`vault=plugin-sandbox-Obsidian`**. Never run this against the
-Windows production vault.
+Always use **`vault=plugin-sandbox-Obsidian` as the first argument**, with target discovery per the global rule `obsidian-vault-target-verify`. Never run this against the Windows production vault.
 
 ## Vault layout (after `materialize-seinfeld.sh`)
 

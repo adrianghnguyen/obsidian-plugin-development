@@ -53,6 +53,8 @@ async saveApiKey(value: string) {
 
 ### Runtime verify (never print values)
 
+Target discovery per the global rule `obsidian-vault-target-verify`; `vault=` first.
+
 ```powershell
 obsidian vault=<name> eval code="JSON.stringify({has:!!app.secretStorage,len:((await app.secretStorage.getSecret('<secret-id>'))||'').length})"
 ```
