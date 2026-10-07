@@ -18,9 +18,9 @@ Follow [obsidian-agent-ui-demo](../skills/obsidian-agent-ui-demo/SKILL.md) exact
 
 ## If lost, stop
 
-- Kickoff must include a **navigation card**: vault name, how the surface is already open, the one control to click (label), and reload command (`obsidian vault=… plugin:reload id=…` or `obsidian restart` when cited).
-- If the named control is missing or covered after **one** eval/visibility check → **BLOCKED**. Do not open Settings, File menu, or vault sidebar to hunt.
-- **No nested explorer** subagents while the contract is in flight.
+- Kickoff must include a **navigation card**: vault, surface already open, one control label, and one shell command (`obsidian vault=… plugin:reload id=…` or `obsidian restart`).
+- If that control is missing after **one** eval/visibility check → **BLOCKED**. Do not open Settings, File menu, or the vault sidebar.
+- **No nested explorer.**
 
 Full rules: [obsidian-agent-ui-demo](../skills/obsidian-agent-ui-demo/SKILL.md) → **If lost, stop**.
 

@@ -85,6 +85,19 @@ If preflight fails, **fix before** phase C. Do not “record and hope.”
 
 ---
 
+## Parent kickoff
+
+The coordinator follows this when writing the `ui-demo-agent` task. One kickoff, one path.
+
+- **One path only.**
+- Name the shell command (`obsidian restart` or `plugin:reload`). When restore/reload is the proof, also name the code entry (example: `restorePinnedSessions` on `onload`).
+- Put that command in the kickoff. Do not say “follow the skills” instead of the command.
+- Do not offer a GUI alternate (File → Exit) beside the shell command.
+- Do not spawn a second agent with the same script.
+- Do not ask the demo agent to fix code before that one cheap proof has run.
+
+---
+
 ## If lost, stop
 
 Demo agents must **not** rediscover Obsidian. The parent stages the app; the demo agent runs a **fixed path** only.
@@ -107,7 +120,8 @@ Paste this block for every delegation:
 ```text
 Vault: <CLI vault name>
 Surface: <already open — e.g. tabbed floating chat, tab "Session A">
-Reload: obsidian vault=<name> plugin:reload id=<plugin-id>
+Shell: <one command — obsidian vault=<name> plugin:reload id=<plugin-id> OR obsidian restart>
+Code entry: <when restore/reload is the proof — e.g. restorePinnedSessions on onload>
 First control: <exact label or aria text to click>
 Contract: <path or inline steps>
 ```
