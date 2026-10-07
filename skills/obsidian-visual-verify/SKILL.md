@@ -81,7 +81,7 @@ Inspect **during** capture or the demo recording — not only the still frame.
 - [ ] Drag/resize/animation smooth enough for the feature (floating windows, panels)
 ```
 
-**FAIL** any ship-blocking item before marking UI work done. Log PASS/FAIL in [obsidian-ui-verifier-demo](../obsidian-ui-verifier-demo/SKILL.md) reports when BDD verify runs. Principles: [ux-design](../ux-design/SKILL.md).
+**FAIL** any ship-blocking item before marking UI work done. Note jank findings in the PR or demo **What to look for** section when applicable. Principles: [ux-design](../ux-design/SKILL.md).
 
 ## Manual CLI
 

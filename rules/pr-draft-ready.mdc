@@ -1,17 +1,17 @@
 ---
-description: After demo, sync PR via obsidian-pr-ship-sync before Ready for review
+description: After demo, sync PR via obsidian-pr-ship-sync; stay Draft until human marks Ready
 alwaysApply: true
 ---
 
 # PR draft → ready
 
-Create PRs as **Draft** by default. **Ready for review** only when title, description, embedded media, and acceptance review match **shipped code and the latest demo**.
+Create PRs as **Draft** by default. After demo + [obsidian-pr-ship-sync](../skills/obsidian-pr-ship-sync/SKILL.md), **hand off in Draft** unless the user asked to mark Ready.
 
-Follow **[obsidian-pr-ship-sync](../skills/obsidian-pr-ship-sync/SKILL.md)** in the same turn as demo completion:
+When marking **Ready for review** is requested:
 
-1. **`ManagePullRequest` `update_pr`** — full body + artifacts + acceptance evidence.
+1. **`ManagePullRequest` `update_pr`** — full body + embedded media + **What to look for** bullets.
 2. **`ManagePullRequest` `update_pr`** — **`draft: false`** only after step 1.
 
-Do not mark Ready with stale copy (e.g. “live wave” after level bars) or PASS tied to old clips.
+Do not mark Ready with stale copy or embeds from an older recording.
 
-**Related:** [pr-product-demos](../.cursor/rules/pr-product-demos.mdc), [obsidian-cloud-vm-demos](../skills/obsidian-cloud-vm-demos/SKILL.md), [obsidian-pr-acceptance-review](../skills/obsidian-pr-acceptance-review/SKILL.md).
+**Related:** [pr-product-demos](../.cursor/rules/pr-product-demos.mdc), [obsidian-cloud-vm-demos](../skills/obsidian-cloud-vm-demos/SKILL.md), [obsidian-agent-ui-demo](../skills/obsidian-agent-ui-demo/SKILL.md).

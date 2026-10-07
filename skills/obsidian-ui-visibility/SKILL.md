@@ -14,7 +14,7 @@ A control that exists in the DOM can still be invisible in the demo. Computed st
 
 Run this gate **before** `RecordScreen` or attaching a demo to a PR. Fail the demo and do not record until every check passes.
 
-**Related:** [obsidian-visual-verify](../obsidian-visual-verify/SKILL.md) (which surface to capture), [obsidian-cloud-vm-demos](../obsidian-cloud-vm-demos/SKILL.md) (PR embed), [obsidian-ui-verifier-demo](../obsidian-ui-verifier-demo/SKILL.md) (behavior after this gate), [obsidian-menu-settings](../obsidian-menu-settings/SKILL.md) (Settings is its own surface).
+**Related:** [obsidian-visual-verify](../obsidian-visual-verify/SKILL.md) (which surface to capture), [obsidian-cloud-vm-demos](../obsidian-cloud-vm-demos/SKILL.md) (PR embed), [obsidian-agent-ui-demo](../obsidian-agent-ui-demo/SKILL.md) (record after this gate), [obsidian-menu-settings](../obsidian-menu-settings/SKILL.md) (Settings is its own surface).
 
 ## When to run
 
@@ -33,7 +33,7 @@ All of these must pass. Record the JSON from the probe below with the still fram
 | 5 | **Topmost at its center** | `elementFromPoint` is not the control or a descendant. Settings, a modal, or another leaf is on top |
 | 6 | **Large enough** | The shorter side is under 24px. Move or enlarge the Obsidian window so the control is readable. A 16px glyph in the corner of a 1920×1200 desktop recording fails |
 | 7 | **Front window** | The desktop frame shows the Obsidian window in front, and the control is inside that window, not under another app |
-| 8 | **Real pointer for hover** | Hover or click demos move the OS cursor onto the control and hold there for at least 2 seconds. CDP `Input.dispatchMouseEvent` can set `:hover` while the cursor in the video stays elsewhere. Do not claim a hover from computed opacity alone |
+| 8 | **Real pointer for hover** | Hover or click demos move the OS cursor onto the control and **pause** until hover/tooltip state is readable on camera. CDP `Input.dispatchMouseEvent` can set `:hover` while the cursor in the video stays elsewhere. Do not claim a hover from computed opacity alone |
 
 After the clip, watch it (or a zoomed crop of the control). If the feature is covered, tiny, or absent, the demo **fails** even when the probe JSON said `pass: true`.
 
@@ -81,7 +81,7 @@ Serial CLI only. Replace `SELECTOR` with a CSS selector for the control (one ele
 1. Close Settings (`app.setting.close()` when that API exists) and dismiss modals. Do not open Settings to "check something" and leave it up.
 2. Run the probe. On any reason, fix the layout and probe again.
 3. Put the control in the middle of the Obsidian window. Keep the whole control in frame for the whole clip.
-4. Hold each state for at least 2 seconds (idle, active, hover, after click).
+4. Pause on each state until readable on camera (idle, active, hover, after click) — see [obsidian-agent-ui-demo](../obsidian-agent-ui-demo/SKILL.md) pacing.
 5. For hover, move the OS pointer onto the control. Confirm `:hover` **and** that the pointer is visibly on the control in the still.
 6. Save a zoomed crop of the control next to the video so a 32px icon is reviewable.
 7. Restore any setting you flipped for the demo (feature flag, debug mode). Reload if you stubbed runtime methods.

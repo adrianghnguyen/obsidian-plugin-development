@@ -3,17 +3,19 @@ name: obsidian-agent-ui-demo
 description: >-
   Token-efficient UI demo execution for Cloud Agents (computerUse + RecordScreen).
   Use when recording review-ready .mp4 walkthroughs — plan once, preflight off-camera,
-  one short clip, ≥2s holds on proof frames. Complements obsidian-cloud-vm-demos and
-  pr-product-demos; pairs with demo verification contracts in the project store.
+  one short clip, brief pauses on key UX proof moments. Human handoff: embed on PR,
+  What to look for bullets, stay Draft until the maintainer marks Ready.
 ---
 
 # Agent UI demo playbook
 
-**Audience:** implementing or demo subagents driving **computerUse** / **RecordScreen**.
+**Audience:** implementing agents or the dedicated **`ui-demo-agent`** subagent driving **computerUse** / **RecordScreen**.
 
-**Goal:** One short clip a human reviewer can score without re-watching — **minimal agent turns**, **minimal on-camera time**.
+**Subagent:** `/ui-demo-agent` (Task → `ui-demo-agent`) — **model: `composer-2.5-fast`** (required; stub: [agents/ui-demo-agent.md](../../agents/ui-demo-agent.md)). Coordinators and implementing workers keep their default model unless docs say otherwise.
 
-**Related:** [obsidian-cloud-vm-demos](../obsidian-cloud-vm-demos/SKILL.md) (VM gates, embeds), [obsidian-ui-visibility](../obsidian-ui-visibility/SKILL.md) (preflight), [pr-product-demos](../../.cursor/rules/pr-product-demos.mdc). Project store: `docs/demo-verification-contract.md`, `docs/agent-ui-demo-playbook.md`.
+**Goal:** One short clip a human reviewer can score without re-watching — **minimal agent turns**, **minimal on-camera time**. No mandatory BDD verifier loop; Adrian reviews the embedded demo.
+
+**Related:** [obsidian-cloud-vm-demos](../obsidian-cloud-vm-demos/SKILL.md) (VM gates, PR embeds), [obsidian-ui-visibility](../obsidian-ui-visibility/SKILL.md) (preflight), [obsidian-visual-verify](../obsidian-visual-verify/SKILL.md) (jank checklist), [obsidian-multi-vault-cli](../obsidian-multi-vault-cli/SKILL.md) (serial CLI, vault identity), [pr-product-demos](../../.cursor/rules/pr-product-demos.mdc), [obsidian-pr-ship-sync](../obsidian-pr-ship-sync/SKILL.md). Project store: `docs/demo-verification-contract.md`, `docs/agent-ui-demo-playbook.md`.
 
 ---
 
@@ -26,10 +28,59 @@ Do **not** interleave long exploration with recording. Fixed order:
 | **A. Script** | No | One planning pass: ≤6 steps, each with one `must_show` |
 | **B. Preflight** | No | Deploy, identity gate, visibility — shell/CLI first |
 | **C. Stage** | Brief | Frame UI once; close Settings/modals; start **RecordScreen** |
-| **D. Proof beats** | Yes | Only contract steps; fast moves, **2s hold** on evidence |
-| **E. Stop + ship** | No | Save MP4; 3–5 PR bullets; [obsidian-pr-ship-sync](../obsidian-pr-ship-sync/SKILL.md) |
+| **D. Proof beats** | Yes | Fast between steps; **pause on evidence** at each key UX moment |
+| **E. Stop + ship** | No | Save MP4; **What to look for** bullets; [obsidian-pr-ship-sync](../obsidian-pr-ship-sync/SKILL.md); **keep PR Draft** |
 
-**Re-record:** only at ship gate when contract Overall is FAIL (project `docs/demo-verification-contract.md`). Do not loop takes during exploration.
+**Re-record:** only when the clip clearly fails the contract (wrong surface, covered control, no readable proof). Do not loop takes during exploration.
+
+---
+
+## How to make a good demo
+
+### One path, one story
+
+- Pick **one happy path** that proves the feature end-to-end. Add **one short unhappy beat** only when the PR story depends on it (validation error, empty state, permission denied) — show **correct failure UX**, not a crash.
+- **Stage the frame** before recording: target surface centered, Settings and unrelated modals **closed**, entire interactive region in view (composer + toolbar, modal + footer, etc.).
+- **Unique labels** in the UI when possible (distinct chip text, note titles) so reviewers can read state on a small video.
+
+### Pacing (no fixed second counts)
+
+There is **no** rigid 1s/2s rule and **no** “count one-thousand-two-thousand” timing.
+
+- Move **quickly between steps** — no cursor wandering, menu tours, or idle desktop on camera.
+- At each **key UX moment**, **pause briefly** on the **evidence frame** after the UI settles: hold still until a reviewer could **read** the proof (glyph visible, menu item legible, tab switch shows the right transcript, reload restored the expected state, error banner text readable, chip on the message, etc.).
+- Do **not** skip through proof — montage edits that flash states are as bad as rambling clips.
+- **Stop** right after the last proof moment — not minutes of idle.
+
+Examples of moments that deserve a pause: opening a menu before clicking an item; switching floating-chat tabs to show different `@Note` attachments; showing send vs queue icon; permission banner with buttons; settings toggle reflected in the UI.
+
+### What to show (vs what to skip)
+
+| Show on camera | Keep off camera |
+|----------------|-----------------|
+| Outcome the PR claims (chip on message, new label, error banner) | Build logs, long CLI output |
+| Tab/session switch when the story needs per-session state | Repeated toggles of the same control |
+| CLI/eval in setup notes only unless the feature *is* CLI-visible | Settings tours unless verifying Settings |
+
+**Agent Client:** multi-session / context features → tabbed floating chat, **switch tabs on camera**, show **outcome** (e.g. `@Note` on message), not icon state alone (fork `AGENTS.md` → Cloud Agent UI demos).
+
+### Gates before RecordScreen
+
+1. **Build + deploy + reload** — [obsidian-plugin-dev](../obsidian-plugin-dev/SKILL.md); copy only `main.js`, `manifest.json`, `styles.css`.
+2. **Vault identity** — per global rule `obsidian-vault-target-verify`; **serial** `obsidian` invocations — [obsidian-multi-vault-cli](../obsidian-multi-vault-cli/SKILL.md) (`vault=` first).
+3. **Visibility** — [obsidian-ui-visibility](../obsidian-ui-visibility/SKILL.md): mounted, on screen, uncovered, readable.
+4. **Jank spot-check** during the walkthrough — [obsidian-visual-verify](../obsidian-visual-verify/SKILL.md), [ux-design](../ux-design/SKILL.md); fail before ship if layout shift, flicker, or focus steal is ship-blocking.
+
+If preflight fails, **fix before** phase C. Do not “record and hope.”
+
+### Common fails
+
+- Feature cropped or covered by Settings / another window
+- Blitzing through proof (reviewer cannot tell success vs flicker)
+- Demo shows chrome only, not **outcome**
+- Multi-session story with only one tab on camera
+- Long exploratory recording burned into one MP4 (split: preflight off camera)
+- Wrong vault (identity gate skipped) — reload/eval hit the focused window, not sandbox
 
 ---
 
@@ -39,76 +90,63 @@ Write or paste a **demo contract** before touching the mouse:
 
 - **One sentence goal** — what the reviewer must believe after the clip.
 - **Setup line** — vault, surface (e.g. tabbed floating chat), Settings **closed**.
-- **Steps** — each step: `action` (one verb), `must_show` (visible proof), `hold_seconds: 2` (use **3** for ship-critical states).
+- **Steps** — each step: `action` (one verb), `must_show` (visible proof), `pause_on` (what the reviewer must be able to read on that frame).
 - **Out of scope** — explicit; do not fail the clip for these.
 
 Prefer **CLI/eval** in setup notes (enable setting, open view) over menu drilling on camera.
-
-**Agent Client:** multi-session / context features → tabbed floating chat, **switch tabs on camera**, show **outcome** (e.g. `@Note` on message), not icon state alone (repo `AGENTS.md` → Cloud Agent UI demos).
 
 ---
 
 ## B. Preflight (off camera)
 
-1. Build + deploy + `plugin:reload` — [obsidian-plugin-dev](../obsidian-plugin-dev/SKILL.md), serial CLI — [obsidian-multi-vault-cli](../obsidian-multi-vault-cli/SKILL.md).
-2. [obsidian-ui-visibility](../obsidian-ui-visibility/SKILL.md) — target mounted, uncovered, in frame, readable.
-3. Optional jank spot-check — [obsidian-visual-verify](../obsidian-visual-verify/SKILL.md), [ux-design](../ux-design/SKILL.md).
-
-If preflight fails, **fix before** phase C. Do not “record and hope.”
+Follow **Gates before RecordScreen** above.
 
 ---
 
 ## C. Stage (camera on, not yet proving)
 
 1. **RecordScreen START** only when the relevant surface is already open and framed.
-2. **Frame rule:** entire interactive surface in view (composer + toolbar, modal + footer, etc.).
-3. **Unique labels** in UI when possible (distinct chip text) so reviewers can read state on a small video.
-4. No idle desktop, no Settings tour, no hunt-through-menus at the start.
+2. No idle desktop, no Settings tour, no hunt-through-menus at the start.
 
 ---
 
 ## D. Proof beats (camera — keep short)
 
-**Motion:** purposeful clicks/types; no double-clicks, no cursor wandering.
+**Motion:** purposeful clicks/types; no double-clicks.
 
-**Pacing:** quick transitions between steps; **after each visible change**, hold still **≥2 seconds** on the **evidence frame** (chip, banner, new label, tab content difference).
+**Pacing:** fast between steps; at each step, **pause on `must_show`** until readable — see **Pacing** under *How to make a good demo*.
 
-| Do on camera | Avoid on camera |
-|--------------|-----------------|
-| Happy path end-to-end | Every related screen |
-| One context switch if the story needs it (tab/session) | Repeated toggles of the same control |
-| One short unhappy beat **only if** contract requires it | Long typing, generic lorem |
-| Pause on **outcome** | Pause on loading spinners unless proving loading UX |
-
-**Stop** immediately after the last hold — not minutes of idle.
-
-**computerUse prompt shape (one delegation):** pass the **full contract** or path; list steps as numbered `action` + `must_show` + `hold 2s`; say “do not open Settings unless step N requires it.”
+**Delegation:** Prefer Task → **`ui-demo-agent`** with **`model: composer-2.5-fast`** and the full demo contract in the prompt. When the parent runs **computerUse** inline, use the same contract shape: numbered `action` + `must_show` + `pause until readable`; say “do not open Settings unless step N requires it.”
 
 ---
 
-## E. Stop + ship (off camera)
+## E. Stop + human handoff (off camera)
 
 1. **RecordScreen SAVE** → `/opt/cursor/artifacts/` (or git-ignored `.tmp/`).
-2. Under the embed, **3–5 bullets**: “What to look for” mapped to contract steps.
-3. PR: embed with `<video src="/opt/cursor/artifacts/…">` — [obsidian-cloud-vm-demos](../obsidian-cloud-vm-demos/SKILL.md).
-4. Large behavioral scope: **`/ui-verifier-demo`** still required — this playbook does not replace BDD.
+2. **`ManagePullRequest` `update_pr`** — embed the clip:
+
+```markdown
+## Demo
+
+<video src="/opt/cursor/artifacts/your-demo.mp4"></video>
+
+### What to look for
+
+- … (3–5 bullets: each maps to a contract step / visible proof)
+- …
+```
+
+3. Run [obsidian-pr-ship-sync](../obsidian-pr-ship-sync/SKILL.md) so **title**, **description**, and **embeds** match **this** branch and **this** recording.
+4. **Leave the PR Draft** unless the user explicitly asked to mark Ready. Tell Adrian the PR is ready for **human** review (demo embedded, bullets under the video).
+5. Optional: delegate **`/pr-acceptance-review`** if you want a structured AC block before Adrian watches — **not required** for handoff.
 
 ---
 
 ## Review-ready checklist (agent)
 
 - [ ] Contract written before record
-- [ ] Preflight visibility PASS
-- [ ] Clip ≤ one feature story; proof holds ≥2s
+- [ ] Preflight visibility PASS; vault identity confirmed
+- [ ] Clip ≤ one feature story; each proof moment **readable** on camera (not skipped)
 - [ ] Reviewer can score from UI state without narration
-- [ ] PR bullets + embedded MP4 (when PR exists)
-
----
-
-## Common fails
-
-- Feature cropped or covered by another window
-- No hold after transition (reviewer cannot tell success vs flicker)
-- Demo shows chrome only, not **outcome**
-- Multi-session story with only one tab on camera
-- Long exploratory recording burned into one MP4 (split: preflight off camera)
+- [ ] PR has embedded MP4 + **What to look for** (3–5 bullets)
+- [ ] PR ship sync done; PR stays **Draft** until maintainer marks Ready

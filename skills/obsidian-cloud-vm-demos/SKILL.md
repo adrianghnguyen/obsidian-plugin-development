@@ -35,9 +35,7 @@ If none apply, follow the plugin repo’s local `.cursor/rules/deploy-and-verify
 | UI, CSS, layout, modal, status bar, settings | **Screenshots** of every affected surface — [obsidian-visual-verify](../obsidian-visual-verify/SKILL.md) or repo-specific capture script. Show images in chat. |
 | Behavior, CLI, index, search, settings runtime | **Command + full relevant output** (`eval` JSON, log excerpt). Summaries alone are not enough. |
 | Both visible and behavioral | **Both** screenshot set and CLI/runtime output. |
-| **Complex feature** or **user-facing flow** (same bar as [pr-product-demos](../../.cursor/rules/pr-product-demos.mdc) / [trigger-ui-verifier-demo](../../.cursor/rules/trigger-ui-verifier-demo.mdc)) | **Screen recording (`.mp4`)** end-to-end on the VM, embedded in the PR when one exists. Include numbered steps in chat or PR. **Screenshots-only is not sufficient** for review-ready PRs here. |
-| Large behavioral change | **`/ui-verifier-demo`** BDD report ([obsidian-ui-verifier-demo](../obsidian-ui-verifier-demo/SKILL.md)) — happy + unhappy paths; FAIL must cite BDD gap. |
-| Before human verify (🟠) | **`/pr-acceptance-review`** — PR **`## Acceptance review`** checklist ([obsidian-pr-acceptance-review](../obsidian-pr-acceptance-review/SKILL.md)). |
+| **Complex feature** or **user-facing flow** (same bar as [pr-product-demos](../../.cursor/rules/pr-product-demos.mdc)) | **Screen recording (`.mp4`)** end-to-end on the VM, embedded in the PR when one exists. Include **What to look for** bullets under the embed. **Screenshots-only is not sufficient** for those PRs. |
 
 **Complex / user-facing** triggers (any one): new or changed user flow; ≥3 non-test files under `src/ui/`, `src/hooks/`, settings tab, or `styles.css`; user-visible changelog bullet.
 
@@ -84,8 +82,8 @@ Chat and local `.tmp/` paths are supplementary; reviewers should validate from t
 - **Reload after deploy** — copy only `main.js`, `manifest.json`, `styles.css`; preserve `data.json`.
 - **UI proof** — use [obsidian-visual-verify](../obsidian-visual-verify/SKILL.md) with VM vault name and paths from cloud `paths.env` / project docs. Capture each touched surface (`Main`, `StatusBar`, `Settings`, plugin modal).
 - **Artifacts** — write screenshots and dumps under a **git-ignored** dir (`.tmp/`, plugin `.seek-artifacts/`, or OS temp). Never commit demo PNGs.
-- **Demo pacing** — in screen recordings, hold each distinct UI/behavior state for **≥2 seconds** after transitions finish before advancing to the next step (click, hotkey, or navigation). Avoid rapid montages that hide what changed.
-- **Agent record workflow** — [obsidian-agent-ui-demo](../obsidian-agent-ui-demo/SKILL.md) (token-efficient phases for computerUse / RecordScreen).
+- **Demo pacing** — move quickly between steps; **pause briefly on key UX proof moments** so reviewers can read state (see [obsidian-agent-ui-demo](../obsidian-agent-ui-demo/SKILL.md)). Avoid montages that skip through evidence.
+- **Agent record workflow** — Task → **`ui-demo-agent`** (**`composer-2.5-fast`**) + [obsidian-agent-ui-demo](../obsidian-agent-ui-demo/SKILL.md).
 
 If screenshot capture fails, fix and **retry once**; then report CLI error output — do not mark UI work complete.
 

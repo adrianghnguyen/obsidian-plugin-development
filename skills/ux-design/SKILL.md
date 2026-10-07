@@ -65,7 +65,7 @@ Keep labels, options, and current state visible. Match familiar platform pattern
 
 ## UI jank ship gate (interaction + motion)
 
-Before PR-ready UI, verify during a **live walkthrough** or **`.mp4`** on the cloud VM when available ([obsidian-cloud-vm-demos](../obsidian-cloud-vm-demos/SKILL.md)). Complements BDD [obsidian-ui-verifier-demo](../obsidian-ui-verifier-demo/SKILL.md); does not replace it.
+Before PR-ready UI, verify during a **live walkthrough** or **`.mp4`** on the cloud VM when available ([obsidian-cloud-vm-demos](../obsidian-cloud-vm-demos/SKILL.md), [obsidian-agent-ui-demo](../obsidian-agent-ui-demo/SKILL.md)).
 
 ```
 - [ ] Layout stable after load (no reflow jumps in settings/modals/chat)
