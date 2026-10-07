@@ -28,7 +28,7 @@ Create PRs as **Draft** by default. Mark **Ready for review** only after self-re
 
 ## PR product demos
 
-**Complex features** and **user-facing behavioral changes** need a cloud VM **`.mp4` screen recording** walkthrough **embedded in the PR description** (screenshots-only is not enough for those PRs). Same “complex” bar as `rules/trigger-ui-verifier-demo.mdc`. Procedure: `skills/obsidian-cloud-vm-demos/SKILL.md` and `.cursor/rules/pr-product-demos.mdc`.
+**Complex features** and **user-facing behavioral changes** need a cloud VM **`.mp4` screen recording** walkthrough **embedded in the PR description** (screenshots-only is not enough for those PRs). Same “complex” bar as `rules/trigger-ui-verifier-demo.mdc`. Procedure: `skills/obsidian-cloud-vm-demos/SKILL.md` and `.cursor/rules/pr-product-demos.mdc`. **Demo agent execution:** `skills/obsidian-agent-ui-demo/SKILL.md` (preflight off camera, one short proof clip).
 
 ## UI jank verification
 
