@@ -6,6 +6,7 @@ All notable changes to this Agent Plugin package are documented here.
 
 ### Added
 
+- **`obsidian-agent-ui-demo` skill** — token-efficient demo phases for Cloud Agents (script/preflight off camera, short proof clip, ≥2s holds, computerUse contract shape); linked from `pr-product-demos` and `obsidian-cloud-vm-demos`.
 - **`obsidian-ui-visibility` skill** — checks that must pass before a screenshot or screen recording: Settings and modals closed, target control mounted and on screen, not covered, large enough to see, and hover demos use the real pointer.
 - **`ui-verifier-demo` subagent** — readonly functional verifier; BDD scenarios (happy + unhappy paths); structured report with failure explanations (expected, observed, BDD gap, failure mode).
 - **`obsidian-ui-verifier-demo` skill** — when to run, scenario design, verdict rules, report template.

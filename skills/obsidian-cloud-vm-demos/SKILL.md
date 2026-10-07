@@ -85,6 +85,7 @@ Chat and local `.tmp/` paths are supplementary; reviewers should validate from t
 - **UI proof** — use [obsidian-visual-verify](../obsidian-visual-verify/SKILL.md) with VM vault name and paths from cloud `paths.env` / project docs. Capture each touched surface (`Main`, `StatusBar`, `Settings`, plugin modal).
 - **Artifacts** — write screenshots and dumps under a **git-ignored** dir (`.tmp/`, plugin `.seek-artifacts/`, or OS temp). Never commit demo PNGs.
 - **Demo pacing** — in screen recordings, hold each distinct UI/behavior state for **≥2 seconds** after transitions finish before advancing to the next step (click, hotkey, or navigation). Avoid rapid montages that hide what changed.
+- **Agent record workflow** — [obsidian-agent-ui-demo](../obsidian-agent-ui-demo/SKILL.md) (token-efficient phases for computerUse / RecordScreen).
 
 If screenshot capture fails, fix and **retry once**; then report CLI error output — do not mark UI work complete.
 
