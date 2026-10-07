@@ -26,7 +26,7 @@ Do **not** interleave long exploration with recording. Fixed order:
 | Phase | On camera? | Agent cost |
 |-------|------------|------------|
 | **A. Script** | No | One planning pass: ≤6 steps, each with one `must_show` |
-| **B. Preflight** | No | Deploy, identity gate, visibility — shell/CLI first |
+| **B. Preflight** | No | **Parent only:** deploy, identity gate, open surface, seed state — not `ui-demo-agent` |
 | **C. Stage** | Brief | Frame UI once; close Settings/modals; start **RecordScreen** |
 | **D. Proof beats** | Yes | Fast between steps; **pause on evidence** at each key UX moment |
 | **E. Stop + ship** | No | Save MP4; **What to look for** bullets; [obsidian-pr-ship-sync](../obsidian-pr-ship-sync/SKILL.md); **keep PR Draft** |
@@ -81,6 +81,66 @@ If preflight fails, **fix before** phase C. Do not “record and hope.”
 - Multi-session story with only one tab on camera
 - Long exploratory recording burned into one MP4 (split: preflight off camera)
 - Wrong vault (identity gate skipped) — reload/eval hit the focused window, not sandbox
+- Menu exploration (File, Settings, vault sidebar) instead of the contract path
+
+---
+
+## Parent kickoff
+
+The coordinator follows this when writing the `ui-demo-agent` task. One kickoff, one path.
+
+- **One path only.**
+- Name the shell command (`obsidian restart` or `plugin:reload`). When restore/reload is the proof, also name the code entry (example: `restorePinnedSessions` on `onload`).
+- Put that command in the kickoff. Do not say “follow the skills” instead of the command.
+- Do not offer a GUI alternate (File → Exit) beside the shell command.
+- Do not spawn a second agent with the same script.
+- Do not ask the demo agent to fix code before that one cheap proof has run.
+
+---
+
+## If lost, stop
+
+Demo agents must **not** rediscover Obsidian. The parent stages the app; the demo agent runs a **fixed path** only.
+
+### 1. Parent preflight only
+
+The **parent** (coordinator or implementing agent) — **not** `ui-demo-agent` — must finish before delegation:
+
+- Deploy artifacts + `plugin:reload` (or `obsidian restart` when the story requires it)
+- Vault identity gate (`name` + `basePath`)
+- Open the **exact** surface (floating chat, modal, status bar, etc.)
+- Seed state via **`obsidian eval`** or known palette commands
+
+Do not delegate `ui-demo-agent` to “set up Obsidian.”
+
+### 2. Kickoff navigation card (required in the Task prompt)
+
+Paste this block for every delegation:
+
+```text
+Vault: <CLI vault name>
+Surface: <already open — e.g. tabbed floating chat, tab "Session A">
+Shell: <one command — obsidian vault=<name> plugin:reload id=<plugin-id> OR obsidian restart>
+Code entry: <when restore/reload is the proof — e.g. restorePinnedSessions on onload>
+First control: <exact label or aria text to click>
+Contract: <path or inline steps>
+```
+
+No “figure out Obsidian.” The demo agent assumes the surface is **already** on screen.
+
+### 3. Stop rule
+
+If the **named control** is missing, off screen, or covered after **one** eval or [obsidian-ui-visibility](../obsidian-ui-visibility/SKILL.md) check:
+
+- **Stop** — status `BLOCKED`
+- Report what failed (vault, surface, control)
+- Do **not** open **Settings**, the **vault file sidebar**, **File** menu, or hunt through plugin chrome
+
+Return to the parent to fix preflight or update the navigation card.
+
+### 4. No nested explorer
+
+While a demo contract is in flight, do **not** spawn subagents to explore the UI, tour menus, or “find” controls. One path, one clip.
 
 ---
 
