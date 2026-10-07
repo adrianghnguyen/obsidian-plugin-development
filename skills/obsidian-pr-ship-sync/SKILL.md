@@ -25,8 +25,8 @@ Run **`obsidian-pr-ship-sync`** (read this skill and execute the checklist) in t
 | Demo recording or screenshot set finished | Body must embed **this** capture, not a prior run |
 | User-visible behavior changed on the branch | Description, AC, and media must match **current** UI |
 | Re-record after feedback or bugfix | Old embeds and acceptance evidence are invalid |
-| Before **`draft: false`** | Ready means “description = demo = diff” |
-| Before **🟠 Requires user input** | Human verify reads the PR, not chat-only artifacts |
+| After demo for human handoff | Body embeds latest clip + **What to look for**; PR stays **Draft** unless user asked Ready |
+| Before **`draft: false`** (when requested) | Ready means “description = demo = diff” |
 | Changelog `[Unreleased]` bullet changed | PR story should match changelog wording |
 
 **Skip** only for docs-only PRs with no open behavioral story, or when the user explicitly keeps a draft WIP PR with no demo bar.
@@ -86,8 +86,10 @@ Provide the **full** PR body (tool preserves markers). Include:
 
 <video src="/opt/cursor/artifacts/your-demo.mp4"></video>
 
-- 0:00–0:04 …
-- 0:04–0:08 …
+### What to look for
+
+- …
+- …
 
 <img src="/opt/cursor/artifacts/state-idle.webp" alt="Idle mic" />
 …
@@ -99,21 +101,19 @@ Rules:
 - Remove or replace **all** superseded paragraphs and images — do not append a second story.
 - If behavior changed: update **`title`** in the same or follow-up `update_pr`.
 
-### 4. Acceptance review
+### 4. Acceptance review (optional)
 
-- If demo or AC changed: delegate **`/pr-acceptance-review`** or update the `ACCEPTANCE_REVIEW_BEGIN` … `END` block so every **`[x]`** cites **new** evidence.
-- **Never** leave **Verdict: PASS** while AC text still describes old UI.
+- If you use **`/pr-acceptance-review`**, update the `ACCEPTANCE_REVIEW_BEGIN` … `END` block so evidence matches **embedded** media. See [obsidian-pr-acceptance-review](../obsidian-pr-acceptance-review/SKILL.md).
 
-See [obsidian-pr-acceptance-review](../obsidian-pr-acceptance-review/SKILL.md) for AC format.
+### 5. Hand off or mark Ready
 
-### 5. `ManagePullRequest` → `update_pr` (`draft: false`)
-
-Only after steps 3–4. Re-read the PR on GitHub mentally: would a reviewer who never opened chat understand the **current** feature from the body alone?
+- **Default:** stop after step 3 with PR **Draft**; tell Adrian the demo is embedded.
+- **`draft: false`** only when the user explicitly asked to mark Ready — same turn as step 3. Re-read the PR: would a reviewer who never opened chat understand the feature from the body alone?
 
 ### 6. Project notes (optional)
 
-- **In progress** until acceptance **PASS** and body synced.
-- **🟠** only after Ready + PASS when asking Adrian to verify.
+- **In progress** until body synced with latest demo.
+- **🟠** when Adrian (or user) is asked to verify — usually after they mark Ready.
 
 ---
 
@@ -151,4 +151,4 @@ Acceptance: PASS | pending re-run
 ## See also
 
 - [obsidian-plugin-dev](../obsidian-plugin-dev/SKILL.md) — changelog bullets when user-facing
-- [obsidian-ui-verifier-demo](../obsidian-ui-verifier-demo/SKILL.md) — BDD before acceptance when triggered
+- [obsidian-agent-ui-demo](../obsidian-agent-ui-demo/SKILL.md) — record + pacing for embedded demos

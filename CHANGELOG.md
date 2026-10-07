@@ -6,11 +6,22 @@ All notable changes to this Agent Plugin package are documented here.
 
 ### Added
 
-- **`obsidian-agent-ui-demo` skill** — token-efficient demo phases for Cloud Agents (script/preflight off camera, short proof clip, ≥2s holds, computerUse contract shape); linked from `pr-product-demos` and `obsidian-cloud-vm-demos`.
+- **`ui-demo-agent` subagent** — cloud VM UI demo recorder; **model `composer-2.5-fast`**; pairs with `obsidian-agent-ui-demo` skill.
+- **`obsidian-agent-ui-demo` skill** — token-efficient demo phases for Cloud Agents (script/preflight off camera, short proof clip, pause on key UX proof moments, computerUse contract shape); linked from `pr-product-demos` and `obsidian-cloud-vm-demos`.
+
+### Removed
+
+- **`ui-verifier-demo` subagent**, **`obsidian-ui-verifier-demo` skill**, and **`trigger-ui-verifier-demo` rule** — replaced by record → embed `.mp4` → **What to look for** → Draft handoff to Adrian ([obsidian-agent-ui-demo](skills/obsidian-agent-ui-demo/SKILL.md)).
+
+### Changed
+
+- **Demo pacing** — no fixed second counts; move quickly between steps, pause briefly on readable proof frames ([obsidian-agent-ui-demo](skills/obsidian-agent-ui-demo/SKILL.md), [pr-product-demos](.cursor/rules/pr-product-demos.mdc), [obsidian-cloud-vm-demos](skills/obsidian-cloud-vm-demos/SKILL.md)).
+- **`pr-draft-ready` / `pr-product-demos`** — human handoff stays **Draft** until Adrian marks Ready; optional `/pr-acceptance-review`.
+- **`obsidian-pr-ship-sync`** — sync embeds + **What to look for**; `draft: false` only when user requests Ready.
+
+### Added (prior)
+
 - **`obsidian-ui-visibility` skill** — checks that must pass before a screenshot or screen recording: Settings and modals closed, target control mounted and on screen, not covered, large enough to see, and hover demos use the real pointer.
-- **`ui-verifier-demo` subagent** — readonly functional verifier; BDD scenarios (happy + unhappy paths); structured report with failure explanations (expected, observed, BDD gap, failure mode).
-- **`obsidian-ui-verifier-demo` skill** — when to run, scenario design, verdict rules, report template.
-- **`trigger-ui-verifier-demo` rule** — requires delegation on large behavioral changes; blocks done on P0 FAIL.
 - `obsidian-cloud-vm-demos` skill — strict verification on Cursor Cloud VMs (runtime proof, mandatory screenshots for UI, identity gate, local vs cloud gap reporting, PR description embedded artifact URLs per Cloud Agents GitHub posting).
 - Cloud Linux E2E harness (`scripts/cloud-e2e`) — synthetic vault, AppImage + Xvfb, CDP injection of Cursor env secrets into Obsidian `secretStorage`.
 - Skill `obsidian-cloud-e2e` for Cloud Agent in-vault testing.
@@ -22,7 +33,7 @@ All notable changes to this Agent Plugin package are documented here.
 - **Single definition for Obsidian vault targeting.** The global rule `obsidian-vault-target-verify` now solely defines how `vault=` resolves (exact basename, first argument), the `basePath` discovery gate, and “no printed path means stop.” `obsidian-multi-vault-cli`, `obsidian-plugin-dev`, `obsidian-plugin-debug`, `obsidian-cloud-vm-demos`, `obsidian-ui-verifier-demo`, `ship-main-prod`, `obsidian-plugin-sandbox`, `obsidian-plugin-tweaks`, `obsidian-visual-verify`, `obsidian-indexeddb-storage`, `seek-seinfeld-eval`, `obsidian-settings-secrets`, the machine-profile references, and the `ui-verifier-demo` agent now defer by name instead of restating the mechanics.
 - **`obsidian-visual-verify` scripts enforce the target.** `Invoke-ObsidianCliSerial` now prepends `vault=` so it is always the first argument, and `Assert-ObsidianVaultTarget` gates on `app.vault.adapter.basePath`. `Invoke-ObsidianCliSerial` returns a string (was `{ Output, ExitCode }`); `Ensure-ObsidianVaultReady` and `capture-surfaces.ps1` gain `-ExpectedBasePath`.
 - **`obsidian-plugin-dev` skill** — detailed release-notes standard (CHANGELOG Added/Changed/Fixed, annotated tag headline + bullets, GitHub Release publish/body, BRAT production path); `AGENTS.md` pointer.
-- **`pr-product-demos` rule** — cross-links UI verifier demo and report attachment for behavioral PRs.
+- **`pr-product-demos` rule** — embedded `.mp4` + **What to look for**; delegates **`ui-demo-agent`** (`composer-2.5-fast`).
 - Cloud E2E does not inject `ANTHROPIC_API_KEY`; Claude Code stays account-login in the synthetic vault.
 
 ## [0.1.2] - 2026-09-13

@@ -24,27 +24,23 @@ When shipping sibling Obsidian plugins, use **detailed** changelog sections (Add
 
 ## PR draft vs ready for review
 
-Create PRs as **Draft** by default. Mark **Ready for review** only after self-review, green CI, deploy verify, demo/BDD/acceptance when applicable, and **`obsidian-pr-ship-sync`** so the PR body matches shipped code and the latest demo. After substantive reviewer fixes, back to **Draft**, then **Ready** again. Rule: `.cursor/rules/pr-draft-ready.mdc`; procedure: `skills/obsidian-pr-ship-sync/SKILL.md`.
+Create PRs as **Draft** by default. After deploy verify and an embedded demo, run **`obsidian-pr-ship-sync`** and **hand off in Draft** for Adrian unless the user asked to mark Ready. Rule: `.cursor/rules/pr-draft-ready.mdc`; procedure: `skills/obsidian-pr-ship-sync/SKILL.md`.
 
 ## PR product demos
 
-**Complex features** and **user-facing behavioral changes** need a cloud VM **`.mp4` screen recording** walkthrough **embedded in the PR description** (screenshots-only is not enough for those PRs). Same “complex” bar as `rules/trigger-ui-verifier-demo.mdc`. Procedure: `skills/obsidian-cloud-vm-demos/SKILL.md` and `.cursor/rules/pr-product-demos.mdc`. **Demo agent execution:** `skills/obsidian-agent-ui-demo/SKILL.md` (preflight off camera, one short proof clip).
+**Complex features** and **user-facing behavioral changes** need a cloud VM **`.mp4`** embedded in the PR with **What to look for** bullets (screenshots-only is not enough for those PRs). Heuristics: `.cursor/rules/pr-product-demos.mdc`. Procedure: `skills/obsidian-cloud-vm-demos/SKILL.md`. **Recording:** delegate **`/ui-demo-agent`** ([agents/ui-demo-agent.md](agents/ui-demo-agent.md), **model `composer-2.5-fast`**) or follow `skills/obsidian-agent-ui-demo/SKILL.md` — preflight off camera, brief pauses on key UX proof moments, human handoff.
 
 ## UI jank verification
 
-Before UI work is PR-ready, run the **UI jank pass/fail checklist** during the demo walkthrough (layout shift, flicker, alignment, overlays, focus, motion). Skills: `skills/obsidian-visual-verify/SKILL.md`, `skills/ux-design/SKILL.md`; recorded in BDD reports via `skills/obsidian-ui-verifier-demo/SKILL.md`.
+Run the **UI jank pass/fail checklist** during the demo walkthrough (layout shift, flicker, alignment, overlays, focus, motion). Skills: `skills/obsidian-visual-verify/SKILL.md`, `skills/ux-design/SKILL.md`.
 
 ## UI visibility (before any demo)
 
-Before a screenshot or screen recording, run **`obsidian-ui-visibility`**. The demo fails if Settings, a modal, or another window covers the control, or if the control is missing, off screen, or too small to see. DOM probes and computed styles do not replace that check. Skill: `skills/obsidian-ui-visibility/SKILL.md`.
+Before a screenshot or screen recording, run **`obsidian-ui-visibility`**. The demo fails if Settings, a modal, or another window covers the control, or if the control is missing, off screen, or too small to see. Skill: `skills/obsidian-ui-visibility/SKILL.md`.
 
-## UI verifier demo (BDD functional)
+## PR acceptance review (optional)
 
-Large or behavioral plugin work must delegate **`/ui-verifier-demo`** before done. The subagent runs happy and unhappy paths, writes `ui-verifier-demo-report.md` (**PASS** / **PARTIAL** / **FAIL**), and on failure explains **expected vs observed** behavior and the **BDD gap**. Skill: `skills/obsidian-ui-verifier-demo/SKILL.md`. Rule: `rules/trigger-ui-verifier-demo.mdc`. **Does not replace** the `.mp4` product demo or jank gate above when both apply.
-
-## PR acceptance review (before human verify)
-
-Before moving work to **🟠 Requires user input**, delegate **`/pr-acceptance-review`**. The subagent derives acceptance criteria from the PR, reviews embedded demo media, and updates the PR body with **`## Acceptance review`** (checklist + evidence). Skill: `skills/obsidian-pr-acceptance-review/SKILL.md`. Agent stub: `.cursor/agents/pr-acceptance-review.md`. **Do not** ask Adrian to verify until **Verdict: PASS** and all AC boxes are checked.
+Optional **`/pr-acceptance-review`** subagent can append a structured **`## Acceptance review`** block after checking embedded media. Not required for human handoff. Skill: `skills/obsidian-pr-acceptance-review/SKILL.md`; agent: `.cursor/agents/pr-acceptance-review.md`.
 
 ## Agent Client — verify UX
 

@@ -3,37 +3,31 @@ name: obsidian-pr-acceptance-review
 description: >-
   Read-only PR + embedded media review before human verify: derive acceptance
   criteria from the PR story, check demo artifacts against them, and update the
-  PR body with a pass/fail checklist. Run before moving work to Requires user
-  input or asking Adrian to review.
+  PR body with a pass/fail checklist. Optional before human verify when you want
+  a structured AC block.
 ---
 
 # PR acceptance review
 
-**Last gate before human verify.** After code, deploy, BDD (`/ui-verifier-demo` when required), and product demo are in place, a **readonly** reviewer subagent confirms the PR tells a coherent story and the embedded screenshots/videos **prove** the intended user behaviors. It **may edit the PR description only** — append or replace a standard **`## Acceptance review`** section with a checklist and evidence notes.
+**Optional structured review.** After code, deploy, and an embedded product demo, a **readonly** subagent can confirm the PR story matches the media and append **`## Acceptance review`**. **Not required** for Adrian handoff — default flow is embed `.mp4` + **What to look for** bullets in Draft ([obsidian-agent-ui-demo](../obsidian-agent-ui-demo/SKILL.md)).
 
-**Related:** [pr-draft-ready](../../.cursor/rules/pr-draft-ready.mdc), [pr-product-demos](../../.cursor/rules/pr-product-demos.mdc), [obsidian-cloud-vm-demos](../obsidian-cloud-vm-demos/SKILL.md), [obsidian-ui-verifier-demo](../obsidian-ui-verifier-demo/SKILL.md), [obsidian-visual-verify](../obsidian-visual-verify/SKILL.md), [ux-design](../ux-design/SKILL.md). Project bar: user store `docs/ui-ship-quality.md`.
+**Related:** [pr-draft-ready](../../.cursor/rules/pr-draft-ready.mdc), [pr-product-demos](../../.cursor/rules/pr-product-demos.mdc), [obsidian-cloud-vm-demos](../obsidian-cloud-vm-demos/SKILL.md), [obsidian-agent-ui-demo](../obsidian-agent-ui-demo/SKILL.md), [obsidian-visual-verify](../obsidian-visual-verify/SKILL.md), [ux-design](../ux-design/SKILL.md).
 
-**Subagent:** `/pr-acceptance-review` (or Task → `pr-acceptance-review`) — delegate **foreground** before 🟠 **Requires user input**.
+**Subagent:** `/pr-acceptance-review` (or Task → `pr-acceptance-review`).
 
 ---
 
-## When to run (mandatory)
+## When to run
 
-Run **before**:
+Run when you want a formal AC checklist on the PR **after**:
 
-- Moving a PR or project note row to **🟠 Requires user input** (human verify / merge decision).
-- Asking Adrian to watch a demo or approve a feature PR.
+- Tests/build green, sandbox/cloud deploy verified.
+- Product demo embedded when [pr-product-demos](../../.cursor/rules/pr-product-demos.mdc) applies.
+- [obsidian-pr-ship-sync](../obsidian-pr-ship-sync/SKILL.md) so description and media match the latest clip (do not PASS against stale embeds).
 
-Run **after**:
+**Skip** for the normal human-handoff path, docs-only PRs, dependency bumps with zero behavior/UI delta, or explicit `/no-test`.
 
-- Implementing agent marked code complete, tests/build green, sandbox/cloud deploy verified.
-- **`/ui-verifier-demo`** finished when [trigger-ui-verifier-demo](../../.cursor/rules/trigger-ui-verifier-demo.mdc) applies (PASS or accepted PARTIAL documented).
-- Product demo embedded in PR when [pr-product-demos](../../.cursor/rules/pr-product-demos.mdc) applies.
-- Implementing agent completed [obsidian-pr-ship-sync](../obsidian-pr-ship-sync/SKILL.md) so description and media match the latest clip (acceptance review must not PASS against stale embeds).
-
-**Skip** only for: docs/comments-only PRs, dependency bumps with zero behavior/UI delta, or explicit user `/no-test` (still add a minimal **Acceptance review** noting skip reason).
-
-Same **“complex / user-facing”** heuristics as product demos and BDD verifier:
+Same **“complex / user-facing”** heuristics as [pr-product-demos](../../.cursor/rules/pr-product-demos.mdc):
 
 - New or changed user flow (commands, modals, settings, status, errors, permissions).
 - **Large change:** ≥3 non-test files under `src/ui/`, `src/hooks/`, settings tab, or `styles.css`.
@@ -76,7 +70,7 @@ AC-3: When the queue is active, the send control shows the list-plus icon (not t
 AC-7: Must not drop queued messages when switching preset agent before the new harness is ready.
 ```
 
-Import scenarios from `ui-verifier-demo-report.md` when present; **do not** duplicate every BDD step — collapse to owner-level AC.
+Import bullets from **What to look for** and the PR description; collapse to owner-level AC.
 
 ### 3. Review embedded media
 
@@ -85,7 +79,7 @@ For each image/video in the PR body (and supplementary paths cited in chat):
 | Check | FAIL if |
 |-------|---------|
 | **In frame** | Claimed control (composer, chip strip, modal footer) cropped or unreadable |
-| **Hold** | State flashes &lt; ~0.5s with no readable proof (prefer ≥2s per demo pacing rule) |
+| **Hold** | Proof moment skipped or unreadable (demo should pause on key UX beats per [obsidian-agent-ui-demo](../obsidian-agent-ui-demo/SKILL.md)) |
 | **Match AC** | Demo shows something different from PR bullets or derived AC |
 | **Jank** | Ship-blocking layout shift, flicker, or focus steal during the recorded flow |
 
@@ -97,7 +91,7 @@ Record **evidence notes**: `video @ 0:42`, `screenshot Settings → Seek → Dia
 
 | Outcome | Meaning |
 |---------|---------|
-| **PASS** | Every AC checked; media supports claims; verifier PASS (or PARTIAL with documented acceptance) |
+| **PASS** | Every AC checked; media supports claims |
 | **FAIL** | Any AC unchecked or media contradicts story |
 | **BLOCKED** | Missing demo when required, empty PR body, or artifacts not embedded |
 
@@ -119,7 +113,7 @@ Append or **replace** the section between markers (create if absent):
 
 - [x] **AC-1:** … — *Evidence: video 0:12–0:18, send icon visible*
 - [ ] **AC-2:** … — *Gap: PR claims chip X cancel; no frame shows X click*
-- [x] **AC-3:** … — *Evidence: ui-verifier-demo-report.md S1 Then*
+- [x] **AC-3:** … — *Evidence: demo.mp4, tab switch shows expected transcript*
 
 ### Non-behaviors verified
 
@@ -146,7 +140,7 @@ AC: <passed>/<total> passed
 Action: <ready for 🟠 | return to implementer — list failed AC ids>
 ```
 
-Coordinator: **never** move project notes or tell Adrian to verify until PR body contains **`## Acceptance review`** with **Verdict: PASS** and all boxes checked.
+Coordinator: human handoff needs embedded demo + **What to look for**; acceptance review is optional unless the user asked for it.
 
 ---
 
@@ -174,7 +168,6 @@ Do **not** paste into live PRs unless running this review. Illustrative AC for a
 
 ### Notes
 
-- BDD: PASS (report attached in PR comment)
 <!-- ACCEPTANCE_REVIEW_END -->
 ```
 
@@ -182,5 +175,4 @@ Do **not** paste into live PRs unless running this review. Illustrative AC for a
 
 ## See also
 
-- [trigger-ui-verifier-demo](../../.cursor/rules/trigger-ui-verifier-demo.mdc) — BDD before acceptance review
-- User preferences — 🟠 gate and project notes layout (`/cursor/stores/user/preferences.md`)
+- [obsidian-agent-ui-demo](../obsidian-agent-ui-demo/SKILL.md) — default demo + handoff path
