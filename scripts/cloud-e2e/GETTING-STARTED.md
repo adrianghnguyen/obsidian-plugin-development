@@ -178,6 +178,16 @@ node /agent/repos/obsidian-plugin-development/scripts/cloud-e2e/cdp.mjs probe   
 
 Never put keys in `data.json` or into `obsidian eval` / CDP strings that get logged.
 
+## Whistle provider smoke (optional)
+
+Verify the real Needle WASM stack on a bundled speech clip (no API key, not Vitest):
+
+```bash
+bash /agent/repos/obsidian-plugin-development/scripts/cloud-e2e/run-whistle-smoke.sh
+```
+
+See `Notes/Whistle smoke test.md` in the sandbox vault. Attachment: `Attachments/whistle-smoke-hello.wav`.
+
 ## Related files
 
 - Scripts overview: [`README.md`](./README.md)

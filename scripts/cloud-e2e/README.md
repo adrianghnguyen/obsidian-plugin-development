@@ -90,3 +90,21 @@ Trivia lives in that AI21 **demo** repo (not a standalone dataset project). Eval
 ```bash
 bash scripts/cloud-e2e/run-seinfeld-seek-smoke.sh
 ```
+
+## Whistle (Needle WASM) voice-clip smoke
+
+Real on-device batch transcribe for the Whisper plugin’s **Whistle** provider. Requires **ffmpeg**, network on first run (Hugging Face model download). Not CI.
+
+| Item | Location |
+| --- | --- |
+| Runner | `run-whistle-smoke.sh` |
+| Implementation | `whisper-obsidian-plugin` → `npm run smoke:whistle` / `scripts/smoke-test-whistle.mjs` |
+| Default audio | Repo fixture `tests/fixtures/smoke-whistle-hello.wav` |
+| Sandbox copy | Vault `Attachments/whistle-smoke-hello.wav` (when fixture exists at materialize time) |
+| Model cache | `$HOME/.whistle-smoke-cache` (`WHISTLE_CACHE_DIR`) |
+
+```bash
+bash /agent/repos/obsidian-plugin-development/scripts/cloud-e2e/run-whistle-smoke.sh
+```
+
+Vault note: `Notes/Whistle smoke test.md`.
