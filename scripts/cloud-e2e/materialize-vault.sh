@@ -34,9 +34,9 @@ if command -v ffmpeg >/dev/null 2>&1; then
   ffmpeg -nostdin -hide_banner -loglevel error -y -f lavfi -i anullsrc=r=16000:cl=mono -t 1 "$VAULT/Attachments/synthetic-silence.wav" || true
 fi
 
-WHISTLE_HELLO="$REPOS/whisper-obsidian-plugin/tests/fixtures/smoke-whistle-hello.wav"
-if [ -f "$WHISTLE_HELLO" ]; then
-  cp -f "$WHISTLE_HELLO" "$VAULT/Attachments/whistle-smoke-hello.wav"
+VOICE_CLIP="$SCRIPT_DIR/fixtures/voice/smoke-hello.wav"
+if [ -f "$VOICE_CLIP" ]; then
+  cp -f "$VOICE_CLIP" "$VAULT/Attachments/voice-smoke-hello.wav"
 fi
 
 if [ -x "$SCRIPT_DIR/materialize-seinfeld.sh" ]; then

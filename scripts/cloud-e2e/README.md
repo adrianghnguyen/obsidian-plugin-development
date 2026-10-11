@@ -91,20 +91,22 @@ Trivia lives in that AI21 **demo** repo (not a standalone dataset project). Eval
 bash scripts/cloud-e2e/run-seinfeld-seek-smoke.sh
 ```
 
-## Whistle (Needle WASM) voice-clip smoke
+## Voice-clip smokes (any plugin)
 
-Real on-device batch transcribe for the Whisper plugin’s **Whistle** provider. Requires **ffmpeg**, network on first run (Hugging Face model download). Not CI.
+Shared speech file + registry runner for **offline** tests that process real audio (STT, voice pipelines). Not CI. Requires **ffmpeg**.
 
 | Item | Location |
 | --- | --- |
-| Runner | `run-whistle-smoke.sh` |
-| Implementation | `whisper-obsidian-plugin` → `npm run smoke:whistle` / `scripts/smoke-test-whistle.mjs` |
-| Default audio | Repo fixture `tests/fixtures/smoke-whistle-hello.wav` |
-| Sandbox copy | Vault `Attachments/whistle-smoke-hello.wav` (when fixture exists at materialize time) |
-| Model cache | `$HOME/.whistle-smoke-cache` (`WHISTLE_CACHE_DIR`) |
+| Runner | `run-voice-clip-smoke.sh <plugin-key> [audio]` |
+| Registry | `voice-clip-smokes.sh` — add a `case` arm per plugin |
+| Default clip | `fixtures/voice/smoke-hello.wav` |
+| Sandbox copy | Vault `Attachments/voice-smoke-hello.wav` |
+| Env | `CLOUD_E2E_VOICE_CLIP` — override default clip path |
 
 ```bash
-bash /agent/repos/obsidian-plugin-development/scripts/cloud-e2e/run-whistle-smoke.sh
+bash scripts/cloud-e2e/run-voice-clip-smoke.sh whistle
 ```
 
-Vault note: `Notes/Whistle smoke test.md`.
+Example registration today: **`whistle`** → `whisper-obsidian-plugin` `npm run smoke:voice-clip` (Needle WASM; first run downloads ~17 MB to `$HOME/.whistle-smoke-cache`).
+
+Vault note: `Notes/Voice clip smoke test.md`.

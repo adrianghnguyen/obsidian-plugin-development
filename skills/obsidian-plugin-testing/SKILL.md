@@ -70,6 +70,16 @@ Move those to **optional live smoke scripts** (e.g. `scripts/smoke-live.mjs`) ru
 
 Document in repo `AGENTS.md` when smoke is required before release.
 
+## Voice-clip smokes (Cloud sandbox)
+
+Plugins that consume **real audio** (STT, voice input) can register an offline smoke that accepts a WAV path. Shared infrastructure in `obsidian-plugin-development`:
+
+- Clip: `scripts/cloud-e2e/fixtures/voice/smoke-hello.wav` → vault `Attachments/voice-smoke-hello.wav`
+- Runner: `run-voice-clip-smoke.sh <plugin-key> [audio]`
+- Registry: `voice-clip-smokes.sh` (add your repo + npm script; honor `CLOUD_E2E_VOICE_CLIP`)
+
+Not CI. Requires ffmpeg where the smoke decodes audio.
+
 ## Hotkey / modal logic
 
 Pure functions (`eventMatchesHotkey`, `safeRegisterHotkeys`) are easy to unit test without Obsidian — see [obsidian-hotkeys](../obsidian-hotkeys/SKILL.md).

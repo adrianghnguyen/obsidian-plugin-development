@@ -7,7 +7,7 @@ Synthetic notes for plugin E2E.
 - [[Gamma architecture]]
 - [[Delta search needle]]
 - [[Epsilon backlinks]]
-- [[Whistle smoke test]] — real Needle WASM voice-clip smoke (CLI + vault attachment)
+- [[Voice clip smoke test]] — shared speech clip + `run-voice-clip-smoke.sh` registry
 
 ## Seinfeld (custom)
 

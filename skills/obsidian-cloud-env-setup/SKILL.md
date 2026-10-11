@@ -191,7 +191,7 @@ With Obsidian up and CLI enabled:
 | Loaded | `Object.keys(app.plugins.plugins)` includes each id |
 | Commands | `Object.keys(app.commands.commands).filter(k => k.startsWith("<id>:"))` |
 | Search / fixtures | Canary phrase search; optional corpus smoke |
-| Whisper / Whistle | Offline `npm test` in repo; real Needle: `bash scripts/cloud-e2e/run-whistle-smoke.sh` (ffmpeg + HF download on first run; vault `Attachments/whistle-smoke-hello.wav`) |
+| Voice-clip smokes | Shared clip `fixtures/voice/smoke-hello.wav`; `bash scripts/cloud-e2e/run-voice-clip-smoke.sh <key>` (registry in `voice-clip-smokes.sh`; e.g. `whistle` for Needle WASM) |
 | Secrets | Id lengths non-zero when required for that plugin |
 
 Do not claim “tested” from build artifacts alone — copy + load + command surface matter.
