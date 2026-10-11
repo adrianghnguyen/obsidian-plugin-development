@@ -7,6 +7,7 @@ Synthetic notes for plugin E2E.
 - [[Gamma architecture]]
 - [[Delta search needle]]
 - [[Epsilon backlinks]]
+- [[Voice clip smoke test]] — shared speech clip + `run-voice-clip-smoke.sh` registry
 
 ## Seinfeld (custom)
 

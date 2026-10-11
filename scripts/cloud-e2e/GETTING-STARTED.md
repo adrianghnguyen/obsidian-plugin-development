@@ -178,6 +178,16 @@ node /agent/repos/obsidian-plugin-development/scripts/cloud-e2e/cdp.mjs probe   
 
 Never put keys in `data.json` or into `obsidian eval` / CDP strings that get logged.
 
+## Voice-clip smokes (optional)
+
+Shared sandbox speech file for any plugin that registers an offline audio smoke:
+
+```bash
+bash /agent/repos/obsidian-plugin-development/scripts/cloud-e2e/run-voice-clip-smoke.sh whistle
+```
+
+See `Notes/Voice clip smoke test.md`. Attachment: `Attachments/voice-smoke-hello.wav`.
+
 ## Related files
 
 - Scripts overview: [`README.md`](./README.md)

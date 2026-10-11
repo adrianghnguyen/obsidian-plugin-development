@@ -90,3 +90,23 @@ Trivia lives in that AI21 **demo** repo (not a standalone dataset project). Eval
 ```bash
 bash scripts/cloud-e2e/run-seinfeld-seek-smoke.sh
 ```
+
+## Voice-clip smokes (any plugin)
+
+Shared speech file + registry runner for **offline** tests that process real audio (STT, voice pipelines). Not CI. Requires **ffmpeg**.
+
+| Item | Location |
+| --- | --- |
+| Runner | `run-voice-clip-smoke.sh <plugin-key> [audio]` |
+| Registry | `voice-clip-smokes.sh` — add a `case` arm per plugin |
+| Default clip | `fixtures/voice/smoke-hello.wav` |
+| Sandbox copy | Vault `Attachments/voice-smoke-hello.wav` |
+| Env | `CLOUD_E2E_VOICE_CLIP` — override default clip path |
+
+```bash
+bash scripts/cloud-e2e/run-voice-clip-smoke.sh whistle
+```
+
+Example registration today: **`whistle`** → `whisper-obsidian-plugin` `npm run smoke:voice-clip` (Needle WASM; first run downloads ~17 MB to `$HOME/.whistle-smoke-cache`).
+
+Vault note: `Notes/Voice clip smoke test.md`.
