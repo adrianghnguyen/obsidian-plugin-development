@@ -6,6 +6,7 @@ All notable changes to this Agent Plugin package are documented here.
 
 ### Added
 
+- **`obsidian-vault-target-verify` global rule** (`.cursor/rules/obsidian-vault-target-verify.mdc`, `alwaysApply: true`) — open the vault first; identity-gate `app.vault.getName()` **and** `app.vault.adapter.basePath` before every CLI command; `vault=` first; **never** `vault=Obsidian`; omit `vault=` for Windows production (`cwd` `C:\Obsidian`); do not interrupt a production full reindex. Skills already pointed here; the file was missing.
 - **`ui-demo-agent` subagent** — cloud VM UI demo recorder; **model `composer-2.5-fast`**; pairs with `obsidian-agent-ui-demo` skill.
 - **`obsidian-agent-ui-demo` skill** — token-efficient demo phases for Cloud Agents (script/preflight off camera, short proof clip, pause on key UX proof moments, computerUse contract shape); linked from `pr-product-demos` and `obsidian-cloud-vm-demos`.
 

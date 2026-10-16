@@ -1,0 +1,21 @@
+---
+description: Open vault first; identity-gate name and basePath before every Obsidian CLI command; never vault=Obsidian
+alwaysApply: true
+---
+
+# Vault targeting (Windows)
+
+Before every Obsidian CLI command:
+
+1. The intended vault window must already be **open**.
+2. Identity-gate **both** `app.vault.getName()` and `app.vault.adapter.basePath`. Abort unless both match.
+3. `vault=` is the **first** argument.
+
+| Intent | `vault=` | Expected name | Expected base |
+|--------|----------|---------------|---------------|
+| Sandbox | `plugin-sandbox-Obsidian` | `plugin-sandbox-Obsidian` | `C:\plugin-sandbox-Obsidian` |
+| Production inspect/promote | **omit** `vault=` (cwd `C:\Obsidian`) | `Obsidian` | `C:\Obsidian` |
+
+**Never** `vault=Obsidian`. That token substring-matches `plugin-sandbox-Obsidian` and can drive the **focused** production window.
+
+Do not `plugin:reload`, disable Seek, `app:reload`, or `obsidian restart` on production while a full reindex is running.
