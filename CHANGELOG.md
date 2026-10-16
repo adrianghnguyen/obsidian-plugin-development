@@ -15,6 +15,7 @@ All notable changes to this Agent Plugin package are documented here.
 
 ### Changed
 
+- **Release gate** — on MINOR vault-plugin releases, sync the version string in that plugin’s Settings UI with `manifest.json` so Settings does not mislead about the installed version ([obsidian-plugin-dev](skills/obsidian-plugin-dev/SKILL.md)).
 - **Unobstructed UI demo** — proof frame must show the named feature with Settings and other modals closed. A clip of Settings (or any overlay hiding the control) is inconclusive; re-record ([obsidian-agent-ui-demo](skills/obsidian-agent-ui-demo/SKILL.md), [obsidian-ui-visibility](skills/obsidian-ui-visibility/SKILL.md)).
 - **Demo agent stop + parent kickoff** — `ui-demo-agent` stops if the named control is missing after one visibility check (no Settings, File menu, vault sidebar, or nested explorer). Coordinators name one shell command and, when restore/reload is the proof, the code entry ([obsidian-agent-ui-demo](skills/obsidian-agent-ui-demo/SKILL.md)).
 - **Demo pacing** — no fixed second counts; move quickly between steps, pause briefly on readable proof frames ([obsidian-agent-ui-demo](skills/obsidian-agent-ui-demo/SKILL.md), [pr-product-demos](.cursor/rules/pr-product-demos.mdc), [obsidian-cloud-vm-demos](skills/obsidian-cloud-vm-demos/SKILL.md)).

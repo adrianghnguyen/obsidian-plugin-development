@@ -150,9 +150,10 @@ When cutting a release, the new version section must stand alone for users and f
 2. Decide semver from highest-impact change.
 3. Rename `## [Unreleased]` → `## X.Y.Z`.
 4. Bump `manifest.json` `version`. Sync `package.json` / `versions.json` if used.
-5. Annotated **Git tag** matching `manifest.json` (no `v` prefix), push tag, wait for release workflow (see below).
-6. **Publish** the GitHub Release (not draft). Production vault updates via **BRAT** from published release assets — not manual copy unless explicitly requested.
-7. After BRAT picks up the release on vault `Obsidian`, confirm installed `manifest.version` matches the tag.
+5. **On MINOR bumps**, sync the version string shown in that plugin’s Settings UI with `manifest.json` so Settings does not mislead about which version is installed.
+6. Annotated **Git tag** matching `manifest.json` (no `v` prefix), push tag, wait for release workflow (see below).
+7. **Publish** the GitHub Release (not draft). Production vault updates via **BRAT** from published release assets — not manual copy unless explicitly requested.
+8. After BRAT picks up the release on vault `Obsidian`, confirm installed `manifest.version` matches the tag.
 
 | Change | Bump |
 |--------|------|

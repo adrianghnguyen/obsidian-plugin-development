@@ -78,7 +78,7 @@ Get-FileHash <production-vault-path>\.obsidian\plugins\<id>\main.js
 obsidian vault=<production-vault-name> eval code="JSON.stringify({id:app.plugins.plugins['<id>']?.manifest?.id,version:app.plugins.plugins['<id>']?.manifest?.version})"
 ```
 
-Run that eval as `obsidian vault=<production-vault-name> eval ...` after its own `basePath` discovery.
+Run that eval as `obsidian vault=<production-vault-name> eval ...` after its own `basePath` discovery. On MINOR releases, Settings UI version copy must match `manifest.json` — [obsidian-plugin-dev](../obsidian-plugin-dev/SKILL.md) release gate.
 
 ### 7. Report
 
