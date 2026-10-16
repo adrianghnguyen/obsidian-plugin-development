@@ -113,3 +113,4 @@ if (app.setting?.close) app.setting.close();
 
 - [obsidian-visual-verify](../obsidian-visual-verify/SKILL.md) — settings screenshots
 - [obsidian-plugin-debug](../obsidian-plugin-debug/SKILL.md) — eval basics
+- [obsidian-plugin-dev](../obsidian-plugin-dev/SKILL.md) — on MINOR releases, Settings UI version copy must match `manifest.json`
