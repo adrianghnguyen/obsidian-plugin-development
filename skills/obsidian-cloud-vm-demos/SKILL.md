@@ -39,7 +39,7 @@ If none apply, follow the plugin repo’s local `.cursor/rules/deploy-and-verify
 
 **Complex / user-facing** triggers (any one): new or changed user flow; ≥3 non-test files under `src/ui/`, `src/hooks/`, settings tab, or `styles.css`; user-visible changelog bullet.
 
-Before recording or attaching media, run [obsidian-ui-visibility](../obsidian-ui-visibility/SKILL.md). Do not ship a clip where Settings or a modal covers the feature.
+Before recording or attaching media, run [obsidian-ui-visibility](../obsidian-ui-visibility/SKILL.md). The proof frame must show the **named feature unobstructed**. Close **Settings** and other modals first. A clip of Settings (or any overlay hiding the control) is **not** a valid demo — treat as inconclusive and re-record (Agent Client vault note pills [PR #69](https://github.com/adrianghnguyen/obsidian-agent-client/pull/69)).
 
 During every **`.mp4` walkthrough** (and while capturing screenshots for animated UI), run the **UI jank checklist** in [obsidian-visual-verify](../obsidian-visual-verify/SKILL.md) and [ux-design](../ux-design/SKILL.md). Treat ship-blocking jank as incomplete work.
 

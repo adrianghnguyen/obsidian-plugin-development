@@ -14,6 +14,8 @@ A control that exists in the DOM can still be invisible in the demo. Computed st
 
 Run this gate **before** `RecordScreen` or attaching a demo to a PR. Fail the demo and do not record until every check passes.
 
+**Unobstructed named feature:** the still and the clip must show the **named control**, not Settings or another overlay in front of it. Close **Settings** and other modals first (unless the subject *is* that Settings tab). A recording of Settings covering the feature is **not** a valid demo — treat as **inconclusive** and **re-record**. Incident: Agent Client vault note pills, [PR #69](https://github.com/adrianghnguyen/obsidian-agent-client/pull/69).
+
 **Related:** [obsidian-visual-verify](../obsidian-visual-verify/SKILL.md) (which surface to capture), [obsidian-cloud-vm-demos](../obsidian-cloud-vm-demos/SKILL.md) (PR embed), [obsidian-agent-ui-demo](../obsidian-agent-ui-demo/SKILL.md) (record after this gate), [obsidian-menu-settings](../obsidian-menu-settings/SKILL.md) (Settings is its own surface).
 
 ## When to run
@@ -92,3 +94,4 @@ Serial CLI only. Replace `SELECTOR` with a CSS selector for the control (one ele
 - `classList` / `getComputedStyle` while Settings or `.modal-bg` covers the app.
 - A vision-model description of a full-desktop frame. Crop the control and look at that crop.
 - A recording where the only readable UI is plugin Settings.
+- A clip of Settings (or any overlay) hiding the named control — **inconclusive**; close overlays and re-record. Do not ship it as “the feature is in the DOM behind the modal.”

@@ -31,11 +31,19 @@ Do **not** interleave long exploration with recording. Fixed order:
 | **D. Proof beats** | Yes | Fast between steps; **pause on evidence** at each key UX moment |
 | **E. Stop + ship** | No | Save MP4; **What to look for** bullets; [obsidian-pr-ship-sync](../obsidian-pr-ship-sync/SKILL.md); **keep PR Draft** |
 
-**Re-record:** only when the clip clearly fails the contract (wrong surface, covered control, no readable proof). Do not loop takes during exploration.
+**Re-record:** only when the clip clearly fails the contract (wrong surface, **obstructed** control, no readable proof). Do not loop takes during exploration. A clip of **Settings** (or any overlay hiding the named control) is **inconclusive** — close overlays and re-record.
 
 ---
 
 ## How to make a good demo
+
+### Unobstructed proof frame (hard fail)
+
+The proof frame must show the **named feature unobstructed**. Close **Settings** and other modals **before** RecordScreen (unless the named feature *is* that Settings tab).
+
+A clip of Settings, or any overlay hiding the control, is **not** a valid demo. Treat it as **inconclusive** and **re-record**. Visibility probe JSON is not enough if the video still shows Settings on top. Incident: Agent Client vault note pills, [PR #69](https://github.com/adrianghnguyen/obsidian-agent-client/pull/69) (pills hidden behind Settings).
+
+Run [obsidian-ui-visibility](../obsidian-ui-visibility/SKILL.md) in preflight. If Settings or a modal is open, close it (`app.setting.close()` when that API exists) and check again — do not record over the overlay.
 
 ### One path, one story
 
@@ -75,7 +83,7 @@ If preflight fails, **fix before** phase C. Do not “record and hope.”
 
 ### Common fails
 
-- Feature cropped or covered by Settings / another window
+- Feature cropped or covered by Settings / another window (treat as **inconclusive**; re-record unobstructed — not a “partial” demo)
 - Blitzing through proof (reviewer cannot tell success vs flicker)
 - Demo shows chrome only, not **outcome**
 - Multi-session story with only one tab on camera
@@ -165,8 +173,8 @@ Follow **Gates before RecordScreen** above.
 
 ## C. Stage (camera on, not yet proving)
 
-1. **RecordScreen START** only when the relevant surface is already open and framed.
-2. No idle desktop, no Settings tour, no hunt-through-menus at the start.
+1. **RecordScreen START** only when the relevant surface is already open, framed, and **unobstructed** (Settings and other modals closed unless the contract is that Settings tab).
+2. No idle desktop, no Settings tour, no hunt-through-menus at the start. If Settings is still up, **stop**, close it off camera, then start the clip.
 
 ---
 
@@ -205,7 +213,7 @@ Follow **Gates before RecordScreen** above.
 ## Review-ready checklist (agent)
 
 - [ ] Contract written before record
-- [ ] Preflight visibility PASS; vault identity confirmed
+- [ ] Preflight visibility PASS; vault identity confirmed; proof frame **unobstructed** (Settings/modals closed)
 - [ ] Clip ≤ one feature story; each proof moment **readable** on camera (not skipped)
 - [ ] Reviewer can score from UI state without narration
 - [ ] PR has embedded MP4 + **What to look for** (3–5 bullets)

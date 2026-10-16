@@ -27,7 +27,7 @@ Any of:
 - Use git-ignored paths (`.tmp/`, `/opt/cursor/artifacts/` on cloud) for capture files; never commit demo binaries.
 - **Pacing:** Move quickly between steps; **pause briefly on key UX moments** so proof is readable (glyph, menu item, tab content, reload restore, etc.) — see [obsidian-agent-ui-demo](../../skills/obsidian-agent-ui-demo/SKILL.md). Do not skip through evidence frames.
 - **Agent execution:** Task → **`ui-demo-agent`** (**`composer-2.5-fast`**) per [obsidian-agent-ui-demo](../../skills/obsidian-agent-ui-demo/SKILL.md) — script and preflight off camera; one short proof clip.
-- Run [obsidian-ui-visibility](../../skills/obsidian-ui-visibility/SKILL.md) before capture. A demo where Settings or a modal covers the feature is not review-ready.
+- Run [obsidian-ui-visibility](../../skills/obsidian-ui-visibility/SKILL.md) before capture. The proof frame must show the **named feature unobstructed**. Close **Settings** and other modals first. A clip of Settings (or any overlay hiding the control) is **not** a valid demo — treat as inconclusive and re-record (Agent Client vault note pills [PR #69](https://github.com/adrianghnguyen/obsidian-agent-client/pull/69)).
 
 ## How to attach
 
