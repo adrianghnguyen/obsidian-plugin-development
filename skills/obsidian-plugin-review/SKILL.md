@@ -32,7 +32,7 @@ Every **new user-visible state** must appear in at least one of:
 
 Examples: indexing %, connection status, error backoff, "not ready" search block.
 
-**Silent background behavior** confuses users and reviewers.
+**Silent background behavior** confuses users and reviewers. A process that is not Ready must show a **descriptive** indicator (phase + `done/total` or `%` when known) — static Starting up / Working / Busy or 0% with no motion is a bug. Always-on: [obsidian-process-visibility](../../.cursor/rules/obsidian-process-visibility.mdc). Surfaces that share a reporter (status bar, Settings, modal footer) must stay consistent.
 
 ## CSS-only styling
 
@@ -74,6 +74,7 @@ Do not ship bare editor keys as global defaults — [obsidian-hotkeys](../obsidi
 
 ## See also
 
+- [obsidian-process-visibility](../../.cursor/rules/obsidian-process-visibility.mdc) — non-Ready progress indicator (all vault plugins)
 - [ux-design](../ux-design/SKILL.md) — UX principles while building
 - [ux-gap-audit](../ux-gap-audit/SKILL.md) — workflow gap report
 - [obsidian-plugin-dev](../obsidian-plugin-dev/SKILL.md) — release gate

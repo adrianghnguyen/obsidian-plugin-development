@@ -1,0 +1,25 @@
+---
+description: Non-Ready processes must show a descriptive progress indicator, never a static idle label
+alwaysApply: true
+---
+
+# Process visibility (all vault plugins)
+
+Applies to **every** vault plugin in this project (Seek, Agent Client, Whisper, Book Search, and later ones). This file is the SSoT. Seek also has a repo-local same-change status rule (`.cursor/rules/ui-status-first-class.mdc`) — do **not** copy that file here.
+
+If a process is **not Ready**, the user must see **what is happening**. A static “Starting up”, “Working”, “Busy”, or **0% with no motion** is a **bug**, not a status.
+
+## Must
+
+1. Human-readable **phase** label: hydrating / indexing / restoring / embedding / catching up / recovering / connecting — say the actual work, not a generic wait.
+2. Progress **units when known**: `done/total` and/or `%`. Counts or the bar must **move** while the job is running.
+3. If units are unknown, still name the phase (e.g. “Restoring sidecar…”) and never look idle or Ready.
+4. Status bar, Settings, and in-plugin chrome that share a reporter must stay **consistent**. One producer; consumers read that snapshot.
+
+Stuck, failed, or 0% with no motion must **say stuck or blocked**, not look like Ready or empty Starting up.
+
+## Stops
+
+Does not require a determinate bar when the total is unknowable yet. Does not replace Ready with a spinner.
+
+Seek-only reporter wiring stays in the Seek repo. This rule is the cross-plugin design gate.

@@ -264,6 +264,7 @@ Full CLI list: [reference.md](reference.md)
 ## See also
 
 - [obsidian-manifest-per-tag](../../.cursor/rules/obsidian-manifest-per-tag.mdc) — unique `manifest.json` version on every git tag, including RCs
+- [obsidian-process-visibility](../../.cursor/rules/obsidian-process-visibility.mdc) — non-Ready processes need a descriptive progress indicator (all vault plugins)
 - [obsidian-plugin-debug](../obsidian-plugin-debug/SKILL.md) — eval, DevTools
 - [obsidian-plugin-testing](../obsidian-plugin-testing/SKILL.md) — Vitest before deploy
 - [obsidian-visual-verify](../obsidian-visual-verify/SKILL.md) — UI proof

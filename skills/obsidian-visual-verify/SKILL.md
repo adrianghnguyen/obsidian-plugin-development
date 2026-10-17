@@ -8,7 +8,7 @@ description: >-
 
 # Obsidian visual verification (screenshots)
 
-Runtime proof for **what the user sees**. `eval` and unit tests are not enough for CSS, layout, status-bar labels, modal chrome, or Settings rows.
+Runtime proof for **what the user sees**. `eval` and unit tests are not enough for CSS, layout, status-bar labels, modal chrome, or Settings rows. When capturing a running process, the label must name the **phase** and show units if they exist — static Starting up / 0% is a fail ([obsidian-process-visibility](../../.cursor/rules/obsidian-process-visibility.mdc)).
 
 **Prerequisites:** Obsidian desktop, `obsidian` on PATH, **serial CLI only** (one command at a time). Vault target discovered per the global rule `obsidian-vault-target-verify` before any session command. Helpers: [`scripts/ObsidianCliSerial.ps1`](scripts/ObsidianCliSerial.ps1) (`Assert-ObsidianVaultTarget`).
 

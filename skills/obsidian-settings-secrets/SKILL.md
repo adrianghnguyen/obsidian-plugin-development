@@ -89,7 +89,7 @@ New user-visible states (indexing, errors, connectivity) need at least one of:
 - Status bar item
 - Modal message
 
-Do not add silent background states. See [obsidian-plugin-review](../obsidian-plugin-review/SKILL.md).
+Do not add silent background states. See [obsidian-plugin-review](../obsidian-plugin-review/SKILL.md). Non-Ready work needs a descriptive phase (plus units when known) — [obsidian-process-visibility](../../.cursor/rules/obsidian-process-visibility.mdc).
 
 ## manifest.json restart
 

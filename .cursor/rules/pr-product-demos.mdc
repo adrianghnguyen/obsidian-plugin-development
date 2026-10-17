@@ -11,7 +11,7 @@ For **complex features** or **user-facing behavioral changes**, ship a **product
 
 Any of:
 
-- New or changed user flow (commands, modals, settings, status, errors, permissions)
+- New or changed user flow (commands, modals, settings, status, errors, permissions) — non-Ready status must show a descriptive phase + units, not static Starting up / 0% ([obsidian-process-visibility](./obsidian-process-visibility.mdc))
 - **Large change heuristic:** ≥3 non-test files under `src/ui/`, `src/hooks/`, plugin settings tab, or `styles.css`
 - Any user-facing `[Unreleased]` changelog bullet for behavior or UI
 
