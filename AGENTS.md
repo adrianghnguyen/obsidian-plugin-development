@@ -28,6 +28,10 @@ When shipping sibling Obsidian plugins, use **detailed** changelog sections (Add
 
 Any process that is **not Ready** must show a descriptive progress indicator (phase label plus `done/total` or `%` when known). Static “Starting up”, “Working”, “Busy”, or **0% with no motion** is a bug. Applies to Seek, Agent Client, Whisper, and Book Search. Always-on rule: `.cursor/rules/obsidian-process-visibility.mdc`. Seek’s repo-local `.cursor/rules/ui-status-first-class.mdc` stays Seek-only — do not duplicate it here.
 
+## Metrics fit the UI
+
+Counts, percents, and timestamps must **stay inside their slot**. Overflow (wrapping out of a Settings metric box, colliding with the next control, clipping mid-digit) is a bug. Prefer right-aligning values, tabular-nums, reserved width, or a shorter label — never clip or wrap the value out of the box. Always-on rule: `.cursor/rules/obsidian-metrics-fit-ui.mdc`.
+
 ## PR draft vs ready for review
 
 Create PRs as **Draft** by default. After deploy verify and an embedded demo, run **`obsidian-pr-ship-sync`** and **hand off in Draft** for Adrian unless the user asked to mark Ready. Rule: `.cursor/rules/pr-draft-ready.mdc`; procedure: `skills/obsidian-pr-ship-sync/SKILL.md`.

@@ -1,0 +1,22 @@
+---
+description: Counts, percents, and timestamps must stay inside their UI slot; overflow is a bug
+alwaysApply: true
+---
+
+# Metrics fit the UI (all vault plugins)
+
+Applies to **every** vault plugin in this project (Seek, Agent Client, Whisper, Book Search, and later ones). Settings cards, status bar, and reporter chrome.
+
+Numeric metrics, percents, counts, and timestamps must **stay inside their slot**. Overflow — wrapping out of a box, colliding with the next control, clipping mid-digit — is a **bug**. Example: Settings “Last updated” spilling out of a metric box.
+
+## Must
+
+1. Prefer **right-aligning** timestamps and numeric values when that keeps them in the box. Labels may truncate; the value must remain fully visible.
+2. Use **tabular-nums** and **reserved width** for changing counts (e.g. Restoring `done/total`) so digits do not shove the layout.
+3. Shorten the **label** or use a compact form (`k`) when the full locale string will not fit. Never let the value clip or wrap out of the box.
+
+## Stops
+
+Does not require shrinking type below readable Settings size. Does not hide the metric.
+
+This is a cross-plugin layout gate, not Seek-only CSS.
