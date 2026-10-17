@@ -17,6 +17,7 @@ Application mechanisms should always have something to notify the user of what's
 
 - **Status bar** — ongoing work, connection state, indexing progress
 - **Non-Ready processes** — phase label plus `done/total` or `%` when known; static Starting up / Working / Busy or 0% with no motion is a bug ([obsidian-process-visibility](../../.cursor/rules/obsidian-process-visibility.mdc))
+- **Metrics fit the slot** — counts, percents, and timestamps stay inside their box; overflow is a bug. Right-align values, tabular-nums, reserved width, or shorten the label — never clip/wrap the value ([obsidian-metrics-fit-ui](../../.cursor/rules/obsidian-metrics-fit-ui.mdc))
 - **Plugin settings** — expose hidden flags and modes users cannot discover elsewhere
 - **Technical detail** — debug log modes, or hide detail in folded panels / optional trace toggles
 
@@ -57,6 +58,7 @@ Keep labels, options, and current state visible. Match familiar platform pattern
 
 ```
 - [ ] New background work visible (status/settings/modal); non-Ready work shows phase + units ([obsidian-process-visibility](../../.cursor/rules/obsidian-process-visibility.mdc))
+- [ ] Counts / % / timestamps fit their container (right-align, tabular-nums, reserved width, or shorter label) ([obsidian-metrics-fit-ui](../../.cursor/rules/obsidian-metrics-fit-ui.mdc))
 - [ ] Copy ≤1 sentence per control where possible
 - [ ] Jargon has tooltip or setting description
 - [ ] Loading/empty/error/success handled
@@ -71,7 +73,7 @@ Before PR-ready UI, verify during a **live walkthrough** or **`.mp4`** on the cl
 ```
 - [ ] Layout stable after load (no reflow jumps in settings/modals/chat)
 - [ ] No flicker on status bar, lists, or streaming content
-- [ ] Text and controls not clipped or overlapping
+- [ ] Text and controls not clipped or overlapping; metric values stay inside their box ([obsidian-metrics-fit-ui](../../.cursor/rules/obsidian-metrics-fit-ui.mdc))
 - [ ] Overlays open without position jump; not clipped by parents
 - [ ] Focus behavior acceptable (no typing interruptions; modal traps work)
 - [ ] Drag/resize/animations feel smooth for the feature
@@ -91,6 +93,7 @@ Capture checklist: [obsidian-visual-verify](../obsidian-visual-verify/SKILL.md).
 ## See also
 
 - [obsidian-process-visibility](../../.cursor/rules/obsidian-process-visibility.mdc) — non-Ready processes need a descriptive progress indicator
+- [obsidian-metrics-fit-ui](../../.cursor/rules/obsidian-metrics-fit-ui.mdc) — counts, percents, and timestamps must fit their UI slot
 - [ux-gap-audit](../ux-gap-audit/SKILL.md) — workflow gap report
 - [obsidian-plugin-review](../obsidian-plugin-review/SKILL.md) — transparency gate, ship checklist
 - [obsidian-settings-secrets](../obsidian-settings-secrets/SKILL.md) — credentials UX
