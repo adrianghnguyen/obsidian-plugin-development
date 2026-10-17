@@ -20,9 +20,17 @@ fi
 export CLOUD_E2E_REPOS="$ROOT"
 DEV="$ROOT/obsidian-plugin-development"
 
-for r in obsidian-agent-client obsidian-seek whisper-obsidian-plugin; do
+for r in obsidian-agent-client obsidian-seek whisper-obsidian-plugin obsidian-book-search-plugin; do
+  if [ ! -d "$ROOT/$r" ]; then
+    if [ "$r" = obsidian-book-search-plugin ]; then
+      echo "skip $r (clone missing)"
+      continue
+    fi
+    echo "missing required repo $r" >&2
+    exit 1
+  fi
   echo "install $r"
-  (
+  if ! (
     cd "$ROOT/$r"
     if [ -f pnpm-lock.yaml ] && command -v pnpm >/dev/null 2>&1; then
       pnpm install --frozen-lockfile
@@ -31,7 +39,13 @@ for r in obsidian-agent-client obsidian-seek whisper-obsidian-plugin; do
     else
       npm install --legacy-peer-deps
     fi
-  )
+  ); then
+    if [ "$r" = obsidian-book-search-plugin ]; then
+      echo "warn: optional install failed for $r; continuing" >&2
+      continue
+    fi
+    exit 1
+  fi
 done
 
 if [ -x "$DEV/scripts/cloud-e2e/install-acp-agents.sh" ]; then
@@ -43,16 +57,30 @@ if [ -x "$DEV/scripts/cloud-e2e/install-obsidian.sh" ]; then
   bash "$DEV/scripts/cloud-e2e/materialize-vault.sh"
 fi
 
-for r in obsidian-agent-client obsidian-seek whisper-obsidian-plugin; do
+for r in obsidian-agent-client obsidian-seek whisper-obsidian-plugin obsidian-book-search-plugin; do
+  if [ ! -d "$ROOT/$r" ]; then
+    if [ "$r" = obsidian-book-search-plugin ]; then
+      echo "skip build $r (clone missing)"
+      continue
+    fi
+    echo "missing required repo $r" >&2
+    exit 1
+  fi
   echo "build $r"
-  (
+  if ! (
     cd "$ROOT/$r"
     if [ -f pnpm-lock.yaml ] && command -v pnpm >/dev/null 2>&1; then
       pnpm run build
     else
       npm run build
     fi
-  )
+  ); then
+    if [ "$r" = obsidian-book-search-plugin ]; then
+      echo "warn: optional build failed for $r; continuing" >&2
+      continue
+    fi
+    exit 1
+  fi
 done
 
 if [ -x "$DEV/scripts/cloud-e2e/materialize-vault.sh" ]; then
