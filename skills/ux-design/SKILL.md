@@ -16,6 +16,7 @@ Apply these principles when adding or changing user-facing UI.
 Application mechanisms should always have something to notify the user of what's happening; we want to avoid obfuscation.
 
 - **Status bar** — ongoing work, connection state, indexing progress
+- **Non-Ready processes** — phase label plus `done/total` or `%` when known; static Starting up / Working / Busy or 0% with no motion is a bug ([obsidian-process-visibility](../../.cursor/rules/obsidian-process-visibility.mdc))
 - **Plugin settings** — expose hidden flags and modes users cannot discover elsewhere
 - **Technical detail** — debug log modes, or hide detail in folded panels / optional trace toggles
 
@@ -55,7 +56,7 @@ Keep labels, options, and current state visible. Match familiar platform pattern
 ## Quick review checklist
 
 ```
-- [ ] New background work visible (status/settings/modal)
+- [ ] New background work visible (status/settings/modal); non-Ready work shows phase + units ([obsidian-process-visibility](../../.cursor/rules/obsidian-process-visibility.mdc))
 - [ ] Copy ≤1 sentence per control where possible
 - [ ] Jargon has tooltip or setting description
 - [ ] Loading/empty/error/success handled
@@ -89,6 +90,7 @@ Capture checklist: [obsidian-visual-verify](../obsidian-visual-verify/SKILL.md).
 
 ## See also
 
+- [obsidian-process-visibility](../../.cursor/rules/obsidian-process-visibility.mdc) — non-Ready processes need a descriptive progress indicator
 - [ux-gap-audit](../ux-gap-audit/SKILL.md) — workflow gap report
 - [obsidian-plugin-review](../obsidian-plugin-review/SKILL.md) — transparency gate, ship checklist
 - [obsidian-settings-secrets](../obsidian-settings-secrets/SKILL.md) — credentials UX

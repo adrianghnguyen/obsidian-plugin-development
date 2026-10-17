@@ -32,7 +32,7 @@ If none apply, follow the plugin repo’s local `.cursor/rules/deploy-and-verify
 
 | Change type | Required on cloud VM |
 |-------------|----------------------|
-| UI, CSS, layout, modal, status bar, settings | **Screenshots** of every affected surface — [obsidian-visual-verify](../obsidian-visual-verify/SKILL.md) or repo-specific capture script. Show images in chat. |
+| UI, CSS, layout, modal, status bar, settings | **Screenshots** of every affected surface — [obsidian-visual-verify](../obsidian-visual-verify/SKILL.md) or repo-specific capture script. Show images in chat. A running process must show a named phase plus units when known ([obsidian-process-visibility](../../.cursor/rules/obsidian-process-visibility.mdc)). |
 | Behavior, CLI, index, search, settings runtime | **Command + full relevant output** (`eval` JSON, log excerpt). Summaries alone are not enough. |
 | Both visible and behavioral | **Both** screenshot set and CLI/runtime output. |
 | **Complex feature** or **user-facing flow** (same bar as [pr-product-demos](../../.cursor/rules/pr-product-demos.mdc)) | **Screen recording (`.mp4`)** end-to-end on the VM, embedded in the PR when one exists. Include **What to look for** bullets under the embed. **Screenshots-only is not sufficient** for those PRs. |

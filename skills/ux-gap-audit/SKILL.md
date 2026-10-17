@@ -30,7 +30,7 @@ Start with 1–2 `AskQuestion` rounds unless the user already described pain:
 
 Search for:
 
-- Background/async work without status bar, `Notice`, or settings exposure
+- Background/async work without status bar, `Notice`, or settings exposure — or a non-Ready process that only shows Starting up / Working / Busy / static 0% ([obsidian-process-visibility](../../.cursor/rules/obsidian-process-visibility.mdc))
 - `PluginSettingTab` rows missing `setDesc`; hidden flags not in settings
 - Modals/errors with generic copy ("Error", "Success")
 - Technical labels without tooltips or descriptions

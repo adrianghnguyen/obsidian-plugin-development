@@ -24,6 +24,10 @@ When shipping sibling Obsidian plugins, use **detailed** changelog sections (Add
 
 **Every git tag** (stable and `-rc.*`) must ship a **new unique** `manifest.json` `version` in the same change — never reuse a tag’s version or bump later. Settings UI version string must match that manifest. Always-on rule: `.cursor/rules/obsidian-manifest-per-tag.mdc`.
 
+## Process visibility
+
+Any process that is **not Ready** must show a descriptive progress indicator (phase label plus `done/total` or `%` when known). Static “Starting up”, “Working”, “Busy”, or **0% with no motion** is a bug. Applies to Seek, Agent Client, Whisper, and Book Search. Always-on rule: `.cursor/rules/obsidian-process-visibility.mdc`. Seek’s repo-local `.cursor/rules/ui-status-first-class.mdc` stays Seek-only — do not duplicate it here.
+
 ## PR draft vs ready for review
 
 Create PRs as **Draft** by default. After deploy verify and an embedded demo, run **`obsidian-pr-ship-sync`** and **hand off in Draft** for Adrian unless the user asked to mark Ready. Rule: `.cursor/rules/pr-draft-ready.mdc`; procedure: `skills/obsidian-pr-ship-sync/SKILL.md`.
