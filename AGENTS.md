@@ -22,6 +22,8 @@ Project overview (do not copy): `/cursor/stores/bc-a8a2e9ee-3f2b-4d31-ae8c-85b37
 
 When shipping sibling Obsidian plugins, use **detailed** changelog sections (Added/Changed/Fixed), **annotated tags** (headline + bullet lines), and **published GitHub Releases** (optional body from CHANGELOG) — production installs via BRAT. Full standard: `skills/obsidian-plugin-dev/SKILL.md` → *Release notes and semantic versioning*.
 
+**Every git tag** (stable and `-rc.*`) must ship a **new unique** `manifest.json` `version` in the same change — never reuse a tag’s version or bump later. Settings UI version string must match that manifest. Always-on rule: `.cursor/rules/obsidian-manifest-per-tag.mdc`.
+
 ## PR draft vs ready for review
 
 Create PRs as **Draft** by default. After deploy verify and an embedded demo, run **`obsidian-pr-ship-sync`** and **hand off in Draft** for Adrian unless the user asked to mark Ready. Rule: `.cursor/rules/pr-draft-ready.mdc`; procedure: `skills/obsidian-pr-ship-sync/SKILL.md`.
