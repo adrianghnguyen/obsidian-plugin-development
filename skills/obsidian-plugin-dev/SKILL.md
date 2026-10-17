@@ -148,10 +148,10 @@ When cutting a release, the new version section must stand alone for users and f
 
 1. Review `[Unreleased]` on `main` (substantive bullets per above).
 2. Decide semver from highest-impact change.
-3. Rename `## [Unreleased]` → `## X.Y.Z`.
-4. Bump `manifest.json` `version`. Sync `package.json` / `versions.json` if used.
-5. **On MINOR bumps**, sync the version string shown in that plugin’s Settings UI with `manifest.json` so Settings does not mislead about which version is installed.
-6. Annotated **Git tag** matching `manifest.json` (no `v` prefix), push tag, wait for release workflow (see below).
+3. Rename `## [Unreleased]` → `## X.Y.Z` (or `## X.Y.Z-rc.N` for a release candidate).
+4. Bump `manifest.json` `version` to a **new unique** Obsidian-compatible semver (`X.Y.Z` or `X.Y.Z-rc.N`, e.g. `1.15.0-rc.2`). Sync `package.json` / `versions.json` if used. **Every new git tag** (stable **and** RCs) requires this bump **in the same change as the tag**, never a later PR — [obsidian-manifest-per-tag](../../.cursor/rules/obsidian-manifest-per-tag.mdc).
+5. Sync the version string shown in that plugin’s Settings UI with `manifest.json` on **every** tagged version (patches, minors, majors, **and RCs**) so Settings does not mislead about which version is installed.
+6. Annotated **Git tag** whose name **equals** `manifest.json` `version` (no `v` prefix), push tag, wait for release workflow (see below).
 7. **Publish** the GitHub Release (not draft). Production vault updates via **BRAT** from published release assets — not manual copy unless explicitly requested.
 8. After BRAT picks up the release on vault `Obsidian`, confirm installed `manifest.version` matches the tag.
 
@@ -163,7 +163,7 @@ When cutting a release, the new version section must stand alone for users and f
 
 ### Annotated tag message
 
-Tag name **must equal** `manifest.json` `version` (`X.Y.Z`, no `v` prefix). Message format:
+Tag name **must equal** `manifest.json` `version` (`X.Y.Z` or `X.Y.Z-rc.N`, no `v` prefix). Message format:
 
 1. **First `-m` line:** plain-language **headline** of what shipped (not just the version).
 2. **Further `-m` lines:** **3–8 bullets** (fewer for tiny patch releases) summarizing notable user-facing items from the new CHANGELOG section.
@@ -181,7 +181,7 @@ Avoid tags whose entire message is only `X.Y.Z`.
 
 ### GitHub Release and BRAT install path
 
-Obsidian and BRAT install from a **published** GitHub Release whose tag **exactly matches** `manifest.json` `version`, with `main.js`, `manifest.json`, and `styles.css` attached. Tag push triggers `.github/workflows/release.yml` in sibling plugin repos; workflows often create a **draft** release first. Manifest on `main` without a published release for that version breaks BRAT updates.
+Obsidian and BRAT install from a **published** GitHub Release whose tag **exactly matches** `manifest.json` `version`, with `main.js`, `manifest.json`, and `styles.css` attached. Tag push triggers `.github/workflows/release.yml` in sibling plugin repos; workflows often create a **draft** release first. Manifest on `main` without a published release for that version breaks BRAT updates. Reusing a tag’s version (or tagging without a unique bump) makes synced devices treat the new binaries as already installed.
 
 1. Wait for CI/workflow to attach assets to the tag.
 2. **Publish:** `gh release edit "$VERSION" --repo <owner/repo> --draft=false`
@@ -255,7 +255,7 @@ Full CLI list: [reference.md](reference.md)
 4. CSS stale — escalate per [obsidian-multi-vault-cli](../obsidian-multi-vault-cli/SKILL.md).
 5. Overwriting `data.json` on deploy.
 6. Chaining CLI commands (`cmd1 ; cmd2`).
-7. Manifest bumped on feature branch or during sandbox iteration.
+7. Manifest bumped on feature branch or during sandbox iteration — or a git tag shipped **without** a unique `manifest.json` bump in the same change ([obsidian-manifest-per-tag](../../.cursor/rules/obsidian-manifest-per-tag.mdc)).
 8. Developing in production vault.
 9. Reloading from a vault name or from a repo directory with no `vault=`, without a `basePath` eval. Omitted `vault=` hits the focused window. A closed vault hangs with no output — stop.
 
@@ -263,6 +263,7 @@ Full CLI list: [reference.md](reference.md)
 
 ## See also
 
+- [obsidian-manifest-per-tag](../../.cursor/rules/obsidian-manifest-per-tag.mdc) — unique `manifest.json` version on every git tag, including RCs
 - [obsidian-plugin-debug](../obsidian-plugin-debug/SKILL.md) — eval, DevTools
 - [obsidian-plugin-testing](../obsidian-plugin-testing/SKILL.md) — Vitest before deploy
 - [obsidian-visual-verify](../obsidian-visual-verify/SKILL.md) — UI proof

@@ -1,0 +1,18 @@
+---
+description: Every git tag ships a unique manifest.json version, including RCs
+alwaysApply: true
+---
+
+# Manifest version per git tag
+
+Adrian syncs plugin folders across devices. `manifest.json` `version` is how the right binaries are identified. Reusing a tag’s version, tagging without bumping the manifest, or shipping a tag whose Settings UI still shows the old version causes the wrong build to be treated as already installed.
+
+**Every new git tag** — stable **and** `-rc.*` — MUST bump `manifest.json` `version` (and `versions.json` / `package.json` when that plugin’s ship path uses them) **in the same change as the tag**, never a later PR.
+
+1. Tag name **equals** `manifest.json` `version` (no `v` prefix). The version must be **new and unique** among tags.
+2. Use **Obsidian-compatible semver**. The established BRAT/Seek style is `X.Y.Z` or `X.Y.Z-rc.N` (example: `1.15.0-rc.2`). Do not invent a scheme Obsidian or BRAT will reject (`v1.15.0`, `1.15.0rc2`, a second tag on the same `1.15.0`).
+3. The version string in **Settings UI** must match `manifest.json` on **every** tagged version (patches, minors, majors, **and RCs**), not only MINOR stables.
+
+**Forbidden:** tag then bump later; retag without a new unique version; leave Settings showing the previous version.
+
+Full gate: [obsidian-plugin-dev](../../skills/obsidian-plugin-dev/SKILL.md) → *Release notes and semantic versioning*.

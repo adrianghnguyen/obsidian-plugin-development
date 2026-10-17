@@ -6,6 +6,7 @@ All notable changes to this Agent Plugin package are documented here.
 
 ### Added
 
+- **`obsidian-manifest-per-tag` global rule** (`.cursor/rules/obsidian-manifest-per-tag.mdc`, `alwaysApply: true`) — every new git tag (stable **and** `-rc.*`) must bump `manifest.json` `version` to a unique Obsidian-compatible semver (`X.Y.Z` or `X.Y.Z-rc.N`) in the same change as the tag; Settings UI version must match; pointers in `AGENTS.md` and [obsidian-plugin-dev](skills/obsidian-plugin-dev/SKILL.md).
 - **`obsidian-vault-target-verify` global rule** (`.cursor/rules/obsidian-vault-target-verify.mdc`, `alwaysApply: true`) — open the vault first; identity-gate `app.vault.getName()` **and** `app.vault.adapter.basePath` before every CLI command; `vault=` first; **never** `vault=Obsidian`; omit `vault=` for Windows production (`cwd` `C:\Obsidian`); do not interrupt a production full reindex. Skills already pointed here; the file was missing.
 - **`ui-demo-agent` subagent** — cloud VM UI demo recorder; **model `composer-2.5-fast`**; pairs with `obsidian-agent-ui-demo` skill.
 - **`obsidian-agent-ui-demo` skill** — token-efficient demo phases for Cloud Agents (script/preflight off camera, short proof clip, pause on key UX proof moments, computerUse contract shape); linked from `pr-product-demos` and `obsidian-cloud-vm-demos`.
@@ -16,7 +17,7 @@ All notable changes to this Agent Plugin package are documented here.
 
 ### Changed
 
-- **Release gate** — on MINOR vault-plugin releases, sync the version string in that plugin’s Settings UI with `manifest.json` so Settings does not mislead about the installed version ([obsidian-plugin-dev](skills/obsidian-plugin-dev/SKILL.md)).
+- **Release gate** — on **every** tagged vault-plugin version (minors **and** RCs), sync the Settings UI version string with `manifest.json` so Settings does not mislead about the installed version ([obsidian-plugin-dev](skills/obsidian-plugin-dev/SKILL.md), [obsidian-manifest-per-tag](.cursor/rules/obsidian-manifest-per-tag.mdc)).
 - **Unobstructed UI demo** — proof frame must show the named feature with Settings and other modals closed. A clip of Settings (or any overlay hiding the control) is inconclusive; re-record ([obsidian-agent-ui-demo](skills/obsidian-agent-ui-demo/SKILL.md), [obsidian-ui-visibility](skills/obsidian-ui-visibility/SKILL.md)).
 - **Demo agent stop + parent kickoff** — `ui-demo-agent` stops if the named control is missing after one visibility check (no Settings, File menu, vault sidebar, or nested explorer). Coordinators name one shell command and, when restore/reload is the proof, the code entry ([obsidian-agent-ui-demo](skills/obsidian-agent-ui-demo/SKILL.md)).
 - **Demo pacing** — no fixed second counts; move quickly between steps, pause briefly on readable proof frames ([obsidian-agent-ui-demo](skills/obsidian-agent-ui-demo/SKILL.md), [pr-product-demos](.cursor/rules/pr-product-demos.mdc), [obsidian-cloud-vm-demos](skills/obsidian-cloud-vm-demos/SKILL.md)).
