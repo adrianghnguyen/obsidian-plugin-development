@@ -5,9 +5,23 @@
 # repositoryDependencies are not materialized under /agent/repos yet.
 set -euo pipefail
 
-ROOT=/agent/repos
+resolve_repos_root() {
+  if [ -d /agent/repos ] && [ -w /agent/repos ]; then
+    echo /agent/repos
+    return 0
+  fi
+  if mkdir -p /agent/repos 2>/dev/null && [ -w /agent/repos ]; then
+    echo /agent/repos
+    return 0
+  fi
+  echo "${CLOUD_E2E_REPOS:-$HOME/repos}"
+}
+
+ROOT="$(resolve_repos_root)"
 mkdir -p "$ROOT"
+printf 'export CLOUD_E2E_REPOS=%q\n' "$ROOT" > /tmp/cloud-e2e-repos.env
 ORCH="$ROOT/obsidian-plugin-development"
+echo "bootstrap: REPOS_ROOT=$ROOT"
 
 link_workspace_orchestrator() {
   if [ -f /workspace/scripts/cloud-e2e/env-install.sh ]; then

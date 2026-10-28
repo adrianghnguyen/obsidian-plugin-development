@@ -2,8 +2,12 @@
 set -euo pipefail
 
 ROOT=""
-if [ -d /agent/repos/obsidian-seek ]; then
+if [ -n "${CLOUD_E2E_REPOS:-}" ] && [ -d "${CLOUD_E2E_REPOS}/obsidian-seek" ]; then
+  ROOT=$CLOUD_E2E_REPOS
+elif [ -d /agent/repos/obsidian-seek ]; then
   ROOT=/agent/repos
+elif [ -d "$HOME/repos/obsidian-seek" ]; then
+  ROOT=$HOME/repos
 elif [ -d obsidian-seek ]; then
   ROOT="$PWD"
 elif [ -d ../obsidian-seek ]; then
