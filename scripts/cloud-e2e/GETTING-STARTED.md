@@ -35,8 +35,9 @@ export PATH="$HOME/.local/bin:$PATH"
 ```
 
 Environment `install` / `start` in `.cursor/environment.json` run
-`.cursor/cloud-bootstrap.sh`, which materializes `/agent/repos/*` (symlink when the
-primary repo is checked out to `/workspace`, shallow-clone siblings when needed) and
+`.cursor/cloud-bootstrap.sh`, which materializes plugin checkouts under
+`/agent/repos` or `$HOME/repos` when `/agent` is not writable (symlink primary
+`/workspace`, shallow-clone siblings when needed) and
 then invokes `env-install.sh` / `env-start.sh` under the orchestrator checkout.
 
 For manual runs after repos exist under `/agent/repos`:
