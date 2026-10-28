@@ -35,10 +35,11 @@ export PATH="$HOME/.local/bin:$PATH"
 ```
 
 Environment `install` / `start` in `.cursor/environment.json` run
-`.cursor/cloud-bootstrap.sh`, which materializes plugin checkouts under
-`/agent/repos` or `$HOME/repos` when `/agent` is not writable (symlink primary
-`/workspace`, shallow-clone siblings when needed) and
-then invokes `env-install.sh` / `env-start.sh` under the orchestrator checkout.
+`.cursor/cloud-bootstrap.sh`, which uses an existing
+`/agent/repos/obsidian-plugin-development` checkout even when that directory is
+not writable, and otherwise materializes checkouts under `$HOME/repos` (symlink
+primary `/workspace`, shallow-clone siblings when needed). It then invokes
+`env-install.sh` / `env-start.sh` under the orchestrator checkout.
 
 For manual runs after repos exist under `/agent/repos`:
 

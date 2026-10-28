@@ -6,6 +6,11 @@
 set -euo pipefail
 
 resolve_repos_root() {
+  # Existing Cloud checkout wins even when /agent/repos is not writable.
+  if [ -d /agent/repos/obsidian-plugin-development ]; then
+    echo /agent/repos
+    return 0
+  fi
   if [ -d /agent/repos ] && [ -w /agent/repos ]; then
     echo /agent/repos
     return 0
@@ -24,9 +29,14 @@ ORCH="$ROOT/obsidian-plugin-development"
 echo "bootstrap: REPOS_ROOT=$ROOT"
 
 link_workspace_orchestrator() {
-  if [ -f /workspace/scripts/cloud-e2e/env-install.sh ]; then
-    ln -sfn /workspace "$ORCH"
+  if [ ! -f /workspace/scripts/cloud-e2e/env-install.sh ]; then
+    return 0
   fi
+  # Keep a pre-cloned checkout when the parent directory cannot be replaced.
+  if [ -f "$ORCH/scripts/cloud-e2e/env-install.sh" ] && [ ! -w "$(dirname "$ORCH")" ]; then
+    return 0
+  fi
+  ln -sfn /workspace "$ORCH"
 }
 
 link_workspace_plugin() {
