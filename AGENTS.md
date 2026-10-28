@@ -10,7 +10,8 @@
 
 This repo owns the Cloud Agent setup. Sibling plugin `main`s carry the same `.cursor/environment.json`; **script and id-map bodies live only here**.
 
-- Pointer: `.cursor/environment.json` (`install` / `start` — identical on all four plugin repos)
+- Pointer: `.cursor/environment.json` (same `install` / `start` / `repositoryDependencies` on all plugin `main`s — see [`.cursor/rules/cloud-environment-alignment.mdc`](.cursor/rules/cloud-environment-alignment.mdc))
+- **`repositoryDependencies` must include `github.com/adrianghnguyen/obsidian-plugin-development`** whenever install/start point at `/agent/repos/obsidian-plugin-development/...`; otherwise Cloud builds fail with exit 127 before any Obsidian setup runs.
 - Scripts: `scripts/cloud-e2e/env-install.sh`, `env-start.sh`, `install-acp-agents.sh`, `paths.env`
 - Walkthrough: `scripts/cloud-e2e/README.md`, `GETTING-STARTED.md`
 - Secret **ids** (not values): plugin-owned `<plugin>/.cloud-e2e/secret-bindings.json` (agent-client, whisper). Fallbacks: `scripts/cloud-e2e/bindings/{agent-client,whisper,seek}.json`, merged by `load-bindings.mjs` (`cdp.mjs inject`)
