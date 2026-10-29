@@ -195,6 +195,8 @@ Obsidian and BRAT install from a **published** GitHub Release whose tag **exactl
 
 **BRAT** on the production vault tracks **published** GitHub Releases for the fork repo. Until the release is published (and assets exist), Obsidian cannot install/update from that tag. Day-to-day production shipping = **changelog + tag + published release**, not copying build artifacts into `Obsidian` unless explicitly requested.
 
+[BRAT developer guide](https://tfthacker.com/brat-developers): **frozen** version = that release even if GitHub prerelease; **Latest** = highest **semver** among **releases and prereleases** (the guide does not say BRAT uses GitHub’s Latest badge). This project still ships `*-beta.*` / `*-rc.*` / `*-alpha.*` with `gh release create --prerelease --latest` so GitHub Latest matches the intended tester build. Do not leave a higher-semver stable tagged if a lower-semver beta should win Latest. Project write-up: `docs/brat-latest-prerelease.md` in the Obsidian plugin-dev Project store.
+
 Adrian’s Project store checklists (when available on the agent VM): `obsidian-manifest-bump-release.md` (user workflows) and `release-process.md` (project docs) — same tag/changelog/publish steps as this section.
 
 ---
